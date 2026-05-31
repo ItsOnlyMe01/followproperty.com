@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@300;400;500;600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Instrument Sans', 'DM Sans', system-ui, sans-serif;
+
+  --color-brand-bg: #FAFAF8;
+  --color-brand-bgAlt: #F4F3EF;
+  --color-brand-bgCard: #FFFFFF;
+  --color-brand-navy: #0F1629;
+  --color-brand-navyMid: #2D3A52;
+  --color-brand-slate: #5C6880;
+  --color-brand-slateLight: #8C97A8;
+  --color-brand-border: rgba(15,22,41,0.07);
+  --color-brand-borderMid: rgba(15,22,41,0.12);
+  --color-brand-amber: #D97706;
+  --color-brand-amberLight: #F59E0B;
+  --color-brand-amberBg: #FFFBEB;
+  --color-brand-amberBorder: rgba(217,119,6,0.18);
+  --color-brand-teal: #0D9488;
+  --color-brand-tealBg: rgba(13,148,136,0.06);
+  --color-brand-tealBorder: rgba(13,148,136,0.16);
+  --color-brand-tealDark: #0F766E;
+  --color-brand-emerald: #059669;
+  --color-brand-emeraldBg: rgba(5,150,105,0.06);
+  --color-brand-red: #DC2626;
+  --color-brand-redBg: rgba(220,38,38,0.06);
+  --color-brand-redBorder: rgba(220,38,38,0.18);
+  --color-brand-purple: #7C3AED;
+  --color-brand-purpleBg: rgba(124,58,237,0.06);
+  --color-brand-purpleBorder: rgba(124,58,237,0.16);
+
+  --shadow-brand: 0 1px 3px rgba(15,22,41,0.05), 0 4px 16px rgba(15,22,41,0.05);
+  --shadow-brand-md: 0 2px 8px rgba(15,22,41,0.06), 0 8px 32px rgba(15,22,41,0.08);
+  --shadow-brand-lg: 0 4px 16px rgba(15,22,41,0.07), 0 16px 48px rgba(15,22,41,0.09);
+  --shadow-brand-amber: 0 8px 32px rgba(217,119,6,0.20);
+
+  --animate-pulse-custom: pulse-custom 2s infinite;
+
+  @keyframes pulse-custom {
+    0%, 100% { opacity: 0.35; }
+    50% { opacity: 1; }
+  }
+}
+
+:root {
+  --radius: 0.75rem;
+}
+
+body {
+  font-family: var(--font-sans), Inter, sans-serif;
+  background: #ffffff;
+  color: #0f172a;
+}

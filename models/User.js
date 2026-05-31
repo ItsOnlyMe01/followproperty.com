@@ -1,0 +1,60 @@
+import mongoose from 'mongoose';
+
+const UserSchema = new mongoose.Schema(
+  {
+    firebaseUid: {
+      type: String,
+      required: [true, 'Firebase UID is required'],
+      unique: true,
+      trim: true,
+      index: true,
+    },
+    firstName: {
+      type: String,
+      trim: true,
+      default: '',
+    },
+    lastName: {
+      type: String,
+      trim: true,
+      default: '',
+    },
+    phoneNumber: {
+      type: String,
+      trim: true,
+      default: '',
+    },
+    city: {
+      type: String,
+      trim: true,
+      default: '',
+    },
+    state: {
+      type: String,
+      trim: true,
+      default: '',
+    },
+    email: {
+      type: String,
+      required: [true, 'Email is required'],
+      trim: true,
+      lowercase: true,
+    },
+    role: {
+      type: String,
+      enum: ['user', 'admin'],
+      default: 'user',
+    },
+    isOnboarded: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
+
+const User = mongoose.models.User || mongoose.model('User', UserSchema);
+
+export default User;

@@ -1,0 +1,176 @@
+"use client";
+
+import { useState, useEffect, useRef } from "react";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { Home as HomeIcon, ArrowRight, Search } from "lucide-react";
+
+const blurIn = {
+  hidden: { opacity: 0, filter: "blur(10px)", y: 18 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    filter: "blur(0px)",
+    y: 0,
+    transition: { duration: 0.75, delay: i * 0.13, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
+
+function Counter({ target, suffix = "", decimals = 0 }) {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+  
+  useEffect(() => {
+    if (!inView) return;
+    let v = 0;
+    const step = target / 55;
+    const t = setInterval(() => {
+      v += step;
+      if (v >= target) {
+        setCount(target);
+        clearInterval(t);
+      } else setCount(v);
+    }, 16);
+    return () => clearInterval(t);
+  }, [inView, target]);
+  
+  return (
+    <span ref={ref}>
+      {decimals ? count.toFixed(decimals) : Math.floor(count)}
+      {suffix}
+    </span>
+  );
+}
+
+export default function Hero() {
+  const router = useRouter();
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 500], [0, 120]);
+  const opacity = useTransform(scrollY, [0, 380], [1, 0]);
+
+  return (
+    <div className="bg-brand-bg min-h-screen flex flex-col overflow-hidden relative">
+      {/* Background texture */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute -top-[8%] left-1/2 -translate-x-1/2 w-[900px] h-[700px] rounded-full bg-[radial-gradient(ellipse,rgba(245,158,11,0.07)_0%,transparent_60%)]" />
+        <div className="absolute top-[20%] -right-[8%] w-[500px] h-[500px] rounded-full bg-[radial-gradient(ellipse,rgba(217,119,6,0.04)_0%,transparent_65%)]" />
+        <div className="absolute top-[30%] -left-[5%] w-[400px] h-[400px] rounded-full bg-[radial-gradient(ellipse,rgba(13,148,136,0.04)_0%,transparent_65%)]" />
+        <div 
+          className="absolute inset-0 opacity-50" 
+          style={{ 
+            backgroundImage: "radial-gradient(var(--color-brand-border) 1.2px, transparent 1.2px)", 
+            backgroundSize: "28px 28px" 
+          }} 
+        />
+      </div>
+
+      <div className="relative z-10 mt-[68px]">
+        {/* <Ticker /> */}
+      </div>
+
+      <motion.div
+        style={{ y, opacity }}
+        className="flex-1 flex items-center justify-center text-center px-6 pt-[64px] pb-[52px] relative z-10"
+      >
+        <div className="max-w-[860px] w-full">
+          <motion.div variants={blurIn} custom={0} initial="hidden" animate="visible">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-amberBorder bg-brand-amberBg mb-7">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-emerald inline-block animate-pulse-custom" />
+              <span className="text-[11px] text-brand-amber tracking-[0.1em] uppercase font-medium">
+                Live Market Intelligence
+              </span>
+            </div>
+          </motion.div>
+
+          <motion.h1
+            variants={blurIn}
+            custom={1}
+            initial="hidden"
+            animate="visible"
+            className="text-[clamp(40px,6.5vw,76px)] font-extrabold tracking-tight leading-[0.95] text-brand-navy mb-0"
+          >
+            <span className="block">Track Real Estate</span>
+            <span className="block mt-2 bg-gradient-to-br from-brand-amber via-[#EA580C] to-brand-amberLight bg-clip-text text-transparent">
+              Like a Portfolio
+            </span>
+          </motion.h1>
+
+          <motion.p
+            variants={blurIn}
+            custom={2}
+            initial="hidden"
+            animate="visible"
+            className="text-[18px] text-brand-slate leading-relaxed max-w-[540px] mx-auto mt-[22px] mb-[36px]"
+          >
+            Appreciation tracking, rental yield analytics, builder fraud alerts,
+            and 4-source market intelligence — built for serious Indian property
+            investors.
+          </motion.p>
+
+          <motion.div
+            variants={blurIn}
+            custom={3}
+            initial="hidden"
+            animate="visible"
+            className="flex gap-3 justify-center flex-wrap mb-[52px]"
+          >
+            <button
+              onClick={() => router.push("/portfolio")}
+              className="flex items-center gap-2.5 bg-gradient-to-br from-brand-amberLight to-[#EA580C] text-white font-semibold text-[15px] py-3.5 px-7 rounded-[14px] border-none cursor-pointer shadow-brand-amber transition-all duration-250 hover:-translate-y-0.5 hover:shadow-[0_14px_42px_rgba(217,119,6,0.30)]"
+            >
+              <HomeIcon size={17} /> Start Tracking Portfolio <ArrowRight size={15} />
+            </button>
+
+            <button
+              onClick={() => router.push("/watchlist")}
+              className="flex items-center gap-2.5 bg-brand-bgCard text-brand-navyMid font-medium text-[15px] py-3.5 px-7 rounded-[14px] border border-brand-borderMid cursor-pointer shadow-brand transition-all duration-250 hover:-translate-y-0.5 hover:shadow-brand-md hover:border-brand-amber"
+            >
+              <Search size={17} /> Looking to Buy
+            </button>
+          </motion.div>
+
+          <motion.div
+            variants={blurIn}
+            custom={4}
+            initial="hidden"
+            animate="visible"
+            className="flex justify-center gap-[clamp(24px,5vw,60px)] flex-wrap"
+          >
+            {[
+              { value: 62, suffix: "+", label: "Data Points" },
+              { value: 40, suffix: "+", label: "Property Types" },
+              { value: 12, suffix: "", label: "Indian Cities" },
+              { value: 4, suffix: " Sources", label: "Valuation Engine" },
+            ].map((s, i) => (
+              <div key={i} className="text-center">
+                <div className="text-[clamp(22px,3vw,30px)] font-bold text-brand-navy tracking-tight">
+                  <Counter target={s.value} suffix={s.suffix} />
+                </div>
+                <div className="text-[12px] font-medium text-brand-slate mt-1 tracking-[0.08em] uppercase">
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </motion.div>
+
+      <div className="absolute bottom-0 left-0 right-0 h-[80px] bg-gradient-to-t from-brand-bg to-transparent z-10" />
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2 }}
+        className="absolute bottom-7 left-1/2 -translate-x-1/2 z-20"
+      >
+        <motion.div
+          animate={{ y: [0, 7, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="w-5 h-[34px] rounded-full border-[1.5px] border-brand-borderMid flex justify-center pt-1.5"
+        >
+          <div className="w-[3px] h-2 rounded-full bg-brand-slateLight" />
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+}
