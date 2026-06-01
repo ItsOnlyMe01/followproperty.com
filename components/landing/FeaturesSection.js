@@ -41,7 +41,7 @@ function Section({ children, className = "" }) {
   );
 }
 
-export default function CoreFlows() {
+export default function CoreFlows({ authState }) {
   const router = useRouter();
   const flows = [
     {
@@ -188,7 +188,11 @@ export default function CoreFlows() {
                     onClick={() => router.push(flow.id === "buy" ? "/watchlist" : "/portfolio")}
                     className={`w-full flex items-center justify-center gap-2 p-[13px] rounded-xl border-none cursor-pointer font-semibold text-[14px] text-white transition-all duration-[0.22s] hover:-translate-y-[1px] ${flow.ctaGrad} ${flow.ctaShadow}`}
                   >
-                    {flow.cta} <ChevronRight size={15} />
+                    {flow.id === "buy" ? (
+                      authState?.isAuthenticated && authState?.hasWatchlist ? "Open Watchlist" : "Create My Watchlist"
+                    ) : (
+                      authState?.isAuthenticated && authState?.hasPortfolio ? "Open Portfolio" : "Track My Portfolio"
+                    )} <ChevronRight size={15} />
                   </button>
                 </div>
               </motion.div>

@@ -107,10 +107,10 @@ export default function PropertyDetailsPage({ params }) {
           <h2 className="text-xl font-bold text-brand-navy mb-2">Error Loading Property</h2>
           <p className="text-sm text-brand-slate mb-6">{error || "The property could not be found."}</p>
           <Link 
-            href="/dashboard" 
+            href="/portfolio" 
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-navy text-white text-sm font-semibold rounded-xl no-underline hover:opacity-90 transition-opacity"
           >
-            <ArrowLeft size={16} /> Back to Dashboard
+            <ArrowLeft size={16} /> Back to Portfolio
           </Link>
         </div>
       </DashboardLayout>
@@ -181,10 +181,10 @@ export default function PropertyDetailsPage({ params }) {
         {/* Navigation & Header */}
         <div className="flex items-center justify-between mb-6">
           <Link 
-            href="/dashboard" 
+            href="/portfolio" 
             className="inline-flex items-center gap-2 text-sm font-semibold text-brand-slate hover:text-brand-navy no-underline transition-colors"
           >
-            <ArrowLeft size={16} /> Back to Dashboard
+            <ArrowLeft size={16} /> Back to Portfolio
           </Link>
           <div className="flex items-center gap-3">
             <button

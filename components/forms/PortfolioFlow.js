@@ -223,7 +223,7 @@ export default function PortfolioFlow({ onClose, onSubmitSuccess }) {
       if (onSubmitSuccess) {
         onSubmitSuccess("portfolio", form);
       } else {
-        router.push("/dashboard");
+        router.push("/portfolio");
       }
     } catch (e) {
       console.error(e);

@@ -16,8 +16,8 @@ import {
 
 const NAV_ITEMS = [
   { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
-  { id: "watchlist", label: "Watchlist", icon: ListPlus, path: "#" },
-  { id: "properties", label: "Properties", icon: Building2, path: "#" },
+  { id: "portfolio", label: "Portfolio", icon: Building2, path: "/portfolio" },
+  { id: "watchlist", label: "Watchlist", icon: ListPlus, path: "/watchlist" },
   { id: "alerts", label: "Alerts", icon: BellRing, path: "#" },
   { id: "reports", label: "Reports", icon: BarChart3, path: "#" },
   { id: "settings", label: "Settings", icon: Settings, path: "#" },

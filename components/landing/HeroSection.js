@@ -42,7 +42,7 @@ function Counter({ target, suffix = "", decimals = 0 }) {
   );
 }
 
-export default function Hero() {
+export default function Hero({ authState }) {
   const router = useRouter();
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 120]);
@@ -87,7 +87,7 @@ export default function Hero() {
             custom={1}
             initial="hidden"
             animate="visible"
-            className="text-[clamp(40px,6.5vw,76px)] font-extrabold tracking-tight leading-[0.95] text-brand-navy mb-0"
+            className="text-[clamp(28px,6.5vw,76px)] font-extrabold tracking-tight leading-[1.05] sm:leading-[0.95] text-brand-navy mb-0"
           >
             <span className="block">Track Real Estate</span>
             <span className="block mt-2 bg-gradient-to-br from-brand-amber via-[#EA580C] to-brand-amberLight bg-clip-text text-transparent">
@@ -100,7 +100,7 @@ export default function Hero() {
             custom={2}
             initial="hidden"
             animate="visible"
-            className="text-[18px] text-brand-slate leading-relaxed max-w-[540px] mx-auto mt-[22px] mb-[36px]"
+            className="text-base sm:text-[18px] text-brand-slate leading-relaxed max-w-[540px] mx-auto mt-[22px] mb-[36px] px-2 sm:px-0"
           >
             Appreciation tracking, rental yield analytics, builder fraud alerts,
             and 4-source market intelligence — built for serious Indian property
@@ -112,20 +112,20 @@ export default function Hero() {
             custom={3}
             initial="hidden"
             animate="visible"
-            className="flex gap-3 justify-center flex-wrap mb-[52px]"
+            className="flex flex-col sm:flex-row gap-3 justify-center items-center mb-[52px] max-w-sm mx-auto sm:max-w-none px-4 sm:px-0"
           >
             <button
               onClick={() => router.push("/portfolio")}
-              className="flex items-center gap-2.5 bg-gradient-to-br from-brand-amberLight to-[#EA580C] text-white font-semibold text-[15px] py-3.5 px-7 rounded-[14px] border-none cursor-pointer shadow-brand-amber transition-all duration-250 hover:-translate-y-0.5 hover:shadow-[0_14px_42px_rgba(217,119,6,0.30)]"
+              className="w-full sm:w-auto flex items-center justify-center gap-2.5 bg-gradient-to-br from-brand-amberLight to-[#EA580C] text-white font-semibold text-[14px] sm:text-[15px] py-3.5 px-5 sm:px-7 rounded-[14px] border-none cursor-pointer shadow-brand-amber transition-all duration-250 hover:-translate-y-0.5 hover:shadow-[0_14px_42px_rgba(217,119,6,0.30)]"
             >
-              <HomeIcon size={17} /> Start Tracking Portfolio <ArrowRight size={15} />
+              <HomeIcon size={17} /> {authState?.isAuthenticated && authState?.hasPortfolio ? "Open Portfolio" : "Start Tracking Portfolio"} <ArrowRight size={15} />
             </button>
-
+ 
             <button
               onClick={() => router.push("/watchlist")}
-              className="flex items-center gap-2.5 bg-brand-bgCard text-brand-navyMid font-medium text-[15px] py-3.5 px-7 rounded-[14px] border border-brand-borderMid cursor-pointer shadow-brand transition-all duration-250 hover:-translate-y-0.5 hover:shadow-brand-md hover:border-brand-amber"
+              className="w-full sm:w-auto flex items-center justify-center gap-2.5 bg-brand-bgCard text-brand-navyMid font-medium text-[14px] sm:text-[15px] py-3.5 px-5 sm:px-7 rounded-[14px] border border-brand-borderMid cursor-pointer shadow-brand transition-all duration-250 hover:-translate-y-0.5 hover:shadow-brand-md hover:border-brand-amber"
             >
-              <Search size={17} /> Looking to Buy
+              <Search size={17} /> {authState?.isAuthenticated && authState?.hasWatchlist ? "Open Watchlist" : "Looking to Buy"}
             </button>
           </motion.div>
 
@@ -134,7 +134,7 @@ export default function Hero() {
             custom={4}
             initial="hidden"
             animate="visible"
-            className="flex justify-center gap-[clamp(24px,5vw,60px)] flex-wrap"
+            className="flex justify-center gap-[clamp(12px,5vw,60px)] flex-wrap"
           >
             {[
               { value: 62, suffix: "+", label: "Data Points" },

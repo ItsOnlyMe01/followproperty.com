@@ -150,7 +150,7 @@ export default function Footer() {
             </h3>
             
             {/* Dynamic Grid Layout to keep links in exact mockup columns */}
-            <div className="flex gap-16 sm:gap-20 md:gap-24 w-full">
+            <div className="flex gap-8 sm:gap-20 md:gap-24 w-full flex-wrap">
               {quickLinks.columns.map((column, colIdx) => (
                 <ul key={colIdx} className="flex flex-col gap-3.5 list-none p-0 m-0">
                   {column.map((link) => (

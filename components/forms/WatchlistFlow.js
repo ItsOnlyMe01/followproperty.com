@@ -102,7 +102,7 @@ export default function WatchlistFlow({ onClose, onSubmitSuccess }) {
       setTimeout(() => {
         setShowToast(false);
         onSubmitSuccess?.("watchlist", form);
-        router.push("/dashboard");
+        router.push("/watchlist");
       }, 3000);
 
     } catch (e) {

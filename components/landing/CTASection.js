@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Building2, Menu, X } from "lucide-react";
 
-export default function Nav() {
+export default function Nav({ authState }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -52,12 +52,20 @@ export default function Nav() {
         </div>
 
         <div className="hidden md:flex gap-2 items-center">
-          <Link href="/login" className="text-[13px] font-medium text-brand-slate bg-transparent border-none cursor-pointer py-2 px-3.5 no-underline hover:text-brand-navy transition-colors">
-            Login
-          </Link>
-          <Link href="/signup" className="text-[13px] font-semibold text-white bg-gradient-to-br from-brand-amberLight to-[#EA580C] border-none cursor-pointer py-[9px] px-5 rounded-[10px] shadow-[0_2px_12px_rgba(217,119,6,0.28)] transition-all duration-[0.22s] hover:-translate-y-[1px] hover:shadow-brand-amber no-underline flex items-center">
-            Create Account
-          </Link>
+          {authState?.isAuthenticated ? (
+            <Link href="/dashboard" className="text-[13px] font-semibold text-white bg-gradient-to-br from-brand-amberLight to-[#EA580C] border-none cursor-pointer py-[9px] px-5 rounded-[10px] shadow-[0_2px_12px_rgba(217,119,6,0.28)] transition-all duration-[0.22s] hover:-translate-y-[1px] hover:shadow-brand-amber no-underline flex items-center gap-1">
+              Go to Dashboard &rarr;
+            </Link>
+          ) : (
+            <>
+              <Link href="/login" className="text-[13px] font-medium text-brand-slate bg-transparent border-none cursor-pointer py-2 px-3.5 no-underline hover:text-brand-navy transition-colors">
+                Login
+              </Link>
+              <Link href="/signup" className="text-[13px] font-semibold text-white bg-gradient-to-br from-brand-amberLight to-[#EA580C] border-none cursor-pointer py-[9px] px-5 rounded-[10px] shadow-[0_2px_12px_rgba(217,119,6,0.28)] transition-all duration-[0.22s] hover:-translate-y-[1px] hover:shadow-brand-amber no-underline flex items-center">
+                Create Account
+              </Link>
+            </>
+          )}
         </div>
 
         <button
@@ -85,12 +93,20 @@ export default function Nav() {
                 {item}
               </a>
             ))}
-            <Link href="/signup" className="w-full mt-4 bg-gradient-to-br from-brand-amberLight to-[#EA580C] text-white font-semibold p-3 rounded-[10px] border-none cursor-pointer block text-center no-underline">
-              Get Started Free
-            </Link>
-            <Link href="/login" className="w-full mt-2 bg-transparent border border-brand-borderMid text-brand-navy font-semibold p-3 rounded-[10px] cursor-pointer block text-center no-underline">
-              Login
-            </Link>
+            {authState?.isAuthenticated ? (
+              <Link href="/dashboard" className="w-full mt-4 bg-gradient-to-br from-brand-amberLight to-[#EA580C] text-white font-semibold p-3 rounded-[10px] border-none cursor-pointer block text-center no-underline">
+                Go to Dashboard &rarr;
+              </Link>
+            ) : (
+              <>
+                <Link href="/signup" className="w-full mt-4 bg-gradient-to-br from-brand-amberLight to-[#EA580C] text-white font-semibold p-3 rounded-[10px] border-none cursor-pointer block text-center no-underline">
+                  Get Started Free
+                </Link>
+                <Link href="/login" className="w-full mt-2 bg-transparent border border-brand-borderMid text-brand-navy font-semibold p-3 rounded-[10px] cursor-pointer block text-center no-underline">
+                  Login
+                </Link>
+              </>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
