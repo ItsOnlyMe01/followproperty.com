@@ -3,53 +3,13 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Trash2, ShieldAlert } from "lucide-react";
+import { formatCurrency, formatPriceRange, formatAreaRange } from "@/utils/pdf/formatter";
 
 export default function CompareView({ initialProjects }) {
   const router = useRouter();
   const [projects, setProjects] = useState(initialProjects);
 
-  // Currency formatting helper (Crores / Lakhs)
-  const formatCurrency = (val) => {
-    if (!val) return "";
-    const parsed = Number(val);
-    if (isNaN(parsed)) return val;
-
-    if (parsed >= 10000000) {
-      const formatted = (parsed / 10000000).toFixed(2);
-      return `₹${formatted.endsWith(".00") ? parseFloat(formatted) : formatted} Cr`;
-    }
-    if (parsed >= 100000) {
-      const formatted = (parsed / 100000).toFixed(2);
-      return `₹${formatted.endsWith(".00") ? parseFloat(formatted) : formatted} L`;
-    }
-    return `₹${parsed.toLocaleString("en-IN")}`;
-  };
-
-  // Price range helper using en-dash
-  const formatPriceRange = (min, max) => {
-    if (!min) return "Price on Request";
-    const minFormatted = formatCurrency(min);
-    if (!max || max === min) return minFormatted;
-    return `${minFormatted} – ${formatCurrency(max)}`;
-  };
-
-  // Area range helper
-  const formatAreaRange = (min, max, superArea, avgArea) => {
-    const rawArea = superArea || avgArea;
-    if (rawArea && typeof rawArea === "string" && (rawArea.includes("-") || rawArea.toLowerCase().includes("to"))) {
-      let clean = rawArea.trim();
-      if (!clean.toLowerCase().includes("sq.ft") && !clean.toLowerCase().includes("sq. ft")) {
-        clean = `${clean} sq.ft`;
-      }
-      return clean;
-    }
-    if (min && max && min !== max) {
-      return `${min.toLocaleString()} – ${max.toLocaleString()} sq.ft`;
-    }
-    const val = min || max || rawArea;
-    if (!val) return null;
-    return isNaN(Number(val)) ? val : `${Number(val).toLocaleString()} sq.ft`;
-  };
+  // Shared formatting helpers imported from @/utils/pdf/formatter
 
   // Structured specification rows list
   const fields = [
@@ -66,7 +26,7 @@ export default function CompareView({ initialProjects }) {
           : (p.status || "Under Construction"),
     },
     { label: "BHK Configuration", key: "bhk", value: (p) => (p.bhk && p.bhk.length > 0 ? `${p.bhk.join(", ")} BHK` : "") },
-    { label: "Price Range", key: "priceRange", value: (p) => formatPriceRange(p.minPrice, p.maxPrice) },
+    { label: "Price Range", key: "priceRange", value: (p) => formatPriceRange(p.minPrice, p.maxPrice, "₹") },
     {
       label: "Area Range",
       key: "areaRange",

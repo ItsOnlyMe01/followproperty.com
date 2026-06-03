@@ -132,7 +132,7 @@ export default function WatchlistPage() {
       <div className="max-w-6xl mx-auto pb-12">
         {/* Header Section */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-          <div>
+          <div className="hidden sm:block">
             <h1 className="text-3xl font-extrabold text-brand-navy mb-1.5 tracking-tight flex items-center gap-2">
               <ListPlus className="text-brand-teal" size={28} /> My Buying Watchlist
             </h1>
@@ -143,9 +143,9 @@ export default function WatchlistPage() {
           
           <button
             onClick={() => setEditModalOpen(true)}
-            className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-brand-teal text-white rounded-xl text-sm font-bold border-none shadow-[0_4px_20px_rgba(13,148,136,0.25)] hover:-translate-y-0.5 cursor-pointer transition-all duration-200"
+            className="inline-flex items-center justify-center gap-1.5 px-4 py-2 sm:px-5 sm:py-2.5 bg-brand-teal text-white rounded-xl text-xs sm:text-sm font-bold border-none shadow-[0_4px_16px_rgba(13,148,136,0.2)] hover:-translate-y-0.5 cursor-pointer transition-all duration-200"
           >
-            <SlidersHorizontal size={14} /> Update Buying Requirement
+            <SlidersHorizontal size={12} /> Update Buying Requirement
           </button>
         </div>
 

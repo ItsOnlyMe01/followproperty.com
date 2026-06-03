@@ -43,7 +43,7 @@ const ACCENT_COLORS = {
   }
 };
 
-export function Input({ label, value, onChange, placeholder, type = 'text', required, hint, prefix, overrideAccent }) {
+export function Input({ label, value, onChange, placeholder, type = 'text', required, hint, prefix, overrideAccent, hideApprox = false }) {
   const [focused, setFocused] = useState(false);
   const contextAccent = useContext(FlowContext).accent;
   const accent = overrideAccent || contextAccent;
@@ -81,7 +81,7 @@ export function Input({ label, value, onChange, placeholder, type = 'text', requ
         />
       </div>
       {hint && <p className="text-xs text-brand-slateLight mt-1">{hint}</p>}
-      {value && type === 'number' && Number(value) > 10000 && (
+      {value && type === 'number' && Number(value) > 10000 && !hideApprox && (
         <p className={`text-xs mt-1 ${accentTheme.text}`}>
           ≈ ₹{(Number(value) / 100000).toFixed(1)} Lakh
         </p>

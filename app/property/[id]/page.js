@@ -20,8 +20,11 @@ import {
   Landmark,
   Key,
   Info,
-  Download
+  Download,
+  Trash2
 } from "lucide-react";
+import { deletePortfolioItem } from "@/services/api";
+
 
 export default function PropertyDetailsPage({ params }) {
   const unwrappedParams = React.use(params);
@@ -31,6 +34,32 @@ export default function PropertyDetailsPage({ params }) {
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [deleteConfirmationInput, setDeleteConfirmationInput] = useState("");
+  const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState("");
+
+  const handleDeleteProperty = async () => {
+    if (deleteConfirmationInput !== "deleteproperty") return;
+    try {
+      setDeleting(true);
+      setDeleteError("");
+      const res = await deletePortfolioItem(id);
+      if (res.success) {
+        setDeleteModalOpen(false);
+        router.push("/portfolio");
+      } else {
+        throw new Error(res.error || "Failed to delete property.");
+      }
+    } catch (err) {
+      console.error("Error deleting property:", err);
+      setDeleteError(err.message || "Could not delete property.");
+    } finally {
+      setDeleting(false);
+    }
+  };
+
 
   useEffect(() => {
     async function fetchProperty() {
@@ -528,11 +557,104 @@ export default function PropertyDetailsPage({ params }) {
                     Explore Liquidity Options
                   </button>
                 </div>
+
+                {/* Remove Property Action */}
+                <div className="relative group p-4 rounded-xl border border-brand-redBorder bg-brand-redBg transition-all duration-200 hover:border-red-300">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="text-sm font-bold text-brand-navy flex items-center gap-1.5">
+                      <Trash2 size={16} className="text-brand-red" /> Remove Property
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-brand-slate leading-relaxed m-0">
+                    Stop tracking this asset. This will permanently remove its purchase records, metrics, and history from your dashboard.
+                  </p>
+                  <button 
+                    onClick={() => {
+                      setDeleteConfirmationInput("");
+                      setDeleteError("");
+                      setDeleteModalOpen(true);
+                    }}
+                    className="w-full py-2.5 bg-brand-red hover:bg-brand-red/90 text-white rounded-lg border-none text-[12px] font-bold mt-3 cursor-pointer transition-colors shadow-sm"
+                  >
+                    Delete Property
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Delete Confirmation Modal Popup */}
+      {deleteModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
+          <div 
+            className="absolute inset-0 bg-brand-navy/60 backdrop-blur-sm transition-opacity" 
+            onClick={() => {
+              if (!deleting) setDeleteModalOpen(false);
+            }} 
+          />
+          
+          <div className="relative w-full max-w-md bg-brand-bgCard rounded-3xl overflow-hidden shadow-2xl border border-brand-border p-6 sm:p-8 z-10 animate-in fade-in zoom-in-95 duration-200">
+            <h3 className="text-xl font-extrabold text-brand-navy mb-2 flex items-center gap-2">
+              <Trash2 className="text-brand-red" size={24} /> Remove Property?
+            </h3>
+            
+            <p className="text-xs sm:text-sm text-brand-slate leading-relaxed mb-5">
+              You are about to stop tracking <strong className="text-brand-navy font-bold">{property?.projectName || "this property"}</strong>. 
+              This action is permanent and cannot be undone. All graphs, valuations, and reports for this asset will be lost.
+            </p>
+            
+            {deleteError && (
+              <div className="mb-4 p-3 bg-brand-redBg border border-brand-redBorder text-brand-red text-xs rounded-xl font-medium">
+                {deleteError}
+              </div>
+            )}
+            
+            <div className="mb-6">
+              <label htmlFor="confirmDeleteInput" className="block text-xs font-bold text-brand-navy uppercase tracking-wider mb-2">
+                Type <span className="text-brand-red select-all font-mono">deleteproperty</span> to confirm:
+              </label>
+              <input
+                id="confirmDeleteInput"
+                type="text"
+                autoComplete="off"
+                placeholder="type deleteproperty"
+                value={deleteConfirmationInput}
+                onChange={(e) => setDeleteConfirmationInput(e.target.value.toLowerCase().trim())}
+                disabled={deleting}
+                className="w-full px-4 py-3 rounded-xl border border-brand-borderMid focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red/20 bg-brand-bgAlt/50 text-brand-navy font-medium text-sm transition-all placeholder:text-brand-slateLight"
+              />
+            </div>
+            
+            <div className="flex flex-col sm:flex-row gap-3">
+              <button
+                type="button"
+                onClick={() => setDeleteModalOpen(false)}
+                disabled={deleting}
+                className="flex-1 py-3 px-4 rounded-xl bg-brand-bgAlt hover:bg-brand-bgAlt/80 border border-brand-borderMid text-brand-navy text-sm font-bold cursor-pointer transition-colors disabled:opacity-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleDeleteProperty}
+                disabled={deleting || deleteConfirmationInput !== "deleteproperty"}
+                className="flex-1 py-3 px-4 rounded-xl bg-brand-red hover:bg-brand-red/90 border-none text-white text-sm font-bold cursor-pointer transition-colors shadow-sm disabled:opacity-50 disabled:bg-brand-slateLight/50 disabled:cursor-not-allowed flex items-center justify-center gap-1.5"
+              >
+                {deleting ? (
+                  <>
+                    <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Deleting...
+                  </>
+                ) : (
+                  "Delete Permanently"
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </DashboardLayout>
   );
 }

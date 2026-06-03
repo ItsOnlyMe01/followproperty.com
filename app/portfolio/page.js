@@ -21,7 +21,6 @@ import PortfolioFlow from "@/components/forms/PortfolioFlow";
 import { calculateValuation } from "@/utils/calculations/valuation";
 
 export default function PortfolioPage() {
-  const [mounted, setMounted] = useState(false);
   const [portfolios, setPortfolios] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -53,20 +52,8 @@ export default function PortfolioPage() {
   }
 
   useEffect(() => {
-    setMounted(true);
     fetchPortfolios();
   }, []);
-
-  if (!mounted) {
-    return (
-      <DashboardLayout>
-        <div className="mb-8 animate-pulse">
-          <h1 className="text-3xl font-extrabold text-brand-navy mb-2">Portfolio</h1>
-          <div className="h-4 w-48 bg-brand-bgAlt rounded mb-4" />
-        </div>
-      </DashboardLayout>
-    );
-  }
 
   // Calculate Aggregated Metrics
   const calculatedPortfolios = portfolios.map(p => {
@@ -178,7 +165,7 @@ export default function PortfolioPage() {
       <div className="max-w-6xl mx-auto pb-12">
         {/* Header Section */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
-          <div>
+          <div className="hidden sm:block">
             <h1 className="text-3xl font-extrabold text-brand-navy mb-1.5 tracking-tight flex items-center gap-2">
               <Building2 className="text-brand-amber" size={28} /> My Properties Portfolio
             </h1>
@@ -189,65 +176,65 @@ export default function PortfolioPage() {
           
           <button
             onClick={() => setAddModalOpen(true)}
-            className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-gradient-to-r from-brand-amberLight to-[#EA580C] text-white rounded-xl text-sm font-bold border-none shadow-brand-amber hover:-translate-y-0.5 cursor-pointer transition-all duration-200 animate-in fade-in slide-in-from-right-3"
+            className="inline-flex items-center justify-center gap-1.5 px-4 py-2 sm:px-5 sm:py-3 bg-gradient-to-r from-brand-amberLight to-[#EA580C] text-white rounded-xl text-xs sm:text-sm font-bold border-none shadow-brand-amber hover:-translate-y-0.5 cursor-pointer transition-all duration-200"
           >
-            <Plus size={16} strokeWidth={2.5} /> Track New Property
+            <Plus size={14} strokeWidth={2.5} /> Track New Property
           </button>
         </div>
 
         {/* Valuation Summary stats widgets */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 mb-8">
           {/* Card 1: Total Portfolio Value */}
-          <div className="bg-brand-bgCard p-5 rounded-2xl border border-brand-border shadow-brand flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-brand-tealBg flex items-center justify-center flex-shrink-0">
-              <IndianRupee size={22} className="text-brand-teal" />
+          <div className="bg-brand-bgCard p-3.5 sm:p-5 rounded-2xl border border-brand-border shadow-brand flex items-center gap-2.5 sm:gap-4">
+            <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl bg-brand-tealBg flex items-center justify-center flex-shrink-0">
+              <IndianRupee size={22} className="text-brand-teal w-4 h-4 sm:w-[22px] sm:h-[22px]" />
             </div>
-            <div>
-              <p className="text-[11px] font-semibold text-brand-slate uppercase tracking-wider mb-0.5 m-0">Portfolio Value</p>
-              <h3 className="text-xl font-black text-brand-navy m-0">{formatCurrency(totalValue)}</h3>
+            <div className="min-w-0">
+              <p className="text-[9px] sm:text-[11px] font-semibold text-brand-slate uppercase tracking-wider mb-0.5 m-0 truncate">Portfolio Value</p>
+              <h3 className="text-sm sm:text-xl font-black text-brand-navy m-0 truncate">{formatCurrency(totalValue)}</h3>
             </div>
           </div>
 
           {/* Card 2: Total Invested */}
-          <div className="bg-brand-bgCard p-5 rounded-2xl border border-brand-border shadow-brand flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-brand-navy/5 flex items-center justify-center flex-shrink-0">
-              <Building2 size={22} className="text-brand-navy" />
+          <div className="bg-brand-bgCard p-3.5 sm:p-5 rounded-2xl border border-brand-border shadow-brand flex items-center gap-2.5 sm:gap-4">
+            <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl bg-brand-navy/5 flex items-center justify-center flex-shrink-0">
+              <Building2 size={22} className="text-brand-navy w-4 h-4 sm:w-[22px] sm:h-[22px]" />
             </div>
-            <div>
-              <p className="text-[11px] font-semibold text-brand-slate uppercase tracking-wider mb-0.5 m-0">Capital Invested</p>
-              <h3 className="text-xl font-black text-brand-navy m-0">{formatCurrency(totalInvested)}</h3>
+            <div className="min-w-0">
+              <p className="text-[9px] sm:text-[11px] font-semibold text-brand-slate uppercase tracking-wider mb-0.5 m-0 truncate">Capital Invested</p>
+              <h3 className="text-sm sm:text-xl font-black text-brand-navy m-0 truncate">{formatCurrency(totalInvested)}</h3>
             </div>
           </div>
 
           {/* Card 3: Net Capital Gain */}
-          <div className="bg-brand-bgCard p-5 rounded-2xl border border-brand-border shadow-brand flex items-center gap-4">
-            <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${netGain >= 0 ? 'bg-brand-emeraldBg' : 'bg-brand-redBg'}`}>
+          <div className="bg-brand-bgCard p-3.5 sm:p-5 rounded-2xl border border-brand-border shadow-brand flex items-center gap-2.5 sm:gap-4">
+            <div className={`w-9 h-9 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${netGain >= 0 ? 'bg-brand-emeraldBg' : 'bg-brand-redBg'}`}>
               {netGain >= 0 ? (
-                <TrendingUp size={22} className="text-brand-emerald" />
+                <TrendingUp size={22} className="text-brand-emerald w-4 h-4 sm:w-[22px] sm:h-[22px]" />
               ) : (
-                <TrendingDown size={22} className="text-brand-red" />
+                <TrendingDown size={22} className="text-brand-red w-4 h-4 sm:w-[22px] sm:h-[22px]" />
               )}
             </div>
-            <div>
-              <p className="text-[11px] font-semibold text-brand-slate uppercase tracking-wider mb-0.5 m-0">Appreciation</p>
-              <h3 className={`text-xl font-black m-0 ${netGain >= 0 ? 'text-brand-emerald' : 'text-brand-red'}`}>
+            <div className="min-w-0">
+              <p className="text-[9px] sm:text-[11px] font-semibold text-brand-slate uppercase tracking-wider mb-0.5 m-0 truncate">Appreciation</p>
+              <h3 className={`text-sm sm:text-xl font-black m-0 truncate ${netGain >= 0 ? 'text-brand-emerald' : 'text-brand-red'}`}>
                 {netGain >= 0 ? "+" : ""}{formatCurrency(netGain)}
               </h3>
-              <p className={`text-[10px] font-bold m-0 mt-0.5 ${netGain >= 0 ? 'text-brand-emerald' : 'text-brand-red'}`}>
+              <p className={`text-[8px] sm:text-[10px] font-bold m-0 mt-0.5 truncate ${netGain >= 0 ? 'text-brand-emerald' : 'text-brand-red'}`}>
                 {netGain >= 0 ? "+" : ""}{gainPct}% total returns
               </p>
             </div>
           </div>
 
           {/* Card 4: Rental Income */}
-          <div className="bg-brand-bgCard p-5 rounded-2xl border border-brand-border shadow-brand flex items-center gap-4">
-            <div className="w-12 h-12 rounded-xl bg-brand-amberBg flex items-center justify-center flex-shrink-0">
-              <IndianRupee size={22} className="text-brand-amber" />
+          <div className="bg-brand-bgCard p-3.5 sm:p-5 rounded-2xl border border-brand-border shadow-brand flex items-center gap-2.5 sm:gap-4">
+            <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl bg-brand-amberBg flex items-center justify-center flex-shrink-0">
+              <IndianRupee size={22} className="text-brand-amber w-4 h-4 sm:w-[22px] sm:h-[22px]" />
             </div>
-            <div>
-              <p className="text-[11px] font-semibold text-brand-slate uppercase tracking-wider mb-0.5 m-0">Monthly Rent</p>
-              <h3 className="text-xl font-black text-brand-navy m-0">{formatCurrency(totalMonthlyRent)}</h3>
-              <p className="text-[10px] text-brand-slateLight font-bold m-0 mt-0.5">{averageYield}% average yield</p>
+            <div className="min-w-0">
+              <p className="text-[9px] sm:text-[11px] font-semibold text-brand-slate uppercase tracking-wider mb-0.5 m-0 truncate">Monthly Rent</p>
+              <h3 className="text-sm sm:text-xl font-black text-brand-navy m-0 truncate">{formatCurrency(totalMonthlyRent)}</h3>
+              <p className="text-[8px] sm:text-[10px] text-brand-slateLight font-bold m-0 mt-0.5 truncate">{averageYield}% average yield</p>
             </div>
           </div>
         </div>

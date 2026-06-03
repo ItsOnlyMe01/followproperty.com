@@ -27,6 +27,7 @@ import {
   FlowContext 
 } from './FlowElements';
 import { submitPortfolio } from '@/services/api';
+import { convertToRupees } from '@/utils/currency';
 import {
   PROJECT_TYPES,
   BANKS,
@@ -34,6 +35,7 @@ import {
   MONTHS,
   YEARS_PAST,
   YEARS_FUTURE,
+  CURRENCY_UNITS
 } from '@/constants/property';
 
 const STATE_CITY_MAP = {
@@ -54,6 +56,7 @@ export default function PortfolioFlow({ onClose, onSubmitSuccess }) {
   const [form, setForm] = useState({
     state: "",
     isManualProject: false,
+    currencyUnit: "Cr",
     // Fields 1–12
     builderName: "",
     projectName: "",
@@ -83,7 +86,9 @@ export default function PortfolioFlow({ onClose, onSubmitSuccess }) {
     alertCity: true,
     alertState: false,
   });
-  const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
+  const [totalPricePaidInput, setTotalPricePaidInput] = useState("");
+const [totalPricePaidUnit, setTotalPricePaidUnit] = useState("Cr");
+const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
 
@@ -124,7 +129,7 @@ export default function PortfolioFlow({ onClose, onSubmitSuccess }) {
     form.locality &&
     form.superArea &&
     form.carpetArea &&
-    form.totalPricePaid &&
+    totalPricePaidInput &&
     form.possessionStatus;
   
   const required2 = form.currentUse && form.ongoingLoan && form.rentalIncome;
@@ -210,18 +215,24 @@ export default function PortfolioFlow({ onClose, onSubmitSuccess }) {
     setError("");
     setSubmitting(true);
     try {
-      await submitPortfolio(form);
+      const payload = {
+        ...form,
+        totalPricePaid: convertToRupees(totalPricePaidInput, totalPricePaidUnit),
+        monthlyEMI: form.monthlyEMI ? Number(form.monthlyEMI) : "",
+        monthlyRent: form.monthlyRent ? Number(form.monthlyRent) : "",
+      };
+      await submitPortfolio(payload);
 
       if (typeof window !== "undefined") {
         const existingStr = sessionStorage.getItem("portfolioProperties");
         let existing = [];
         if (existingStr) existing = JSON.parse(existingStr);
-        existing.push({ ...form, id: Date.now() });
+        existing.push({ ...payload, id: Date.now() });
         sessionStorage.setItem("portfolioProperties", JSON.stringify(existing));
       }
 
       if (onSubmitSuccess) {
-        onSubmitSuccess("portfolio", form);
+        onSubmitSuccess("portfolio", payload);
       } else {
         router.push("/portfolio");
       }
@@ -296,6 +307,16 @@ export default function PortfolioFlow({ onClose, onSubmitSuccess }) {
 
         {/* Form Body */}
         <div className="w-full max-w-4xl mx-auto pt-6 px-7 pb-[60px] flex-1 bg-brand-bgCard">
+          {!onClose && (
+            <div className="mb-6 flex justify-start">
+              <Link
+                href="/dashboard"
+                className="no-underline text-xs font-bold text-brand-slate hover:text-brand-navy transition-colors px-3.5 py-2 rounded-xl border border-brand-borderMid bg-brand-bgCard shadow-brand flex items-center gap-1.5"
+              >
+                ← Back to Dashboard
+              </Link>
+            </div>
+          )}
           <AnimatePresence mode="wait">
             {section === 1 && (
               <motion.div
@@ -574,6 +595,7 @@ export default function PortfolioFlow({ onClose, onSubmitSuccess }) {
                       placeholder="e.g. 2500"
                       type="number"
                       required
+                      hideApprox={true}
                     />
                   </div>
                   <div>
@@ -591,26 +613,50 @@ export default function PortfolioFlow({ onClose, onSubmitSuccess }) {
                       placeholder="e.g. 1875"
                       type="number"
                       required
+                      hideApprox={true}
                     />
                   </div>
                 </div>
 
                 <div className="flex gap-3 mb-1.5">
-                  <FieldBadge n={9} active={!!form.totalPricePaid} />
+                  <FieldBadge n={9} active={!!totalPricePaidInput} />
                   <span className="text-xs font-semibold text-brand-navyMid pt-1.5">
                     Total Price Paid (₹){" "}
                     <span className="text-brand-amber">*</span>
                   </span>
                 </div>
-                <Input
-                  label=""
-                  value={form.totalPricePaid}
-                  onChange={set("totalPricePaid")}
-                  placeholder="e.g. 10000000"
-                  type="number"
-                  prefix="₹"
-                  required
-                />
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="col-span-2 relative">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-brand-slateLight text-sm font-semibold pointer-events-none">₹</span>
+                    <input
+                      type="number"
+                      min="0.01"
+                      step="any"
+                      value={totalPricePaidInput}
+                      onChange={(e) => {
+                        const val = e.target.value;
+                        if (val && Number(val) < 0) return;
+                        setTotalPricePaidInput(val);
+                      }}
+                      placeholder={totalPricePaidUnit === "Cr" ? "e.g. 3" : totalPricePaidUnit === "Lakh" ? "e.g. 75" : "e.g. 7500000"}
+                      className="w-full pl-7 pr-3.5 py-2.5 text-sm text-brand-navy bg-brand-bgCard border border-brand-borderMid rounded-[10px] outline-none transition-all duration-200 focus:border-brand-amber focus:ring-2 focus:ring-brand-amber/20"
+                    />
+                  </div>
+                  <div>
+                    <select
+                      value={totalPricePaidUnit}
+                      onChange={(e) => setTotalPricePaidUnit(e.target.value)}
+                      className="w-full px-3.5 py-2.5 text-sm text-brand-navy bg-brand-bgCard border border-brand-borderMid rounded-[10px] outline-none transition-all duration-200 focus:border-brand-amber focus:ring-2 focus:ring-brand-amber/20 appearance-none bg-no-repeat bg-[right_14px_center] cursor-pointer"
+                      style={{
+                        backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238C97A8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
+                      }}
+                    >
+                      <option value="Cr">Cr</option>
+                      <option value="Lakh">Lakh</option>
+                      <option value="₹">₹</option>
+                    </select>
+                  </div>
+                </div>
 
                 <SectionHeader
                   number="C"

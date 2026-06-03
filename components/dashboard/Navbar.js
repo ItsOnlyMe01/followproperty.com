@@ -72,14 +72,8 @@ export default function Navbar({ onMenuClick }) {
 
   return (
     <div className="flex items-center justify-between px-4 md:px-8 sticky top-0 z-10 h-[72px] border-b bg-brand-bgCard border-brand-border">
-      {/* Brand & Mobile Menu */}
+      {/* Brand */}
       <div className="flex items-center gap-3">
-        <button
-          className="md:hidden flex items-center justify-center p-1.5 -ml-1.5 rounded-md bg-transparent border-none cursor-pointer"
-          onClick={onMenuClick}
-        >
-          <Menu size={22} className="text-brand-navy" />
-        </button>
         <Link
           href="/"
           className="flex items-center gap-2.5 no-underline"

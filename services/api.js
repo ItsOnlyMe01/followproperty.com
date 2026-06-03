@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ;
 
 export const submitWatchlist = async (data) => {
   const response = await fetch(`${API_BASE_URL}/watchlist`, {
@@ -6,6 +6,7 @@ export const submitWatchlist = async (data) => {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
     body: JSON.stringify(data),
   });
 
@@ -22,6 +23,7 @@ export const submitPortfolio = async (data) => {
     headers: {
       'Content-Type': 'application/json',
     },
+    credentials: 'include',
     body: JSON.stringify(data),
   });
 
@@ -31,3 +33,21 @@ export const submitPortfolio = async (data) => {
 
   return response.json();
 };
+
+export const deletePortfolioItem = async (id) => {
+  const response = await fetch(`${API_BASE_URL}/portfolio/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+  });
+
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.error || 'Failed to delete portfolio item');
+  }
+
+  return response.json();
+};
+

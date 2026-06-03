@@ -14,6 +14,7 @@ import {
 import { T, fadeUp } from '@/constants/theme';
 import { Input, Select, FieldBadge, FlowContext } from './FlowElements';
 import { submitWatchlist } from '@/services/api';
+import { convertToRupees } from '@/utils/currency';
 import { CATEGORIES, CITIES, BANKS, YEARS } from '@/constants/property';
 
 // ─── Category selector grid ───────────────────────────────────────────────────
@@ -72,23 +73,9 @@ export default function WatchlistFlow({ onClose, onSubmitSuccess }) {
   const [showToast, setShowToast] = useState(false);
   const [error, setError] = useState("");
 
-  // Sync and calculate absolute Rupees value
+  // Sync and calculate absolute Rupees value using shared utility
   useEffect(() => {
-    const val = Number(budgetInput);
-    if (isNaN(val) || val <= 0) {
-      setForm((f) => ({ ...f, budget: "" }));
-      return;
-    }
-
-    let absoluteBudget = 0;
-    if (budgetUnit === "Cr") {
-      absoluteBudget = val * 10000000;
-    } else if (budgetUnit === "Lakh") {
-      absoluteBudget = val * 100000;
-    } else if (budgetUnit === "Rupees") {
-      absoluteBudget = val;
-    }
-
+    const absoluteBudget = convertToRupees(budgetInput, budgetUnit);
     setForm((f) => ({ ...f, budget: absoluteBudget }));
   }, [budgetInput, budgetUnit]);
 
@@ -213,6 +200,16 @@ export default function WatchlistFlow({ onClose, onSubmitSuccess }) {
 
         {/* Form */}
         <div className="w-full max-w-4xl mx-auto pt-6 px-7 pb-[60px] flex-1 bg-brand-bgCard">
+          {!onClose && (
+            <div className="mb-6 flex justify-start">
+              <Link
+                href="/dashboard"
+                className="no-underline text-xs font-bold text-brand-slate hover:text-brand-navy transition-colors px-3.5 py-2 rounded-xl border border-brand-borderMid bg-brand-bgCard shadow-brand flex items-center gap-1.5"
+              >
+                ← Back to Dashboard
+              </Link>
+            </div>
+          )}
           {/* Field 01 */}
           <motion.div
             variants={fadeUp}

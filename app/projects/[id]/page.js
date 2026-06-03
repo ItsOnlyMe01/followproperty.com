@@ -23,6 +23,8 @@ import DashboardLayout from "@/components/layout/DashboardLayout";
 import LeadButton from "./LeadButton";
 import CompareButton from "./CompareButton";
 import CompareBar from "@/components/compare/CompareBar";
+import DownloadReportButton from "./DownloadReportButton";
+import { formatCurrency, formatPriceRange, formatAreaRange } from "@/utils/pdf/formatter";
 
 export default async function ProjectDetailsPage({ params, searchParams }) {
   // Await route params and searchParams for the project details page
@@ -53,48 +55,7 @@ export default async function ProjectDetailsPage({ params, searchParams }) {
     }
   }
 
-  // Currency formatting helper (Crores / Lakhs) with decimal trimming (.00)
-  const formatCurrency = (val) => {
-    if (!val) return "";
-    const parsed = Number(val);
-    if (isNaN(parsed)) return val;
-    
-    if (parsed >= 10000000) {
-      const formatted = (parsed / 10000000).toFixed(2);
-      return `₹${formatted.endsWith(".00") ? parseFloat(formatted) : formatted} Cr`;
-    }
-    if (parsed >= 100000) {
-      const formatted = (parsed / 100000).toFixed(2);
-      return `₹${formatted.endsWith(".00") ? parseFloat(formatted) : formatted} L`;
-    }
-    return `₹${parsed.toLocaleString("en-IN")}`;
-  };
-
-  // Price range helper using en-dash
-  const formatPriceRange = (min, max) => {
-    if (!min) return "Price on Request";
-    const minFormatted = formatCurrency(min);
-    if (!max || max === min) return minFormatted;
-    return `${minFormatted} – ${formatCurrency(max)}`;
-  };
-
-  // Area range formatting helper
-  const formatAreaRange = (min, max, superArea, avgArea) => {
-    const rawArea = superArea || avgArea;
-    if (rawArea && typeof rawArea === "string" && (rawArea.includes("-") || rawArea.toLowerCase().includes("to"))) {
-      let clean = rawArea.trim();
-      if (!clean.toLowerCase().includes("sq.ft") && !clean.toLowerCase().includes("sq. ft")) {
-        clean = `${clean} sq.ft`;
-      }
-      return clean;
-    }
-    if (min && max && min !== max) {
-      return `${min.toLocaleString()} – ${max.toLocaleString()} sq.ft`;
-    }
-    const val = min || max || rawArea;
-    if (!val) return null;
-    return isNaN(Number(val)) ? val : `${Number(val).toLocaleString()} sq.ft`;
-  };
+  // Shared formatting helpers imported from @/utils/pdf/formatter
 
   const isReady = project.status === "Ready to Move" || project.status === "Ready";
 
@@ -110,7 +71,7 @@ export default async function ProjectDetailsPage({ params, searchParams }) {
     highlights.push(`Located in ${project.locality}, ${project.city}`);
   }
   if (project.minPrice) {
-    highlights.push(`Base Entry Price: ${formatCurrency(project.minPrice)}`);
+    highlights.push(`Base Entry Price: ${formatCurrency(project.minPrice, "₹")}`);
   }
   if (project.perSqftRate) {
     highlights.push(`Competitive rate of ₹${Number(project.perSqftRate).toLocaleString()}/sq.ft`);
@@ -121,7 +82,7 @@ export default async function ProjectDetailsPage({ params, searchParams }) {
 
   return (
     <DashboardLayout>
-      <div className="max-w-4xl mx-auto pb-16 pt-4 font-sans antialiased text-brand-navy">
+      <div className="max-w-6xl mx-auto pb-16 pt-4 px-2 sm:px-4 font-sans antialiased text-brand-navy">
         
         {/* Navigation Control & Breadcrumbs */}
         <div className="flex items-center justify-between gap-4 mb-6">
@@ -131,6 +92,7 @@ export default async function ProjectDetailsPage({ params, searchParams }) {
           >
             <ArrowLeft size={16} /> Back to Buying Watchlist
           </Link>
+          <DownloadReportButton projectId={project._id.toString()} />
         </div>
 
         {/* 1. HERO SECTION */}
@@ -182,7 +144,7 @@ export default async function ProjectDetailsPage({ params, searchParams }) {
                 Estimated Price Range
               </p>
               <h2 className="text-xl sm:text-2xl font-extrabold text-brand-tealDark tracking-tight m-0 leading-tight">
-                {formatPriceRange(project.minPrice, project.maxPrice)}
+                {formatPriceRange(project.minPrice, project.maxPrice, "₹")}
               </h2>
             </div>
             

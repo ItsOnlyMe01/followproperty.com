@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { 
@@ -11,7 +11,9 @@ import {
   BarChart3, 
   Settings,
   X,
-  Sparkles
+  Sparkles,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 
 const NAV_ITEMS = [
@@ -25,6 +27,37 @@ const NAV_ITEMS = [
 
 export default function Sidebar({ isOpen, onClose }) {
   const pathname = usePathname();
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isTransitionEnabled, setIsTransitionEnabled] = useState(false);
+
+  // Load persistent state on mount
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("sidebar_collapsed");
+      if (stored === "true") {
+        setIsCollapsed(true);
+      }
+    } catch (err) {
+      console.error("Failed to read sidebar_collapsed:", err);
+    }
+
+    // Enable transitions after a tiny delay so the initial width settles instantly without flash
+    const timer = setTimeout(() => {
+      setIsTransitionEnabled(true);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const toggleCollapse = () => {
+    const nextState = !isCollapsed;
+    setIsCollapsed(nextState);
+    try {
+      localStorage.setItem("sidebar_collapsed", String(nextState));
+    } catch (err) {
+      console.error("Failed to save sidebar_collapsed:", err);
+    }
+  };
 
   return (
     <>
@@ -38,8 +71,14 @@ export default function Sidebar({ isOpen, onClose }) {
 
       {/* Sidebar Container */}
       <div
-        className={`fixed md:sticky top-0 left-0 h-screen w-[260px] flex flex-col p-4 md:p-6 z-50 transition-transform duration-300 ease-in-out md:translate-x-0 bg-brand-bgCard border-r border-brand-border ${
+        className={`fixed md:sticky top-0 left-0 h-screen flex flex-col z-50 md:translate-x-0 bg-brand-bgCard border-r border-brand-border ${
+          isTransitionEnabled ? "transition-all duration-300 ease-in-out" : ""
+        } ${
           isOpen ? "translate-x-0" : "-translate-x-full"
+        } ${
+          isCollapsed 
+            ? "w-[76px] md:w-[76px] p-2 md:p-3" 
+            : "w-[260px] md:w-[260px] p-4 md:p-6"
         }`}
       >
         {/* Mobile Close Button */}
@@ -54,9 +93,31 @@ export default function Sidebar({ isOpen, onClose }) {
 
         {/* Navigation */}
         <div className={`flex-1 ${isOpen ? "mt-0" : "mt-3"}`}>
-          <p className="text-[11px] font-bold text-brand-slateLight tracking-[0.08em] uppercase mb-4 pl-3">
-            Menu
-          </p>
+          {isCollapsed ? (
+            <div className="flex flex-col items-center mb-4">
+              <button 
+                onClick={toggleCollapse}
+                className="hidden md:flex items-center justify-center p-1.5 bg-transparent border-none cursor-pointer text-brand-slate hover:bg-brand-bgAlt rounded-lg transition-colors"
+                title="Expand Menu"
+              >
+                <ChevronRight size={16} />
+              </button>
+            </div>
+          ) : (
+            <div className="flex items-center justify-between mb-4 pl-3">
+              <p className="text-[11px] font-bold text-brand-slateLight tracking-[0.08em] uppercase m-0">
+                Menu
+              </p>
+              <button 
+                onClick={toggleCollapse}
+                className="hidden md:flex items-center justify-center p-1.5 bg-transparent border-none cursor-pointer text-brand-slate hover:bg-brand-bgAlt rounded-lg transition-colors"
+                title="Collapse Menu"
+              >
+                <ChevronLeft size={16} />
+              </button>
+            </div>
+          )}
+
           <div className="flex flex-col gap-1">
             {NAV_ITEMS.map((item) => {
               const isActive = pathname === item.path || (item.id === "dashboard" && pathname === "/dashboard");
@@ -65,41 +126,31 @@ export default function Sidebar({ isOpen, onClose }) {
                 <Link
                   key={item.id}
                   href={item.path}
+                  title={isCollapsed ? item.label : ""}
                   onClick={() => {
                     if (window.innerWidth < 768) {
                       onClose();
                     }
                   }}
-                  className={`flex items-center gap-3 px-3 py-2.5 rounded-[10px] no-underline transition-all duration-200 ${
+                  className={`flex items-center rounded-[10px] no-underline transition-all duration-200 ${
+                    isCollapsed 
+                      ? "justify-center px-0 py-2.5" 
+                      : "gap-3 px-3 py-2.5"
+                  } ${
                     isActive 
                       ? "bg-brand-tealBg text-brand-tealDark font-semibold" 
                       : "bg-transparent text-brand-navyMid font-medium hover:bg-brand-bgAlt"
                   }`}
                 >
                   <Icon size={18} className={isActive ? "text-brand-teal" : "text-brand-slate"} />
-                  <span className="text-sm">{item.label}</span>
+                  {!isCollapsed && <span className="text-sm">{item.label}</span>}
                 </Link>
               );
             })}
           </div>
         </div>
-
-        {/* Upgrade Card - Commented out for now */}
-        {/* <div className="p-4 rounded-xl bg-brand-bgAlt border border-brand-border mt-6">
-          <div className="w-8 h-8 rounded-lg bg-brand-amberBg border border-brand-amberBorder flex items-center justify-center mb-3">
-            <Sparkles size={16} className="text-brand-amber" />
-          </div>
-          <h4 className="text-sm font-bold text-brand-navy mb-1">
-            Upgrade to Pro
-          </h4>
-          <p className="text-xs text-brand-slate mb-3 leading-relaxed">
-            Get advanced filters, deeper analytics and instant alerts.
-          </p>
-          <button className="w-full py-2 rounded-lg bg-brand-navy text-white border-none text-[13px] font-semibold cursor-pointer transition-opacity duration-200 hover:opacity-90">
-            Upgrade Now
-          </button>
-        </div> */}
       </div>
     </>
   );
 }
+
