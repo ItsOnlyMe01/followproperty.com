@@ -11,7 +11,8 @@ import {
   MoreHorizontal,
   BarChart3,
   Settings,
-  X
+  X,
+  Search
 } from "lucide-react";
 
 export default function BottomNav() {
@@ -21,7 +22,8 @@ export default function BottomNav() {
   const getActiveTab = () => {
     if (pathname === "/dashboard") return "dashboard";
     if (pathname.startsWith("/portfolio")) return "portfolio";
-    if (pathname.startsWith("/watchlist") || pathname.startsWith("/projects")) return "watchlist";
+    if (pathname.startsWith("/watchlist")) return "watchlist";
+    if (pathname.startsWith("/projects")) return "projects";
     if (pathname === "/alerts") return "alerts";
     return "";
   };
@@ -36,11 +38,12 @@ export default function BottomNav() {
   const navItems = [
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
     { id: "watchlist", label: "Watchlist", icon: ListPlus, path: "/watchlist" },
+    { id: "projects", label: "Projects", icon: Search, path: "/projects" },
     { id: "portfolio", label: "Portfolio", icon: Building2, path: "/portfolio" },
-    { id: "alerts", label: "Alerts", icon: BellRing, path: "#" },
   ];
 
   const moreItems = [
+    { id: "alerts", label: "Alerts", icon: BellRing, path: "#" },
     { id: "reports", label: "Reports", icon: BarChart3, path: "#" },
     { id: "settings", label: "Settings", icon: Settings, path: "#" },
   ];

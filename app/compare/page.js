@@ -5,6 +5,7 @@ import connectToDatabase from "@/lib/db";
 import MarketProject from "@/models/MarketProject";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import CompareView from "./CompareView";
+import BackButton from "@/components/ui/BackButton";
 
 export default async function ComparePage({ searchParams }) {
   const resolvedSearchParams = await searchParams;
@@ -57,12 +58,7 @@ export default async function ComparePage({ searchParams }) {
         
         {/* Navigation & Breadcrumbs */}
         <div className="mb-6">
-          <Link
-            href="/watchlist"
-            className="inline-flex items-center gap-2 text-sm font-bold text-brand-teal hover:opacity-85 no-underline transition-opacity"
-          >
-            <ArrowLeft size={16} /> Back to Dashboard
-          </Link>
+          <BackButton />
         </div>
 
         {/* Validation Failure / Empty state */}

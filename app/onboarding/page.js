@@ -121,7 +121,7 @@ export default function Onboarding() {
         {/* Informational Footer */}
         <p className="text-[11px] text-brand-slateLight mt-12 flex items-center justify-center gap-1.5 font-medium">
           <Sparkles size={13} className="text-brand-amber" />
-          You can always configure both portfolios and watchlists later from your main navigation menu.
+          Don't worry — you can track properties and create buying watchlists later from your dashboard.
         </p>
         
       </div>

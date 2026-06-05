@@ -1,5 +1,7 @@
 import connectDB from "@/lib/db";
 import MarketProject from "@/models/MarketProject";
+import Builder from "@/models/Builder";
+import { normalizeBuilder } from "@/utils/admin/normalization";
 
 const CITY_TO_STATE = {
   "Gurgaon": "Haryana",
@@ -136,6 +138,37 @@ export async function POST(req) {
 
         // Enrich projects prior to DB insertion
         const enrichedProjects = projects.map(project => inferFields(project));
+
+        // Resolve builderId for each project in bulk
+        const rawBuilderNames = [...new Set(enrichedProjects.map(p => p.builderName).filter(Boolean))];
+        const builderNameToIdMap = {};
+
+        for (const rawName of rawBuilderNames) {
+            const canonicalName = normalizeBuilder(rawName);
+            if (!canonicalName) continue;
+
+            const slug = canonicalName.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
+            let builder = await Builder.findOne({
+                $or: [{ name: canonicalName }, { slug }]
+            });
+
+            if (!builder) {
+                builder = await Builder.create({
+                    name: canonicalName,
+                    slug,
+                    status: "active"
+                });
+            }
+            builderNameToIdMap[rawName] = builder._id;
+        }
+
+        // Attach resolved builderId to enriched projects
+        enrichedProjects.forEach(project => {
+            if (project.builderName && builderNameToIdMap[project.builderName]) {
+                project.builderId = builderNameToIdMap[project.builderName];
+            }
+        });
 
         const inserted = await MarketProject.insertMany(
             enrichedProjects

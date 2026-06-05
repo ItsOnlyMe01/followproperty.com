@@ -53,7 +53,19 @@ export default function PropertyCard({ property, watchlistId }) {
         <div className="grid grid-cols-2 gap-3 mb-5 py-3 border-y border-brand-border">
           <div className="flex items-center gap-1.5 text-xs text-brand-navyMid">
             <Building size={14} className="text-brand-slate" />
-            <span>By {property.builder}</span>
+            <span>
+              By{" "}
+              {property.builder ? (
+                <Link
+                  href={`/builders/${property.builder.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                  className="font-bold text-brand-teal hover:underline no-underline"
+                >
+                  {property.builder}
+                </Link>
+              ) : (
+                "Unknown"
+              )}
+            </span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-brand-navyMid">
             <Calendar size={14} className="text-brand-slate" />
@@ -71,7 +83,7 @@ export default function PropertyCard({ property, watchlistId }) {
           <div>
             <p className="text-[11px] text-brand-slate font-semibold uppercase mb-0.5">Price Range</p>
             <p className="text-[15px] sm:text-[16px] font-extrabold text-brand-tealDark tracking-tight mb-0">
-              {formatPriceRange(property.minPrice, property.maxPrice)}
+              {property.marketPrice || formatPriceRange(property.minPrice, property.maxPrice)}
             </p>
           </div>
           <Link

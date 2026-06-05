@@ -10,6 +10,7 @@ const MarketProjectSchema = new mongoose.Schema(
         launchingPrice: String,
         possessionDate: String,
         builderName: String,
+        builderId: { type: mongoose.Schema.Types.ObjectId, ref: "Builder", index: true },
         units: String,
         totalArea: String,
         towers: String,

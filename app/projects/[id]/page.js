@@ -25,6 +25,8 @@ import CompareButton from "./CompareButton";
 import CompareBar from "@/components/compare/CompareBar";
 import DownloadReportButton from "./DownloadReportButton";
 import { formatCurrency, formatPriceRange, formatAreaRange } from "@/utils/pdf/formatter";
+import { normalizeBuilder } from "@/utils/admin/normalization";
+import BackButton from "@/components/ui/BackButton";
 
 export default async function ProjectDetailsPage({ params, searchParams }) {
   // Await route params and searchParams for the project details page
@@ -80,18 +82,17 @@ export default async function ProjectDetailsPage({ params, searchParams }) {
     highlights.push(project.possessionYear === 0 ? "Ready to Move in" : `Possession target year: ${project.possessionYear}`);
   }
 
+  const builderSlug = project.builderName
+    ? normalizeBuilder(project.builderName).toLowerCase().replace(/[^a-z0-9]+/g, "-")
+    : "";
+
   return (
     <DashboardLayout>
       <div className="max-w-6xl mx-auto pb-16 pt-4 px-2 sm:px-4 font-sans antialiased text-brand-navy">
         
         {/* Navigation Control & Breadcrumbs */}
         <div className="flex items-center justify-between gap-4 mb-6">
-          <Link
-            href={watchlistId ? `/watchlist?watchlistId=${watchlistId}` : "/watchlist"}
-            className="inline-flex items-center gap-2 text-sm font-bold text-brand-teal hover:opacity-85 no-underline transition-opacity"
-          >
-            <ArrowLeft size={16} /> Back to Buying Watchlist
-          </Link>
+          <BackButton />
           <DownloadReportButton projectId={project._id.toString()} />
         </div>
 
@@ -107,7 +108,13 @@ export default async function ProjectDetailsPage({ params, searchParams }) {
               {project.builderName && (
                 <p className="text-sm text-brand-slate font-bold m-0 mb-3 flex items-center gap-1.5">
                   <Building size={14} className="text-brand-slateLight" />
-                  By <span className="text-brand-navy font-extrabold">{project.builderName}</span>
+                  By{" "}
+                  <Link
+                    href={`/builders/${builderSlug}`}
+                    className="text-brand-teal font-extrabold hover:underline"
+                  >
+                    {project.builderName}
+                  </Link>
                 </p>
               )}
 

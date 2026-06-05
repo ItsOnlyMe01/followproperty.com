@@ -1,49 +1,37 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { 
   LayoutDashboard, 
-  ListPlus, 
   Building2, 
-  BellRing, 
-  BarChart3, 
-  Settings,
-  X,
-  Sparkles,
-  ChevronLeft,
-  ChevronRight,
-  Search
+  Search, 
+  PlusCircle, 
+  X, 
+  ChevronLeft, 
+  ChevronRight 
 } from "lucide-react";
 
 const NAV_ITEMS = [
-  { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
-  { id: "portfolio", label: "Portfolio", icon: Building2, path: "/portfolio" },
-  { id: "watchlist", label: "Watchlist", icon: ListPlus, path: "/watchlist" },
-  { id: "projects", label: "Projects", icon: Search, path: "/projects" },
-  { id: "alerts", label: "Alerts", icon: BellRing, path: "#" },
-  { id: "reports", label: "Reports", icon: BarChart3, path: "#" },
-  { id: "settings", label: "Settings", icon: Settings, path: "#" },
+  { id: "overview", label: "Overview", icon: LayoutDashboard },
+  { id: "profile", label: "My Builder Profile", icon: Building2 },
+  { id: "projects", label: "My Projects", icon: Search },
+  { id: "add-project", label: "Add Project", icon: PlusCircle },
 ];
 
-export default function Sidebar({ isOpen, onClose }) {
-  const pathname = usePathname();
+export default function BuilderSidebar({ isOpen, onClose, activeTab, onTabChange }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isTransitionEnabled, setIsTransitionEnabled] = useState(false);
 
-  // Load persistent state on mount
   useEffect(() => {
     try {
-      const stored = localStorage.getItem("sidebar_collapsed");
+      const stored = localStorage.getItem("builder_sidebar_collapsed");
       if (stored === "true") {
         setIsCollapsed(true);
       }
     } catch (err) {
-      console.error("Failed to read sidebar_collapsed:", err);
+      console.error("Failed to read builder_sidebar_collapsed:", err);
     }
 
-    // Enable transitions after a tiny delay so the initial width settles instantly without flash
     const timer = setTimeout(() => {
       setIsTransitionEnabled(true);
     }, 100);
@@ -55,9 +43,9 @@ export default function Sidebar({ isOpen, onClose }) {
     const nextState = !isCollapsed;
     setIsCollapsed(nextState);
     try {
-      localStorage.setItem("sidebar_collapsed", String(nextState));
+      localStorage.setItem("builder_sidebar_collapsed", String(nextState));
     } catch (err) {
-      console.error("Failed to save sidebar_collapsed:", err);
+      console.error("Failed to save builder_sidebar_collapsed:", err);
     }
   };
 
@@ -87,7 +75,7 @@ export default function Sidebar({ isOpen, onClose }) {
         <div className="flex justify-end md:hidden mb-4">
           <button 
             onClick={onClose}
-            className="p-1.5 bg-transparent border-none cursor-pointer text-brand-slate"
+            className="p-1.5 bg-transparent border-none cursor-pointer text-brand-slate hover:bg-brand-bgAlt rounded-lg"
           >
             <X size={24} />
           </button>
@@ -108,7 +96,7 @@ export default function Sidebar({ isOpen, onClose }) {
           ) : (
             <div className="flex items-center justify-between mb-4 pl-3">
               <p className="text-[11px] font-bold text-brand-slateLight tracking-[0.08em] uppercase m-0">
-                Menu
+                Builder Workspace
               </p>
               <button 
                 onClick={toggleCollapse}
@@ -122,22 +110,22 @@ export default function Sidebar({ isOpen, onClose }) {
 
           <div className="flex flex-col gap-1">
             {NAV_ITEMS.map((item) => {
-              const isActive = pathname === item.path || (item.id === "dashboard" && pathname === "/dashboard");
+              const isActive = activeTab === item.id;
               const Icon = item.icon;
               return (
-                <Link
+                <button
                   key={item.id}
-                  href={item.path}
-                  title={isCollapsed ? item.label : ""}
                   onClick={() => {
+                    onTabChange(item.id);
                     if (window.innerWidth < 768) {
                       onClose();
                     }
                   }}
-                  className={`flex items-center rounded-[10px] no-underline transition-all duration-200 ${
+                  title={isCollapsed ? item.label : ""}
+                  className={`flex items-center rounded-[10px] border-none text-left cursor-pointer transition-all duration-200 ${
                     isCollapsed 
-                      ? "justify-center px-0 py-2.5" 
-                      : "gap-3 px-3 py-2.5"
+                      ? "justify-center px-0 py-2.5 w-full" 
+                      : "gap-3 px-3 py-2.5 w-full"
                   } ${
                     isActive 
                       ? "bg-brand-tealBg text-brand-tealDark font-semibold" 
@@ -146,7 +134,7 @@ export default function Sidebar({ isOpen, onClose }) {
                 >
                   <Icon size={18} className={isActive ? "text-brand-teal" : "text-brand-slate"} />
                   {!isCollapsed && <span className="text-sm">{item.label}</span>}
-                </Link>
+                </button>
               );
             })}
           </div>
@@ -155,4 +143,3 @@ export default function Sidebar({ isOpen, onClose }) {
     </>
   );
 }
-
