@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import AuthLayout from "@/components/layout/AuthLayout";
 import { signupWithEmail } from "@/services/auth-service";
 import { Eye, EyeOff } from "lucide-react";
@@ -18,7 +18,7 @@ const toTitleCase = (str) => {
     .join(" ");
 };
 
-export default function Signup() {
+function SignupForm() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -33,6 +33,8 @@ export default function Signup() {
   const [successMessage, setSuccessMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const isBuilder = searchParams.get("role") === "builder";
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -49,6 +51,7 @@ export default function Signup() {
         phoneNumber: phoneNumber.trim(),
         city: toTitleCase(finalCity),
         state: toTitleCase(state),
+        isBuilder: isBuilder,
       };
       
       const result = await signupWithEmail(email, password, profileData);
@@ -88,9 +91,13 @@ export default function Signup() {
     <AuthLayout>
       <div className="w-full max-w-[480px] py-4">
         <div className="mb-6">
-          <h2 className="text-3xl font-bold text-brand-navy mb-2 tracking-[-0.02em]">Create Account</h2>
+          <h2 className="text-3xl font-bold text-brand-navy mb-2 tracking-[-0.02em]">
+            {isBuilder ? "Create Builder Account" : "Create Account"}
+          </h2>
           <p className="text-brand-slate text-[15px]">
-            Join FollowProperty to start tracking your portfolio.
+            {isBuilder
+              ? "Join FollowProperty to manage your profile and list projects."
+              : "Join FollowProperty to start tracking your portfolio."}
           </p>
         </div>
 
@@ -316,5 +323,13 @@ export default function Signup() {
         </p>
       </div>
     </AuthLayout>
+  );
+}
+
+export default function Signup() {
+  return (
+    <Suspense fallback={null}>
+      <SignupForm />
+    </Suspense>
   );
 }

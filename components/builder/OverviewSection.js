@@ -8,8 +8,8 @@ export default function OverviewSection({ builder, projects, onTabChange }) {
 
   // Calculate statistics from real project data only
   const totalProjects = projects.length;
-  const approvedProjects = totalProjects; // All imported MarketProject entries are live/approved in V1
-  const pendingProjects = 0; // Moderation workflow is not yet implemented
+  const pendingProjects = projects.filter((p) => p.moderationStatus === "pending").length;
+  const approvedProjects = totalProjects - pendingProjects;
 
   return (
     <div className="space-y-8 animate-in fade-in duration-200">

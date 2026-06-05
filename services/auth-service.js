@@ -54,7 +54,8 @@ export const signupWithEmail = async (email, password, profileData = {}) => {
                 lastName: profileData.lastName || "",
                 phoneNumber: profileData.phoneNumber || "",
                 city: profileData.city || "",
-                state: profileData.state || ""
+                state: profileData.state || "",
+                isBuilder: profileData.isBuilder || false
             })
         });
 

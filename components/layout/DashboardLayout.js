@@ -1,6 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "@/lib/firebase";
 import Sidebar from "../dashboard/Sidebar";
 import Navbar from "../dashboard/Navbar";
 import BottomNav from "../dashboard/BottomNav";
@@ -8,6 +11,38 @@ import Footer from "../landing/Footer";
 
 export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (currentUser) {
+        try {
+          const token = await currentUser.getIdToken();
+          const res = await fetch("/api/auth/verify", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ token }),
+          });
+          const data = await res.json();
+          if (data.success && data.user) {
+            const status = data.user.builderApplicationStatus;
+            if (status === "draft" || status === "rejected") {
+              router.push("/builder-register");
+            } else if (status === "pending") {
+              router.push("/builder-application-status");
+            } else if (status === "approved") {
+              router.push("/builder-dashboard");
+            }
+          }
+        } catch (e) {
+          console.error("Error verifying in DashboardLayout:", e);
+        }
+      }
+    });
+    return () => unsubscribe();
+  }, [router]);
 
   return (
     <div className="flex min-h-screen bg-brand-bg">

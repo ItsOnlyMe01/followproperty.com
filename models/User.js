@@ -42,8 +42,13 @@ const UserSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ['user', 'admin'],
+      enum: ['user', 'admin', 'builder'],
       default: 'user',
+    },
+    builderId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Builder',
+      default: null,
     },
     isOnboarded: {
       type: Boolean,

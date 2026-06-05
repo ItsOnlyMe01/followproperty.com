@@ -90,6 +90,78 @@ export default function AdminPage() {
               </svg>
             </div>
           </Link>
+
+          {/* Builder Applications Module */}
+          <Link
+            href="/admin/builder-applications"
+            className="flex items-center p-5 border border-slate-100 bg-slate-50/50 rounded-2xl hover:border-amber-300 hover:bg-amber-50/10 transition-all duration-200 group"
+          >
+            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-amber-50 text-amber-600 group-hover:bg-amber-100 transition-colors mr-4 shrink-0">
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                />
+              </svg>
+            </div>
+            <div className="flex-1">
+              <h3 className="font-bold text-slate-900 text-sm md:text-base group-hover:text-amber-900 transition-colors">
+                Builder Applications
+              </h3>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Review and approve developer workspace onboarding submissions.
+              </p>
+            </div>
+            <div className="text-slate-300 group-hover:text-amber-500 transition-colors ml-2">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
+
+          {/* Project Moderation Module */}
+          <Link
+            href="/admin/project-moderation"
+            className="flex items-center p-5 border border-slate-100 bg-slate-50/50 rounded-2xl hover:border-amber-300 hover:bg-amber-50/10 transition-all duration-200 group"
+          >
+            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-amber-50 text-amber-600 group-hover:bg-amber-100 transition-colors mr-4 shrink-0">
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+                />
+              </svg>
+            </div>
+            <div className="flex-1">
+              <h3 className="font-bold text-slate-900 text-sm md:text-base group-hover:text-amber-900 transition-colors">
+                Project Moderation
+              </h3>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Review pending properties submitted by registered builders.
+              </p>
+            </div>
+            <div className="text-slate-300 group-hover:text-amber-500 transition-colors ml-2">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </Link>
         </div>
 
         <div className="mt-8 pt-6 border-t border-slate-100 flex justify-center md:justify-end">

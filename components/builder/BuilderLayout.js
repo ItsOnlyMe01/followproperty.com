@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import BuilderSidebar from "./BuilderSidebar";
 import BuilderNavbar from "./BuilderNavbar";
+import BuilderBottomNav from "./BuilderBottomNav";
 import Footer from "@/components/landing/Footer";
 
 export default function BuilderLayout({ children, activeTab, onTabChange, builderName }) {
@@ -25,11 +26,13 @@ export default function BuilderLayout({ children, activeTab, onTabChange, builde
           <div className="flex-1 p-4 md:p-8 pb-10">
             {children}
           </div>
-          <div className="mt-20 md:mt-28">
+          <div className="mt-20 md:mt-28 pb-16 md:pb-0">
             <Footer />
           </div>
         </main>
       </div>
+      <BuilderBottomNav activeTab={activeTab} onTabChange={onTabChange} />
     </div>
   );
 }
+

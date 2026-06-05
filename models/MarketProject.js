@@ -39,6 +39,12 @@ const MarketProjectSchema = new mongoose.Schema(
         minArea: { type: Number },                      // Numeric min area in Sqft
         maxArea: { type: Number },                      // Numeric max area in Sqft
         possessionYear: { type: Number, index: true }, // Four digit numeric year (e.g. 2026, 0 for Ready)
+        moderationStatus: {
+            type: String,
+            enum: ["pending", "approved", "rejected"],
+            default: "approved",
+            index: true
+        },
     },
     {
         timestamps: true,

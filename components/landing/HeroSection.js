@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Home as HomeIcon, ArrowRight, Search } from "lucide-react";
 
 const blurIn = {
@@ -127,6 +128,22 @@ export default function Hero({ authState }) {
             >
               <Search size={17} /> {authState?.isAuthenticated && authState?.hasWatchlist ? "Open Watchlist" : "Looking to Buy"}
             </button>
+          </motion.div>
+
+          <motion.div
+            variants={blurIn}
+            custom={3.5}
+            initial="hidden"
+            animate="visible"
+            className="mt-[-32px] mb-[52px] text-[13.5px] text-brand-slate font-medium"
+          >
+            Are you a developer?{" "}
+            <Link
+              href="/signup?role=builder"
+              className="font-bold text-[#EA580C] hover:text-[#EA580C]/80 transition-colors no-underline hover:underline inline-flex items-center gap-0.5"
+            >
+              Register as Builder &rarr;
+            </Link>
           </motion.div>
 
           <motion.div

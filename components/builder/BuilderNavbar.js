@@ -1,10 +1,29 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { Menu, Building2, ExternalLink } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Menu, Building2, LogOut, ChevronDown } from "lucide-react";
+import { logoutUser } from "@/services/auth-service";
 
 export default function BuilderNavbar({ onMenuClick, builderName }) {
+  const router = useRouter();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      setDropdownOpen(false);
+      const res = await logoutUser();
+      if (res.success) {
+        router.push("/login");
+      } else {
+        console.error("Logout failed:", res.message);
+      }
+    } catch (err) {
+      console.error("Error during logout:", err);
+    }
+  };
+
   const initials = builderName
     ? builderName
         .split(" ")
@@ -21,7 +40,7 @@ export default function BuilderNavbar({ onMenuClick, builderName }) {
         {/* Mobile Hamburger menu */}
         <button
           onClick={onMenuClick}
-          className="md:hidden flex items-center justify-center p-2 rounded-lg bg-transparent hover:bg-brand-bgAlt border-none cursor-pointer text-brand-slate"
+          className="hidden flex items-center justify-center p-2 rounded-lg bg-transparent hover:bg-brand-bgAlt border-none cursor-pointer text-brand-slate"
           aria-label="Open navigation menu"
         >
           <Menu size={20} />
@@ -42,34 +61,50 @@ export default function BuilderNavbar({ onMenuClick, builderName }) {
         </Link>
       </div>
 
-      {/* Right side: Builder Info & Main App Link */}
+      {/* Right side: Builder Info */}
       <div className="flex items-center gap-3 md:gap-5">
-        <Link
-          href="/dashboard"
-          className="hidden sm:flex items-center gap-1 text-[13px] font-semibold text-brand-slate hover:text-brand-navy no-underline transition-colors"
-        >
-          <span>Go to Main App</span>
-          <ExternalLink size={14} />
-        </Link>
+        {/* Profile with Dropdown */}
+        <div className="relative">
+          <button
+            onClick={() => setDropdownOpen(!dropdownOpen)}
+            className="flex items-center gap-2 md:gap-3 cursor-pointer bg-transparent border-none p-0 outline-none text-left"
+          >
+            <div className="w-8 h-8 md:w-9 md:h-9 rounded-full text-white flex items-center justify-center font-bold text-[13px] md:text-[14px] bg-brand-teal select-none shadow-[0_2px_8px_rgba(13,148,136,0.20)]">
+              {initials}
+            </div>
+            <div className="hidden md:flex flex-col">
+              <span className="text-[13px] font-semibold text-brand-navy max-w-[150px] truncate flex items-center gap-1">
+                {builderName || "Developer Partner"} <ChevronDown size={12} className="text-brand-slateLight" />
+              </span>
+            </div>
+          </button>
 
-        {/* Divider */}
-        <div className="hidden sm:block w-[1px] h-6 bg-brand-border" />
-
-        {/* Profile Circle */}
-        <div className="flex items-center gap-2 md:gap-3">
-          <div className="w-8 h-8 md:w-9 md:h-9 rounded-full text-white flex items-center justify-center font-bold text-[13px] md:text-[14px] bg-brand-teal select-none shadow-[0_2px_8px_rgba(13,148,136,0.20)]">
-            {initials}
-          </div>
-          <div className="hidden md:flex flex-col">
-            <span className="text-[13px] font-semibold text-brand-navy max-w-[150px] truncate">
-              {builderName || "Developer Partner"}
-            </span>
-            <span className="text-[10px] text-brand-slateLight font-medium">
-              Dashboard V1
-            </span>
-          </div>
+          {dropdownOpen && (
+            <>
+              {/* Invisible overlay backplane */}
+              <div 
+                className="fixed inset-0 z-20 bg-transparent cursor-default" 
+                onClick={() => setDropdownOpen(false)}
+              />
+              
+              {/* Dropdown Menu */}
+              <div className="absolute right-0 mt-2.5 w-44 rounded-xl border bg-brand-bgCard border-brand-border shadow-brand-md p-1.5 z-30 flex flex-col gap-0.5">
+                <div className="px-3 py-2 text-[10px] font-bold text-brand-slateLight uppercase tracking-wider border-b border-brand-border/60 mb-1">
+                  Manage Account
+                </div>
+                <button
+                  onClick={handleLogout}
+                  className="flex items-center gap-2.5 w-full text-left px-3 py-2 rounded-lg text-[13px] font-semibold text-brand-red bg-transparent hover:bg-brand-redBg border-none cursor-pointer transition-colors duration-150"
+                >
+                  <LogOut size={15} />
+                  <span>Log Out</span>
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </header>
   );
 }
+

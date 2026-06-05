@@ -24,7 +24,14 @@ export default function Login() {
       const result = await loginWithEmail(email, password);
       if (result.success) {
         const user = result.verification?.user;
-        if (user && !user.isOnboarded) {
+        const status = user?.builderApplicationStatus;
+        if (status === "draft" || status === "rejected") {
+          router.push("/builder-register");
+        } else if (status === "pending") {
+          router.push("/builder-application-status");
+        } else if (status === "approved") {
+          router.push("/builder-dashboard");
+        } else if (user && !user.isOnboarded) {
           router.push("/onboarding");
         } else {
           router.push("/dashboard");

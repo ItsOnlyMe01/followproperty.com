@@ -1,5 +1,6 @@
 import connectToDatabase from "@/lib/db";
 import User from "@/models/User";
+import BuilderApplication from "@/models/BuilderApplication";
 import { NextResponse } from "next/server";
 import { isAdminEmail } from "@/config/admin/admin-emails";
 
@@ -7,7 +8,7 @@ export async function POST(req) {
   try {
     await connectToDatabase();
     const body = await req.json();
-    const { firebaseUid, email, firstName, lastName, phoneNumber, city, state } = body;
+    const { firebaseUid, email, firstName, lastName, phoneNumber, city, state, isBuilder } = body;
 
     if (!firebaseUid || !email) {
       return NextResponse.json(
@@ -33,6 +34,15 @@ export async function POST(req) {
         isOnboarded: false
       });
       console.log(`[Register Route] Created new user ${email} with role: ${user.role}`);
+
+      if (isBuilder) {
+        await BuilderApplication.findOneAndUpdate(
+          { userId: user._id },
+          { status: "draft" },
+          { upsert: true }
+        );
+        console.log(`[Register Route] Created/verified BuilderApplication (status: draft) for user ${email}`);
+      }
     } else {
       // Bootstrapping/Promotion: If email is in allowed list, promote them to "admin" if they aren't already.
       // Do not demote them if their email is not in the list (MongoDB role is long-term source of truth).

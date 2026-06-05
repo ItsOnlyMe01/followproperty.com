@@ -39,7 +39,7 @@ export default function Nav({ authState }) {
           </span>
         </div>
 
-        <div className="hidden md:flex gap-7">
+        <div className="hidden md:flex gap-7 items-center">
           {["Features", "How It Works", "Pricing"].map((item) => (
             <a
               key={item}
@@ -49,6 +49,12 @@ export default function Nav({ authState }) {
               {item}
             </a>
           ))}
+          <Link
+            href="/signup?role=builder"
+            className="text-[13px] text-brand-slate no-underline transition-colors duration-200 hover:text-brand-navy font-medium"
+          >
+            For Builders
+          </Link>
         </div>
 
         <div className="hidden md:flex gap-2 items-center">
@@ -93,6 +99,12 @@ export default function Nav({ authState }) {
                 {item}
               </a>
             ))}
+            <Link
+              href="/signup?role=builder"
+              className="block py-3 text-brand-slate text-sm border-b border-brand-border no-underline font-medium hover:text-brand-navy"
+            >
+              For Builders
+            </Link>
             {authState?.isAuthenticated ? (
               <Link href="/dashboard" className="w-full mt-4 bg-gradient-to-br from-brand-amberLight to-[#EA580C] text-white font-semibold p-3 rounded-[10px] border-none cursor-pointer block text-center no-underline">
                 Go to Dashboard &rarr;

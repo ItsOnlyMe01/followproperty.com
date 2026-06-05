@@ -1,6 +1,7 @@
 import { adminAuth } from "@/lib/firebase-admin";
 import connectToDatabase from "@/lib/db";
 import User from "@/models/User";
+import BuilderApplication from "@/models/BuilderApplication";
 import { NextResponse } from "next/server";
 import { isAdminEmail } from "@/config/admin/admin-emails";
 
@@ -57,9 +58,16 @@ export async function POST(req) {
       }
     }
 
+    // Fetch BuilderApplication status for the verified user
+    const appDoc = await BuilderApplication.findOne({ userId: user._id }).lean();
+    const builderApplicationStatus = appDoc ? appDoc.status : null;
+
+    const userObj = user.toObject ? user.toObject() : user;
+    userObj.builderApplicationStatus = builderApplicationStatus;
+
     const response = NextResponse.json({
       success: true,
-      user: user,
+      user: userObj,
     });
 
     // Set secure HTTP-only cookie for route protection in middleware

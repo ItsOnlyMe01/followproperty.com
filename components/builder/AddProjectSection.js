@@ -29,7 +29,7 @@ export default function AddProjectSection({ builder, onTabChange }) {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.projectName || !formData.locality) {
       alert("Please fill in all required fields.");
@@ -38,11 +38,27 @@ export default function AddProjectSection({ builder, onTabChange }) {
 
     setIsSubmitting(true);
 
-    // Mock API processing delay
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/projects", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setShowSuccess(true);
+      } else {
+        alert(data.error || "Failed to submit project.");
+      }
+    } catch (err) {
+      console.error("Error submitting project:", err);
+      alert("An error occurred. Please try again.");
+    } finally {
       setIsSubmitting(false);
-      setShowSuccess(true);
-    }, 1200);
+    }
   };
 
   const handleReset = () => {
@@ -57,6 +73,11 @@ export default function AddProjectSection({ builder, onTabChange }) {
     setShowSuccess(false);
   };
 
+  const handleBackToProjects = () => {
+    // Reload the page to trigger server component data refetching
+    window.location.reload();
+  };
+
   if (showSuccess) {
     return (
       <div className="max-w-xl mx-auto bg-brand-bgCard rounded-3xl border border-brand-border shadow-brand p-8 text-center space-y-6 animate-in zoom-in-95 duration-200">
@@ -64,23 +85,23 @@ export default function AddProjectSection({ builder, onTabChange }) {
           <CheckCircle2 size={36} />
         </div>
         <div className="space-y-2">
-          <h3 className="text-xl font-black text-brand-navy">Project Form Complete</h3>
+          <h3 className="text-xl font-black text-brand-navy">Project Submitted</h3>
           <p className="text-xs sm:text-sm text-brand-slate max-w-sm mx-auto leading-relaxed">
-            "{formData.projectName}" details have been successfully captured by the client UI.
+            "{formData.projectName}" has been successfully submitted and registered.
           </p>
         </div>
         <div className="bg-brand-tealBg border border-brand-tealBorder rounded-2xl p-4.5 text-xs text-brand-tealDark font-semibold text-center max-w-md mx-auto">
-          Notice: Submission logic & DB ingestion are currently disabled. This record has not been persisted to the catalogue.
+          Notice: Your project has been saved and is currently pending admin moderation. It will show up in your developer workspace but remains hidden from public listings.
         </div>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
           <button
             onClick={handleReset}
             className="w-full sm:w-auto text-xs font-semibold text-brand-slate hover:text-brand-navy bg-brand-bgAlt border border-brand-borderMid cursor-pointer py-2.5 px-5 rounded-lg transition-all"
           >
-            Create Another Mockup
+            Create Another Project
           </button>
           <button
-            onClick={() => onTabChange("projects")}
+            onClick={handleBackToProjects}
             className="w-full sm:w-auto text-xs font-semibold text-white bg-brand-teal hover:bg-brand-tealDark border-none cursor-pointer py-2.5 px-5 rounded-lg transition-all"
           >
             Back to Project Directory
