@@ -73,7 +73,7 @@ export default function Sidebar({ isOpen, onClose }) {
 
       {/* Sidebar Container */}
       <div
-        className={`fixed md:sticky top-0 left-0 h-screen flex flex-col z-50 md:translate-x-0 bg-brand-bgCard border-r border-brand-border ${
+        className={`fixed md:sticky top-0 left-0 h-screen flex flex-col z-50 md:translate-x-0 bg-brand-bg-card border-r border-brand-border ${
           isTransitionEnabled ? "transition-all duration-300 ease-in-out" : ""
         } ${
           isOpen ? "translate-x-0" : "-translate-x-full"
@@ -99,7 +99,7 @@ export default function Sidebar({ isOpen, onClose }) {
             <div className="flex flex-col items-center mb-4">
               <button 
                 onClick={toggleCollapse}
-                className="hidden md:flex items-center justify-center p-1.5 bg-transparent border-none cursor-pointer text-brand-slate hover:bg-brand-bgAlt rounded-lg transition-colors"
+                className="hidden md:flex items-center justify-center p-1.5 bg-transparent border-none cursor-pointer text-brand-slate hover:bg-brand-bg-alt rounded-lg transition-colors"
                 title="Expand Menu"
               >
                 <ChevronRight size={16} />
@@ -107,12 +107,12 @@ export default function Sidebar({ isOpen, onClose }) {
             </div>
           ) : (
             <div className="flex items-center justify-between mb-4 pl-3">
-              <p className="text-[11px] font-bold text-brand-slateLight tracking-[0.08em] uppercase m-0">
+              <p className="text-[11px] font-bold text-brand-slate-light tracking-[0.08em] uppercase m-0">
                 Menu
               </p>
               <button 
                 onClick={toggleCollapse}
-                className="hidden md:flex items-center justify-center p-1.5 bg-transparent border-none cursor-pointer text-brand-slate hover:bg-brand-bgAlt rounded-lg transition-colors"
+                className="hidden md:flex items-center justify-center p-1.5 bg-transparent border-none cursor-pointer text-brand-slate hover:bg-brand-bg-alt rounded-lg transition-colors"
                 title="Collapse Menu"
               >
                 <ChevronLeft size={16} />
@@ -134,17 +134,17 @@ export default function Sidebar({ isOpen, onClose }) {
                       onClose();
                     }
                   }}
-                  className={`flex items-center rounded-[10px] no-underline transition-all duration-200 ${
+                  className={`flex items-center rounded-[10px] no-underline transition-all duration-[0.22s] ${
                     isCollapsed 
                       ? "justify-center px-0 py-2.5" 
                       : "gap-3 px-3 py-2.5"
                   } ${
                     isActive 
-                      ? "bg-brand-tealBg text-brand-tealDark font-semibold" 
-                      : "bg-transparent text-brand-navyMid font-medium hover:bg-brand-bgAlt"
+                      ? "bg-brand-blue text-white font-semibold shadow-brand-blue" 
+                      : "bg-transparent text-brand-navy-mid font-medium hover:bg-brand-bg-alt"
                   }`}
                 >
-                  <Icon size={18} className={isActive ? "text-brand-teal" : "text-brand-slate"} />
+                  <Icon size={18} className={isActive ? "text-white" : "text-brand-slate"} />
                   {!isCollapsed && <span className="text-sm">{item.label}</span>}
                 </Link>
               );

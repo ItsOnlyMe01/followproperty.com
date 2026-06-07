@@ -12,12 +12,14 @@ import Footer from "../landing/Footer";
 export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       try {
         if (currentUser) {
+          setIsAuthenticated(true);
           const token = await currentUser.getIdToken();
           const res = await fetch("/api/auth/verify", {
             method: "POST",
@@ -40,6 +42,8 @@ export default function DashboardLayout({ children }) {
               return; // Keep loading true during redirection
             }
           }
+        } else {
+          setIsAuthenticated(false);
         }
       } catch (e) {
         console.error("Error verifying in DashboardLayout:", e);
@@ -54,7 +58,7 @@ export default function DashboardLayout({ children }) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-brand-bg">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 rounded-full border-4 border-brand-amber/20 border-t-brand-amber animate-spin" />
+          <div className="w-12 h-12 rounded-full border-4 border-brand-blue/20 border-t-brand-blue animate-spin" />
           <p className="text-sm font-semibold text-brand-navy/60 animate-pulse">Securing session...</p>
         </div>
       </div>
@@ -63,7 +67,9 @@ export default function DashboardLayout({ children }) {
 
   return (
     <div className="flex min-h-screen bg-brand-bg">
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      {isAuthenticated && (
+        <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      )}
       <div className="flex-1 flex flex-col min-w-0">
         <Navbar onMenuClick={() => setSidebarOpen(true)} />
         <main className="flex-1 overflow-y-auto flex flex-col justify-between">
@@ -75,7 +81,7 @@ export default function DashboardLayout({ children }) {
           </div>
         </main>
       </div>
-      <BottomNav />
+      {isAuthenticated && <BottomNav />}
     </div>
   );
 }

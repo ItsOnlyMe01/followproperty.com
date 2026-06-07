@@ -118,7 +118,7 @@ function SignupForm() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold text-brand-navy uppercase tracking-wider mb-2">
-                First Name <span className="text-brand-amber">*</span>
+                First Name <span className="text-brand-blue">*</span>
               </label>
               <input
                 type="text"
@@ -127,12 +127,12 @@ function SignupForm() {
                 placeholder="John"
                 disabled={loading}
                 required
-                className="w-full bg-white border border-brand-borderMid rounded-[10px] px-4 py-3 text-[14px] text-brand-navy placeholder:text-brand-slateLight focus:outline-none focus:ring-2 focus:ring-brand-amber/20 focus:border-brand-amber transition-all shadow-sm disabled:opacity-50"
+                className="form-input text-[14px] disabled:opacity-50"
               />
             </div>
             <div>
               <label className="block text-xs font-bold text-brand-navy uppercase tracking-wider mb-2">
-                Last Name <span className="text-brand-amber">*</span>
+                Last Name <span className="text-brand-blue">*</span>
               </label>
               <input
                 type="text"
@@ -141,7 +141,7 @@ function SignupForm() {
                 placeholder="Doe"
                 disabled={loading}
                 required
-                className="w-full bg-white border border-brand-borderMid rounded-[10px] px-4 py-3 text-[14px] text-brand-navy placeholder:text-brand-slateLight focus:outline-none focus:ring-2 focus:ring-brand-amber/20 focus:border-brand-amber transition-all shadow-sm disabled:opacity-50"
+                className="form-input text-[14px] disabled:opacity-50"
               />
             </div>
           </div>
@@ -149,7 +149,7 @@ function SignupForm() {
           {/* Phone Number */}
           <div>
             <label className="block text-xs font-bold text-brand-navy uppercase tracking-wider mb-2">
-              Phone Number <span className="text-brand-amber">*</span>
+              Phone Number <span className="text-brand-blue">*</span>
             </label>
             <input
               type="tel"
@@ -158,7 +158,7 @@ function SignupForm() {
               placeholder="+91 99999 99999"
               disabled={loading}
               required
-              className="w-full bg-white border border-brand-borderMid rounded-[10px] px-4 py-3 text-[14px] text-brand-navy placeholder:text-brand-slateLight focus:outline-none focus:ring-2 focus:ring-brand-amber/20 focus:border-brand-amber transition-all shadow-sm disabled:opacity-50"
+              className="form-input text-[14px] disabled:opacity-50"
             />
           </div>
 
@@ -166,7 +166,7 @@ function SignupForm() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold text-brand-navy uppercase tracking-wider mb-2">
-                State <span className="text-brand-amber">*</span>
+                State <span className="text-brand-blue">*</span>
               </label>
               <select
                 value={state}
@@ -176,7 +176,7 @@ function SignupForm() {
                 }}
                 disabled={loading}
                 required
-                className="w-full bg-white border border-brand-borderMid rounded-[10px] px-4 py-3 text-[14px] text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-amber/20 focus:border-brand-amber transition-all shadow-sm disabled:opacity-50 appearance-none bg-no-repeat bg-[right_16px_center] cursor-pointer"
+                className="form-input text-[14px] disabled:opacity-50 appearance-none bg-no-repeat bg-[right_16px_center] cursor-pointer"
                 style={{
                   backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238C97A8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
                 }}
@@ -192,7 +192,7 @@ function SignupForm() {
             <div>
               <div className="flex justify-between items-center mb-2">
                 <label className="block text-xs font-bold text-brand-navy uppercase tracking-wider">
-                  City <span className="text-brand-amber">*</span>
+                  City <span className="text-brand-blue">*</span>
                 </label>
                 {isManualCity && (
                   <button
@@ -201,7 +201,7 @@ function SignupForm() {
                       setIsManualCity(false);
                       setCustomCity("");
                     }}
-                    className="text-[10px] text-brand-amber font-bold cursor-pointer hover:underline bg-transparent border-none p-0 focus:outline-none"
+                    className="text-[10px] text-brand-blue font-bold cursor-pointer hover:underline bg-transparent border-none p-0 focus:outline-none"
                   >
                     ← Select from List
                   </button>
@@ -215,7 +215,7 @@ function SignupForm() {
                   placeholder="e.g. Almora"
                   disabled={loading}
                   required
-                  className="w-full bg-white border border-brand-borderMid rounded-[10px] px-4 py-3 text-[14px] text-brand-navy placeholder:text-brand-slateLight focus:outline-none focus:ring-2 focus:ring-brand-amber/20 focus:border-brand-amber transition-all shadow-sm disabled:opacity-50 animate-in fade-in duration-200"
+                  className="form-input text-[14px] disabled:opacity-50 animate-in fade-in duration-200"
                 />
               ) : (
                 <select
@@ -230,7 +230,7 @@ function SignupForm() {
                   }}
                   disabled={loading || !state}
                   required
-                  className="w-full bg-white border border-brand-borderMid rounded-[10px] px-4 py-3 text-[14px] text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-amber/20 focus:border-brand-amber transition-all shadow-sm disabled:opacity-50 appearance-none bg-no-repeat bg-[right_16px_center] cursor-pointer"
+                  className="form-input text-[14px] disabled:opacity-50 appearance-none bg-no-repeat bg-[right_16px_center] cursor-pointer"
                   style={{
                     backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238C97A8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
                   }}
@@ -255,7 +255,7 @@ function SignupForm() {
           {/* Email */}
           <div>
             <label className="block text-xs font-bold text-brand-navy uppercase tracking-wider mb-2">
-              Email Address <span className="text-brand-amber">*</span>
+              Email Address <span className="text-brand-blue">*</span>
             </label>
             <input
               type="email"
@@ -264,14 +264,14 @@ function SignupForm() {
               placeholder="demo@email.com"
               disabled={loading}
               required
-              className="w-full bg-white border border-brand-borderMid rounded-[10px] px-4 py-3 text-[14px] text-brand-navy placeholder:text-brand-slateLight focus:outline-none focus:ring-2 focus:ring-brand-amber/20 focus:border-brand-amber transition-all shadow-sm disabled:opacity-50"
+              className="form-input text-[14px] disabled:opacity-50"
             />
           </div>
 
           {/* Password */}
           <div>
             <label className="block text-xs font-bold text-brand-navy uppercase tracking-wider mb-2">
-              Password <span className="text-brand-amber">*</span>
+              Password <span className="text-brand-blue">*</span>
             </label>
             <div className="relative">
               <input
@@ -281,13 +281,13 @@ function SignupForm() {
                 placeholder="••••••••"
                 disabled={loading}
                 required
-                className="w-full bg-white border border-brand-borderMid rounded-[10px] pl-4 pr-11 py-3 text-[14px] text-brand-navy placeholder:text-brand-slateLight focus:outline-none focus:ring-2 focus:ring-brand-amber/20 focus:border-brand-amber transition-all shadow-sm disabled:opacity-50"
+                className="form-input pl-4 pr-11 text-[14px] disabled:opacity-50"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 disabled={loading}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-slateLight hover:text-brand-navy transition-colors focus:outline-none p-1.5 rounded-md disabled:opacity-50 cursor-pointer"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-slate-light hover:text-brand-navy transition-colors focus:outline-none p-1.5 rounded-md disabled:opacity-50 cursor-pointer"
                 aria-label={showPassword ? "Hide password" : "Show password"}
               >
                 {showPassword ? (
@@ -302,7 +302,7 @@ function SignupForm() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex items-center justify-center text-[15px] font-semibold text-white bg-gradient-to-br from-brand-amberLight to-[#EA580C] border-none py-3.5 rounded-[10px] shadow-[0_2px_12px_rgba(217,119,6,0.28)] transition-all duration-200 hover:-translate-y-[1px] hover:shadow-brand-amber mt-4 disabled:opacity-75 disabled:transform-none disabled:shadow-none cursor-pointer"
+            className="btn-primary w-full py-3.5 text-[15px] mt-4 disabled:opacity-75 disabled:transform-none disabled:shadow-none"
           >
             {loading ? (
               <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
@@ -317,7 +317,7 @@ function SignupForm() {
 
         <p className="text-center mt-6 text-[14px] text-brand-slate">
           Already have an account?{" "}
-          <Link href="/login" className="font-semibold text-brand-navy hover:text-brand-amber transition-colors">
+          <Link href="/login" className="font-semibold text-brand-navy hover:text-brand-blue transition-colors">
             Login
           </Link>
         </p>

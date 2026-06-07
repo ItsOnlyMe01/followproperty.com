@@ -49,15 +49,42 @@ export default function Hero({ authState }) {
   const y = useTransform(scrollY, [0, 500], [0, 120]);
   const opacity = useTransform(scrollY, [0, 380], [1, 0]);
 
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.5;
+    }
+  }, []);
+
   return (
     <div className="bg-brand-bg min-h-screen flex flex-col overflow-hidden relative">
       {/* Background texture */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute -top-[8%] left-1/2 -translate-x-1/2 w-[900px] h-[700px] rounded-full bg-[radial-gradient(ellipse,rgba(245,158,11,0.07)_0%,transparent_60%)]" />
-        <div className="absolute top-[20%] -right-[8%] w-[500px] h-[500px] rounded-full bg-[radial-gradient(ellipse,rgba(217,119,6,0.04)_0%,transparent_65%)]" />
-        <div className="absolute top-[30%] -left-[5%] w-[400px] h-[400px] rounded-full bg-[radial-gradient(ellipse,rgba(13,148,136,0.04)_0%,transparent_65%)]" />
+        {/* Subtle Video Background (Royalty-free for commercial use, self-hosted) */}
+        <video 
+          ref={videoRef}
+          autoPlay 
+          muted 
+          loop 
+          playsInline 
+          className="absolute inset-0 w-full h-full object-cover opacity-50"
+        >
+          <source 
+            src="/hero-bg-skyline.mp4" 
+            type="video/mp4" 
+          />
+        </video>
+
+        {/* Video Overlay Blend */}
+        <div className="absolute inset-0 bg-linear-to-b from-brand-bg/10 via-brand-bg/40 to-brand-bg" />
+
+        {/* Radial glows and mesh grid */}
+        <div className="absolute -top-[8%] left-1/2 -translate-x-1/2 w-[900px] h-[700px] rounded-full bg-[radial-gradient(ellipse,rgba(50,95,236,0.06)_0%,transparent_60%)]" />
+        <div className="absolute top-[20%] -right-[8%] w-[500px] h-[500px] rounded-full bg-[radial-gradient(ellipse,rgba(81,143,255,0.04)_0%,transparent_65%)]" />
+        <div className="absolute top-[30%] -left-[5%] w-[400px] h-[400px] rounded-full bg-[radial-gradient(ellipse,rgba(13,148,136,0.03)_0%,transparent_65%)]" />
         <div 
-          className="absolute inset-0 opacity-50" 
+          className="absolute inset-0 opacity-40" 
           style={{ 
             backgroundImage: "radial-gradient(var(--color-brand-border) 1.2px, transparent 1.2px)", 
             backgroundSize: "28px 28px" 
@@ -75,9 +102,9 @@ export default function Hero({ authState }) {
       >
         <div className="max-w-[860px] w-full">
           <motion.div variants={blurIn} custom={0} initial="hidden" animate="visible">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-amberBorder bg-brand-amberBg mb-7">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-border bg-brand-bg-card mb-7 shadow-brand">
               <span className="w-1.5 h-1.5 rounded-full bg-brand-emerald inline-block animate-pulse-custom" />
-              <span className="text-[11px] text-brand-amber tracking-[0.1em] uppercase font-medium">
+              <span className="text-[11px] text-brand-navy tracking-[0.1em] uppercase font-bold">
                 Live Market Intelligence
               </span>
             </div>
@@ -88,10 +115,10 @@ export default function Hero({ authState }) {
             custom={1}
             initial="hidden"
             animate="visible"
-            className="text-[clamp(28px,6.5vw,76px)] font-extrabold tracking-tight leading-[1.05] sm:leading-[0.95] text-brand-navy mb-0"
+            className="text-[clamp(28px,6.5vw,76px)] font-extrabold tracking-tight leading-[1.05] sm:leading-[0.95] text-brand-navy-deep mb-0"
           >
             <span className="block">Track Real Estate</span>
-            <span className="block mt-2 bg-gradient-to-br from-brand-amber via-[#EA580C] to-brand-amberLight bg-clip-text text-transparent">
+            <span className="block mt-2 bg-linear-to-r from-brand-navy-deep via-brand-blue-deep to-brand-blue bg-clip-text text-transparent">
               Like a Portfolio
             </span>
           </motion.h1>
@@ -117,14 +144,14 @@ export default function Hero({ authState }) {
           >
             <button
               onClick={() => router.push("/portfolio")}
-              className="w-full sm:w-auto flex items-center justify-center gap-2.5 bg-gradient-to-br from-brand-amberLight to-[#EA580C] text-white font-semibold text-[14px] sm:text-[15px] py-3.5 px-5 sm:px-7 rounded-[14px] border-none cursor-pointer shadow-brand-amber transition-all duration-250 hover:-translate-y-0.5 hover:shadow-[0_14px_42px_rgba(217,119,6,0.30)]"
+              className="w-full sm:w-auto flex items-center justify-center gap-2.5 bg-linear-to-r from-brand-navy-deep to-brand-navy-mid text-white font-bold text-[14px] sm:text-[15px] py-3.5 px-5 sm:px-7 rounded-[14px] border border-white/5 cursor-pointer shadow-brand-md transition-all duration-250 hover:-translate-y-0.5 hover:border-brand-blue-border hover:shadow-[0_12px_36px_rgba(50,95,236,0.14)]"
             >
               <HomeIcon size={17} /> {authState?.isAuthenticated && authState?.hasPortfolio ? "Open Portfolio" : "Start Tracking Portfolio"} <ArrowRight size={15} />
             </button>
  
             <button
               onClick={() => router.push("/watchlist")}
-              className="w-full sm:w-auto flex items-center justify-center gap-2.5 bg-brand-bgCard text-brand-navyMid font-medium text-[14px] sm:text-[15px] py-3.5 px-5 sm:px-7 rounded-[14px] border border-brand-borderMid cursor-pointer shadow-brand transition-all duration-250 hover:-translate-y-0.5 hover:shadow-brand-md hover:border-brand-amber"
+              className="w-full sm:w-auto flex items-center justify-center gap-2.5 bg-brand-bg-card text-brand-navy font-semibold text-[14px] sm:text-[15px] py-3.5 px-5 sm:px-7 rounded-[14px] border border-brand-border cursor-pointer shadow-brand transition-all duration-250 hover:-translate-y-0.5 hover:shadow-brand-md hover:border-brand-blue-border hover:bg-brand-bg-alt"
             >
               <Search size={17} /> {authState?.isAuthenticated && authState?.hasWatchlist ? "Open Watchlist" : "Looking to Buy"}
             </button>
@@ -140,7 +167,7 @@ export default function Hero({ authState }) {
             Are you a developer?{" "}
             <Link
               href="/signup?role=builder"
-              className="font-bold text-[#EA580C] hover:text-[#EA580C]/80 transition-colors no-underline hover:underline inline-flex items-center gap-0.5"
+              className="font-bold text-brand-blue hover:text-brand-blue-deep transition-colors no-underline hover:underline inline-flex items-center gap-0.5"
             >
               Register as Builder &rarr;
             </Link>
@@ -172,7 +199,7 @@ export default function Hero({ authState }) {
         </div>
       </motion.div>
 
-      <div className="absolute bottom-0 left-0 right-0 h-[80px] bg-gradient-to-t from-brand-bg to-transparent z-10" />
+      <div className="absolute bottom-0 left-0 right-0 h-[80px] bg-linear-to-t from-brand-bg to-transparent z-10" />
 
       <motion.div
         initial={{ opacity: 0 }}
@@ -183,9 +210,9 @@ export default function Hero({ authState }) {
         <motion.div
           animate={{ y: [0, 7, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="w-5 h-[34px] rounded-full border-[1.5px] border-brand-borderMid flex justify-center pt-1.5"
+          className="w-5 h-[34px] rounded-full border-[1.5px] border-brand-border-mid flex justify-center pt-1.5"
         >
-          <div className="w-[3px] h-2 rounded-full bg-brand-slateLight" />
+          <div className="w-[3px] h-2 rounded-full bg-brand-slate-light" />
         </motion.div>
       </motion.div>
     </div>

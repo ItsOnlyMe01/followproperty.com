@@ -79,17 +79,15 @@ export default function Onboarding() {
   return (
     <div className="min-h-screen bg-brand-bg flex flex-col justify-center items-center p-4 sm:p-8 font-sans antialiased">
       {/* Background glow effects */}
-      <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] bg-brand-teal/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-brand-amber/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] bg-brand-blue/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-brand-blue-light/5 rounded-full blur-[100px] pointer-events-none" />
 
       {/* Main Container */}
       <div className="w-full max-w-[680px] text-center relative z-10">
         
         {/* Logo / Header */}
-        <div className="flex items-center justify-center gap-2.5 no-underline mb-6">
-          <div className="w-10 h-10 rounded-[12px] bg-gradient-to-br from-brand-amberLight to-[#EA580C] flex items-center justify-center shadow-[0_2px_12px_rgba(217,119,6,0.30)]">
-            <Building2 size={18} color="#fff" strokeWidth={2.5} />
-          </div>
+        <div className="flex items-center justify-center gap-2 no-underline mb-6">
+          <img src="/favicon.svg" alt="FollowProperty Logo" className="w-9 h-9 object-contain" />
           <span className="font-extrabold text-[22px] text-brand-navy tracking-[-0.03em]">
             FollowProperty
           </span>
@@ -108,10 +106,10 @@ export default function Onboarding() {
           {/* Card 1: Track My Properties */}
           <div 
             onClick={() => !loading && handleSelection("track")}
-            className="group relative bg-brand-bgCard rounded-2xl border border-brand-border p-6 shadow-brand hover:-translate-y-1 hover:shadow-brand-md transition-all duration-200 cursor-pointer flex flex-col justify-between min-h-[220px]"
+            className="group relative bg-brand-bg-card rounded-2xl border border-brand-border p-6 shadow-brand hover:-translate-y-1 hover:shadow-brand-md transition-all duration-200 cursor-pointer flex flex-col justify-between min-h-[220px]"
           >
             <div>
-              <div className="w-12 h-12 rounded-xl bg-brand-amberBg border border-brand-amberBorder flex items-center justify-center mb-4 transition-transform duration-200 group-hover:scale-105">
+              <div className="w-12 h-12 rounded-xl bg-brand-amber-bg border border-brand-amber-border flex items-center justify-center mb-4 transition-transform duration-200 group-hover:scale-105">
                 <Building2 className="text-brand-amber" size={24} />
               </div>
               <h3 className="text-lg font-bold text-brand-navy mb-2 flex items-center gap-1.5">
@@ -123,18 +121,18 @@ export default function Onboarding() {
             </div>
             <div className="mt-4 flex items-center justify-between text-xs font-bold text-brand-amber group-hover:opacity-80 transition-opacity">
               <span>Get Started →</span>
-              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 bg-brand-amberBg text-brand-amber rounded-md border border-brand-amberBorder">Portfolio</span>
+              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 bg-brand-amber-bg text-brand-amber rounded-md border border-brand-amber-border">Portfolio</span>
             </div>
           </div>
 
           {/* Card 2: Looking To Buy */}
           <div 
             onClick={() => !loading && handleSelection("buy")}
-            className="group relative bg-brand-bgCard rounded-2xl border border-brand-border p-6 shadow-brand hover:-translate-y-1 hover:shadow-brand-md transition-all duration-200 cursor-pointer flex flex-col justify-between min-h-[220px]"
+            className="group relative bg-brand-bg-card rounded-2xl border border-brand-border p-6 shadow-brand hover:-translate-y-1 hover:shadow-brand-md transition-all duration-200 cursor-pointer flex flex-col justify-between min-h-[220px]"
           >
             <div>
-              <div className="w-12 h-12 rounded-xl bg-brand-tealBg border border-brand-tealBorder flex items-center justify-center mb-4 transition-transform duration-200 group-hover:scale-105">
-                <Search className="text-brand-tealDark" size={24} />
+              <div className="w-12 h-12 rounded-xl bg-brand-blue-bg border border-brand-blue-border flex items-center justify-center mb-4 transition-transform duration-200 group-hover:scale-105">
+                <Search className="text-brand-blue" size={24} />
               </div>
               <h3 className="text-lg font-bold text-brand-navy mb-2">
                 Looking To Buy
@@ -143,17 +141,17 @@ export default function Onboarding() {
                 Set up watchlists for target builder projects, track prices, assess locality risks, and compare eligible bank LAP limits.
               </p>
             </div>
-            <div className="mt-4 flex items-center justify-between text-xs font-bold text-brand-tealDark group-hover:opacity-80 transition-opacity">
+            <div className="mt-4 flex items-center justify-between text-xs font-bold text-brand-blue group-hover:opacity-80 transition-opacity">
               <span>Explore Matches →</span>
-              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 bg-brand-tealBg text-brand-tealDark rounded-md border border-brand-tealBorder">Watchlist</span>
+              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 bg-brand-blue-bg text-brand-blue rounded-md border border-brand-blue-border">Watchlist</span>
             </div>
           </div>
 
         </div>
 
         {/* Informational Footer */}
-        <p className="text-[11px] text-brand-slateLight mt-12 flex items-center justify-center gap-1.5 font-medium">
-          <Sparkles size={13} className="text-brand-amber" />
+        <p className="text-[11px] text-brand-slate-light mt-12 flex items-center justify-center gap-1.5 font-medium">
+          <Sparkles size={13} className="text-brand-blue" />
           Don't worry — you can track properties and create buying watchlists later from your dashboard.
         </p>
         

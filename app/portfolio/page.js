@@ -132,20 +132,20 @@ export default function PortfolioPage() {
         <div className="max-w-6xl mx-auto py-8">
           <div className="flex justify-between items-center mb-8">
             <div className="space-y-2">
-              <div className="h-8 w-44 bg-brand-bgAlt rounded-lg animate-pulse" />
-              <div className="h-4 w-72 bg-brand-bgAlt rounded-lg animate-pulse" />
+              <div className="h-8 w-44 bg-brand-bg-alt rounded-lg animate-pulse" />
+              <div className="h-4 w-72 bg-brand-bg-alt rounded-lg animate-pulse" />
             </div>
-            <div className="h-10 w-36 bg-brand-bgAlt rounded-xl animate-pulse" />
+            <div className="h-10 w-36 bg-brand-bg-alt rounded-xl animate-pulse" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-5 mb-8">
             {[1, 2, 3, 4].map(i => (
-              <div key={i} className="h-24 bg-brand-bgCard rounded-2xl border border-brand-border animate-pulse" />
+              <div key={i} className="h-24 bg-brand-bg-card rounded-2xl border border-brand-border animate-pulse" />
             ))}
           </div>
-          <div className="h-[260px] bg-brand-bgCard rounded-2xl border border-brand-border animate-pulse mb-8" />
+          <div className="h-[260px] bg-brand-bg-card rounded-2xl border border-brand-border animate-pulse mb-8" />
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {[1, 2].map(i => (
-              <div key={i} className="h-56 bg-brand-bgCard rounded-2xl border border-brand-border animate-pulse" />
+              <div key={i} className="h-56 bg-brand-bg-card rounded-2xl border border-brand-border animate-pulse" />
             ))}
           </div>
         </div>
@@ -166,8 +166,8 @@ export default function PortfolioPage() {
         {/* Header Section */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
           <div className="hidden sm:block">
-            <h1 className="text-3xl font-extrabold text-brand-navy mb-1.5 tracking-tight flex items-center gap-2">
-              <Building2 className="text-brand-amber" size={28} /> My Properties Portfolio
+            <h1 className="text-3xl font-extrabold text-brand-navy mb-1.5 tracking-tight">
+              My Properties Portfolio
             </h1>
             <p className="text-xs sm:text-sm text-brand-slate m-0">
               ⚠️ Prototype valuation based on user-provided purchase data. Real market intelligence integration coming soon.
@@ -176,7 +176,7 @@ export default function PortfolioPage() {
           
           <button
             onClick={() => setAddModalOpen(true)}
-            className="inline-flex items-center justify-center gap-1.5 px-4 py-2 sm:px-5 sm:py-3 bg-gradient-to-r from-brand-amberLight to-[#EA580C] text-white rounded-xl text-xs sm:text-sm font-bold border-none shadow-brand-amber hover:-translate-y-0.5 cursor-pointer transition-all duration-200"
+            className="inline-flex items-center justify-center gap-1.5 px-4 py-2 sm:px-5 sm:py-3 bg-linear-to-r from-brand-navy-deep to-brand-navy-mid text-white rounded-xl text-xs sm:text-sm font-bold border border-white/5 cursor-pointer shadow-brand-md transition-all duration-250 hover:-translate-y-0.5 hover:border-brand-blue-border hover:shadow-[0_12px_36px_rgba(50,95,236,0.14)]"
           >
             <Plus size={14} strokeWidth={2.5} /> Track New Property
           </button>
@@ -185,75 +185,77 @@ export default function PortfolioPage() {
         {/* Valuation Summary stats widgets */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 mb-8">
           {/* Card 1: Total Portfolio Value */}
-          <div className="bg-brand-bgCard p-3.5 sm:p-5 rounded-2xl border border-brand-border shadow-brand flex items-center gap-2.5 sm:gap-4">
-            <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl bg-brand-tealBg flex items-center justify-center flex-shrink-0">
-              <IndianRupee size={22} className="text-brand-teal w-4 h-4 sm:w-[22px] sm:h-[22px]" />
+          <div className="bg-brand-bg-card p-3.5 sm:p-5 rounded-2xl border border-brand-border shadow-brand flex items-center gap-2.5 sm:gap-4">
+            <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl bg-brand-blue-bg flex items-center justify-center flex-shrink-0">
+              <IndianRupee size={22} className="text-brand-blue w-4 h-4 sm:w-[22px] sm:h-[22px]" />
             </div>
             <div className="min-w-0">
               <p className="text-[9px] sm:text-[11px] font-semibold text-brand-slate uppercase tracking-wider mb-0.5 m-0 truncate">Portfolio Value</p>
               <h3 className="text-sm sm:text-xl font-black text-brand-navy m-0 truncate">{formatCurrency(totalValue)}</h3>
+              <p className="text-[8px] sm:text-[10px] text-brand-slate font-bold m-0 mt-0.5 truncate">Current estimate value</p>
             </div>
           </div>
 
           {/* Card 2: Total Invested */}
-          <div className="bg-brand-bgCard p-3.5 sm:p-5 rounded-2xl border border-brand-border shadow-brand flex items-center gap-2.5 sm:gap-4">
-            <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl bg-brand-navy/5 flex items-center justify-center flex-shrink-0">
-              <Building2 size={22} className="text-brand-navy w-4 h-4 sm:w-[22px] sm:h-[22px]" />
+          <div className="bg-brand-bg-card p-3.5 sm:p-5 rounded-2xl border border-brand-border shadow-brand flex items-center gap-2.5 sm:gap-4">
+            <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl bg-brand-blue-bg flex items-center justify-center flex-shrink-0">
+              <Building2 size={22} className="text-brand-blue w-4 h-4 sm:w-[22px] sm:h-[22px]" />
             </div>
             <div className="min-w-0">
               <p className="text-[9px] sm:text-[11px] font-semibold text-brand-slate uppercase tracking-wider mb-0.5 m-0 truncate">Capital Invested</p>
               <h3 className="text-sm sm:text-xl font-black text-brand-navy m-0 truncate">{formatCurrency(totalInvested)}</h3>
+              <p className="text-[8px] sm:text-[10px] text-brand-slate font-bold m-0 mt-0.5 truncate">Total paid capital basis</p>
             </div>
           </div>
 
           {/* Card 3: Net Capital Gain */}
-          <div className="bg-brand-bgCard p-3.5 sm:p-5 rounded-2xl border border-brand-border shadow-brand flex items-center gap-2.5 sm:gap-4">
-            <div className={`w-9 h-9 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${netGain >= 0 ? 'bg-brand-emeraldBg' : 'bg-brand-redBg'}`}>
+          <div className="bg-brand-bg-card p-3.5 sm:p-5 rounded-2xl border border-brand-border shadow-brand flex items-center gap-2.5 sm:gap-4">
+            <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl bg-brand-blue-bg flex items-center justify-center flex-shrink-0">
               {netGain >= 0 ? (
-                <TrendingUp size={22} className="text-brand-emerald w-4 h-4 sm:w-[22px] sm:h-[22px]" />
+                <TrendingUp size={22} className="text-brand-blue w-4 h-4 sm:w-[22px] sm:h-[22px]" />
               ) : (
-                <TrendingDown size={22} className="text-brand-red w-4 h-4 sm:w-[22px] sm:h-[22px]" />
+                <TrendingDown size={22} className="text-brand-blue w-4 h-4 sm:w-[22px] sm:h-[22px]" />
               )}
             </div>
             <div className="min-w-0">
               <p className="text-[9px] sm:text-[11px] font-semibold text-brand-slate uppercase tracking-wider mb-0.5 m-0 truncate">Appreciation</p>
-              <h3 className={`text-sm sm:text-xl font-black m-0 truncate ${netGain >= 0 ? 'text-brand-emerald' : 'text-brand-red'}`}>
+              <h3 className="text-sm sm:text-xl font-black text-brand-navy m-0 truncate">
                 {netGain >= 0 ? "+" : ""}{formatCurrency(netGain)}
               </h3>
-              <p className={`text-[8px] sm:text-[10px] font-bold m-0 mt-0.5 truncate ${netGain >= 0 ? 'text-brand-emerald' : 'text-brand-red'}`}>
+              <p className="text-[8px] sm:text-[10px] font-bold m-0 mt-0.5 truncate text-brand-slate">
                 {netGain >= 0 ? "+" : ""}{gainPct}% total returns
               </p>
             </div>
           </div>
 
           {/* Card 4: Rental Income */}
-          <div className="bg-brand-bgCard p-3.5 sm:p-5 rounded-2xl border border-brand-border shadow-brand flex items-center gap-2.5 sm:gap-4">
-            <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl bg-brand-amberBg flex items-center justify-center flex-shrink-0">
-              <IndianRupee size={22} className="text-brand-amber w-4 h-4 sm:w-[22px] sm:h-[22px]" />
+          <div className="bg-brand-bg-card p-3.5 sm:p-5 rounded-2xl border border-brand-border shadow-brand flex items-center gap-2.5 sm:gap-4">
+            <div className="w-9 h-9 sm:w-12 sm:h-12 rounded-xl bg-brand-blue-bg flex items-center justify-center flex-shrink-0">
+              <IndianRupee size={22} className="text-brand-blue w-4 h-4 sm:w-[22px] sm:h-[22px]" />
             </div>
             <div className="min-w-0">
               <p className="text-[9px] sm:text-[11px] font-semibold text-brand-slate uppercase tracking-wider mb-0.5 m-0 truncate">Monthly Rent</p>
               <h3 className="text-sm sm:text-xl font-black text-brand-navy m-0 truncate">{formatCurrency(totalMonthlyRent)}</h3>
-              <p className="text-[8px] sm:text-[10px] text-brand-slateLight font-bold m-0 mt-0.5 truncate">{averageYield}% average yield</p>
+              <p className="text-[8px] sm:text-[10px] text-brand-slate font-bold m-0 mt-0.5 truncate">{averageYield}% average yield</p>
             </div>
           </div>
         </div>
 
         {/* Aggregated Performance Section */}
-        <div className="bg-brand-bgCard p-6 rounded-3xl border border-brand-border shadow-brand mb-8">
+        <div className="card-frame p-6 hover:transform-none mb-8">
           <div className="flex items-center gap-2 mb-4 pb-3 border-b border-brand-border">
-            <Activity size={18} className="text-brand-teal" />
+            <Activity size={18} className="text-brand-blue" />
             <h2 className="text-lg font-bold text-brand-navy m-0">Portfolio Market Performance</h2>
           </div>
           
           <div className="mb-4">
             <PerformanceChart data={getAggregatedTimelineData()} />
           </div>
-
-          <div className="p-3 rounded-xl bg-brand-tealBg border border-brand-tealBorder/40 flex items-start gap-2">
-            <TrendingUp size={16} className="text-brand-teal mt-0.5 flex-shrink-0" />
-            <p className="text-xs text-brand-tealDark font-semibold m-0 leading-relaxed">
-              Your real estate portfolio has experienced an overall appreciation of <span className="font-black">{gainPct}%</span> since purchase. Check back for real market data integrations.
+ 
+          <div className="alert-blue items-start p-3 gap-2">
+            <TrendingUp size={16} className="text-brand-blue mt-0.5 flex-shrink-0" />
+            <p className="text-xs text-brand-blue-dark font-semibold m-0 leading-relaxed">
+              Your real estate portfolio has experienced an overall appreciation of <span className="font-black text-brand-amber">{gainPct}%</span> since purchase. Check back for real market data integrations.
             </p>
           </div>
         </div>
@@ -273,34 +275,34 @@ export default function PortfolioPage() {
         </div>
 
         {/* Reports & PDF Downloads */}
-        <div className="bg-brand-bgCard p-6 rounded-3xl border border-brand-border shadow-brand">
+        <div className="card-frame p-6 hover:transform-none">
           <div className="flex items-center gap-2 mb-3 pb-3 border-b border-brand-border">
-            <FileText size={18} className="text-brand-amber" />
+            <FileText size={18} className="text-brand-blue" />
             <h2 className="text-lg font-bold text-brand-navy m-0">Reports & Analytics</h2>
           </div>
           <p className="text-xs sm:text-sm text-brand-slate leading-relaxed mb-4">
             Get comprehensive, PDF-compiled valuation summaries and legal risk profiles for all your tracked properties. Click individual property cards above to generate and download their official reports.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="p-4 rounded-xl border border-brand-border bg-brand-bgAlt">
+            <div className="card-frame p-4 hover:transform-none">
               <h4 className="text-sm font-bold text-brand-navy mb-1.5 flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-brand-teal" /> Portfolio Performance PDF
+                <span className="w-2 h-2 rounded-full bg-brand-blue" /> Portfolio Performance PDF
               </h4>
               <p className="text-xs text-brand-slate mb-3 leading-relaxed">
                 Consolidate your entire capital appreciation metrics, yield rates, and active bank EMIs into one executive digest.
               </p>
-              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-1 bg-brand-borderMid text-brand-slate rounded">
+              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-1 bg-brand-border-mid text-brand-slate rounded">
                 Coming Soon
               </span>
             </div>
-            <div className="p-4 rounded-xl border border-brand-border bg-brand-bgAlt">
+            <div className="card-frame p-4 hover:transform-none">
               <h4 className="text-sm font-bold text-brand-navy mb-1.5 flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-brand-teal" /> Builder Risk Ledger
+                <span className="w-2 h-2 rounded-full bg-brand-blue" /> Builder Risk Ledger
               </h4>
               <p className="text-xs text-brand-slate mb-3 leading-relaxed">
                 Aggregated daily legal notifications, news analysis, and construction progress scores for your portfolio builders.
               </p>
-              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-1 bg-brand-borderMid text-brand-slate rounded">
+              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-1 bg-brand-border-mid text-brand-slate rounded">
                 Coming Soon
               </span>
             </div>
@@ -312,7 +314,7 @@ export default function PortfolioPage() {
       {addModalOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6">
           <div className="absolute inset-0 bg-brand-navy/60 backdrop-blur-sm" onClick={() => setAddModalOpen(false)} />
-          <div className="relative w-full max-w-4xl bg-brand-bgCard rounded-3xl overflow-hidden shadow-2xl border border-brand-border max-h-[90vh] flex flex-col z-10 animate-in fade-in zoom-in-95 duration-200">
+          <div className="relative w-full max-w-4xl bg-brand-bg-card rounded-3xl overflow-hidden shadow-2xl border border-brand-border max-h-[90vh] flex flex-col z-10 animate-in fade-in zoom-in-95 duration-200">
             <div className="flex-1 overflow-y-auto">
               <PortfolioFlow 
                 onClose={() => setAddModalOpen(false)} 

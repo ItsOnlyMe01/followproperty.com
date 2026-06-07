@@ -44,9 +44,9 @@ export default function CompareBar() {
       {/* Selection Details */}
       <div className="flex-1 min-w-0">
         <h4 className="text-xs sm:text-sm font-extrabold text-white m-0 flex items-center gap-1.5">
-          Compare Projects <span className="text-[10px] px-2 py-0.5 rounded-full bg-brand-teal text-white font-extrabold">{compareList.length}/3 Selected</span>
+          Compare Projects <span className="text-[10px] px-2 py-0.5 rounded-full bg-brand-blue text-white font-extrabold">{compareList.length}/3 Selected</span>
         </h4>
-        <p className="text-[10px] sm:text-xs text-brand-slateLight truncate m-0 mt-0.5 font-medium">
+        <p className="text-[10px] sm:text-xs text-brand-slate-light truncate m-0 mt-0.5 font-medium">
           {compareList.map((p) => p.name).join(" • ")}
         </p>
       </div>
@@ -55,7 +55,7 @@ export default function CompareBar() {
       <div className="flex items-center gap-2.5 flex-shrink-0">
         <Link
           href={`/compare?ids=${compareIds}`}
-          className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-brand-teal text-white rounded-xl text-[11px] font-extrabold shadow-brand hover:opacity-90 active:scale-95 no-underline transition-all"
+          className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-brand-blue text-white rounded-xl text-[11px] font-extrabold shadow-brand hover:opacity-90 active:scale-95 no-underline transition-all"
         >
           Compare Now <ArrowRight size={13} />
         </Link>

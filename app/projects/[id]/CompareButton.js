@@ -57,7 +57,7 @@ export default function CompareButton({ projectId, projectName }) {
     return (
       <button
         disabled
-        className="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-brand-amberBg text-brand-amber border border-brand-amber/30 cursor-not-allowed select-none animate-bounce"
+        className="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-brand-amber-bg text-brand-amber border border-brand-amber/30 cursor-not-allowed select-none animate-bounce"
       >
         Limit Reached (Max 3)
       </button>
@@ -68,7 +68,7 @@ export default function CompareButton({ projectId, projectName }) {
     return (
       <button
         onClick={handleToggle}
-        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-brand-teal text-white border border-brand-teal shadow-sm hover:bg-brand-teal/90 active:scale-95 transition-all cursor-pointer select-none"
+        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-brand-blue text-white border border-brand-blue shadow-sm hover:bg-brand-blue/90 active:scale-95 transition-all cursor-pointer select-none"
       >
         <Check size={11} strokeWidth={3} />
         Added to Compare
@@ -79,7 +79,7 @@ export default function CompareButton({ projectId, projectName }) {
   return (
     <button
       onClick={handleToggle}
-      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-brand-bgAlt text-brand-teal hover:bg-brand-tealBg border border-brand-teal/20 active:scale-95 transition-all cursor-pointer select-none"
+      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-brand-bg-alt text-brand-blue hover:bg-brand-blue-bg border border-brand-blue-border active:scale-95 transition-all cursor-pointer select-none"
     >
       <GitCompare size={11} strokeWidth={2.5} />
       Add to Compare

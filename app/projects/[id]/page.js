@@ -97,7 +97,7 @@ export default async function ProjectDetailsPage({ params, searchParams }) {
         </div>
 
         {/* 1. HERO SECTION */}
-        <div className="bg-brand-bgCard p-6 sm:p-8 rounded-3xl border border-brand-border shadow-brand mb-6 flex flex-col md:flex-row justify-between items-start md:items-stretch gap-6 animate-in fade-in duration-200">
+        <div className="bg-brand-bg-card p-6 sm:p-8 rounded-3xl border border-brand-border shadow-brand mb-6 flex flex-col md:flex-row justify-between items-start md:items-stretch gap-6 animate-in fade-in duration-200">
           {/* Left Column: Project Identity */}
           <div className="flex-1 flex flex-col justify-between">
             <div>
@@ -107,11 +107,11 @@ export default async function ProjectDetailsPage({ params, searchParams }) {
               
               {project.builderName && (
                 <p className="text-sm text-brand-slate font-bold m-0 mb-3 flex items-center gap-1.5">
-                  <Building size={14} className="text-brand-slateLight" />
+                  <Building size={14} className="text-brand-slate-light" />
                   By{" "}
                   <Link
                     href={`/builders/${builderSlug}`}
-                    className="text-brand-teal font-extrabold hover:underline"
+                    className="text-brand-navy hover:text-brand-blue font-extrabold transition-colors hover:underline"
                   >
                     {project.builderName}
                   </Link>
@@ -120,14 +120,14 @@ export default async function ProjectDetailsPage({ params, searchParams }) {
 
               <div className="flex flex-wrap items-center gap-2 mb-4">
                 {project.bhk && project.bhk.length > 0 && (
-                  <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-brand-tealBg text-brand-tealDark border border-brand-tealBorder">
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-brand-bg text-brand-navy border border-brand-border-mid">
                     {project.bhk.join(", ")} BHK
                   </span>
                 )}
                 <span className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider border ${
                   isReady
-                    ? "bg-brand-emeraldBg text-brand-emerald border-brand-emerald/20"
-                    : "bg-brand-amberBg text-brand-amber border-brand-amber/20"
+                    ? "bg-brand-emerald-bg text-brand-emerald border-brand-emerald/20"
+                    : "bg-brand-amber-bg text-brand-amber border-brand-amber/20"
                 }`}>
                   {isReady ? "Ready to Move" : "Under Construction"}
                 </span>
@@ -136,8 +136,8 @@ export default async function ProjectDetailsPage({ params, searchParams }) {
               </div>
             </div>
 
-            <div className="flex items-center gap-1.5 text-xs text-brand-navyMid font-extrabold mt-3 md:mt-0">
-              <MapPin size={15} className="text-brand-teal" />
+            <div className="flex items-center gap-1.5 text-xs text-brand-navy-mid font-extrabold mt-3 md:mt-0">
+              <MapPin size={15} className="text-brand-slate" />
               <span>
                 {project.locality ? `${project.locality}, ` : ""}{project.city}{project.state ? `, ${project.state}` : ""}
               </span>
@@ -145,12 +145,12 @@ export default async function ProjectDetailsPage({ params, searchParams }) {
           </div>
 
           {/* Right Column: Price Highlight Card */}
-          <div className="w-full md:w-[280px] bg-brand-bgAlt p-5 rounded-2xl border border-brand-border flex flex-col justify-between min-h-[120px] md:min-h-auto">
+          <div className="w-full md:w-[280px] bg-brand-bg-alt p-5 rounded-2xl border border-brand-border flex flex-col justify-between min-h-[120px] md:min-h-auto">
             <div>
               <p className="text-[10px] text-brand-slate uppercase font-bold tracking-wider mb-1">
                 Estimated Price Range
               </p>
-              <h2 className="text-xl sm:text-2xl font-extrabold text-brand-tealDark tracking-tight m-0 leading-tight">
+              <h2 className="text-xl sm:text-2xl font-extrabold text-brand-navy-deep tracking-tight m-0 leading-tight">
                 {formatPriceRange(project.minPrice, project.maxPrice, "₹")}
               </h2>
             </div>
@@ -170,16 +170,16 @@ export default async function ProjectDetailsPage({ params, searchParams }) {
 
         {/* 2. WATCHLIST CONTEXT BANNER */}
         {watchlist && (
-          <div className="bg-brand-tealBg border border-brand-tealBorder p-4 sm:p-5 rounded-2xl flex items-start sm:items-center gap-3.5 mb-6 animate-in fade-in slide-in-from-top-2 duration-200">
-            <div className="w-8 h-8 rounded-lg bg-brand-teal flex-shrink-0 flex items-center justify-center text-white font-extrabold shadow-[0_2px_8px_rgba(13,148,136,0.2)]">
+          <div className="bg-brand-bg-card border border-brand-border shadow-brand p-4 sm:p-5 rounded-2xl flex items-start sm:items-center gap-3.5 mb-6 animate-in fade-in slide-in-from-top-2 duration-200">
+            <div className="w-8 h-8 rounded-lg bg-brand-blue-bg text-brand-blue flex-shrink-0 flex items-center justify-center font-extrabold border border-brand-blue-border">
               ✓
             </div>
             <div>
-              <h4 className="text-sm font-extrabold text-brand-tealDark m-0 mb-0.5">
+              <h4 className="text-sm font-extrabold text-brand-navy m-0 mb-0.5">
                 Matched your buying requirements
               </h4>
-              <p className="text-xs text-brand-tealDark/80 m-0 leading-relaxed font-semibold">
-                This project satisfies your active buying profile for a <span className="font-extrabold">{watchlist.specificType}</span> in <span className="font-extrabold">{watchlist.locality}, {watchlist.city}</span>.
+              <p className="text-xs text-brand-slate m-0 leading-relaxed font-semibold">
+                This project satisfies your active buying profile for a <span className="font-bold text-brand-navy">{watchlist.specificType}</span> in <span className="font-bold text-brand-navy">{watchlist.locality}, {watchlist.city}</span>.
               </p>
             </div>
           </div>
@@ -187,14 +187,14 @@ export default async function ProjectDetailsPage({ params, searchParams }) {
 
         {/* 3. PROJECT HIGHLIGHTS */}
         {highlights.length > 0 && (
-          <div className="bg-brand-bgCard p-6 rounded-3xl border border-brand-border shadow-brand mb-6">
+          <div className="bg-brand-bg-card p-6 rounded-3xl border border-brand-border shadow-brand mb-6">
             <h3 className="text-xs font-extrabold text-brand-slate uppercase tracking-wider mb-4 border-b border-brand-border pb-2.5 flex items-center gap-2 m-0">
-              <CheckCircle2 size={15} className="text-brand-teal" /> Project Highlights
+              <CheckCircle2 size={15} className="text-brand-slate" /> Project Highlights
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               {highlights.map((highlight, idx) => (
-                <div key={idx} className="flex items-center gap-2.5 text-sm font-bold text-brand-navyMid">
-                  <span className="text-brand-teal font-extrabold">✓</span>
+                <div key={idx} className="flex items-center gap-2.5 text-sm font-bold text-brand-navy-mid">
+                  <span className="text-brand-blue font-extrabold">✓</span>
                   <span>{highlight}</span>
                 </div>
               ))}
@@ -203,20 +203,20 @@ export default async function ProjectDetailsPage({ params, searchParams }) {
         )}
 
         {/* 4. CONFIGURATIONS & DIMENSIONS */}
-        <div className="bg-brand-bgCard p-6 rounded-3xl border border-brand-border shadow-brand mb-6">
+        <div className="bg-brand-bg-card p-6 rounded-3xl border border-brand-border shadow-brand mb-6">
           <h3 className="text-xs font-extrabold text-brand-slate uppercase tracking-wider mb-4 border-b border-brand-border pb-2.5 flex items-center gap-2 m-0">
-            <LayoutGrid size={15} className="text-brand-teal" /> Configurations & Dimensions
+            <LayoutGrid size={15} className="text-brand-slate" /> Configurations & Dimensions
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {/* BHK Configurations */}
             {project.bhk && project.bhk.length > 0 && (
-              <div className="p-4 bg-brand-bgAlt rounded-xl border border-brand-border flex flex-col justify-between">
+              <div className="p-4 bg-brand-bg-card rounded-xl border border-brand-border shadow-xs flex flex-col justify-between">
                 <span className="text-[10px] text-brand-slate uppercase font-bold tracking-wider mb-2.5 block">
                   BHK Options
                 </span>
                 <div className="flex flex-wrap gap-1.5">
                   {project.bhk.map((b) => (
-                    <span key={b} className="px-2.5 py-0.5 rounded bg-brand-tealBg text-brand-tealDark text-xs font-extrabold border border-brand-tealBorder">
+                    <span key={b} className="px-2.5 py-0.5 rounded bg-brand-bg text-brand-navy text-xs font-extrabold border border-brand-border-mid">
                       {b} BHK
                     </span>
                   ))}
@@ -226,7 +226,7 @@ export default async function ProjectDetailsPage({ params, searchParams }) {
 
             {/* Area Range */}
             {formatAreaRange(project.minArea, project.maxArea, project.superArea, project.avgAreaSqft) && (
-              <div className="p-4 bg-brand-bgAlt rounded-xl border border-brand-border">
+              <div className="p-4 bg-brand-bg-card rounded-xl border border-brand-border shadow-xs">
                 <span className="text-[10px] text-brand-slate uppercase font-bold tracking-wider mb-2.5 block">
                   Area Range
                 </span>
@@ -238,7 +238,7 @@ export default async function ProjectDetailsPage({ params, searchParams }) {
 
             {/* Structure Configurations */}
             {project.configuration && (
-              <div className="p-4 bg-brand-bgAlt rounded-xl border border-brand-border">
+              <div className="p-4 bg-brand-bg-card rounded-xl border border-brand-border shadow-xs">
                 <span className="text-[10px] text-brand-slate uppercase font-bold tracking-wider mb-2.5 block">
                   Structure Types
                 </span>
@@ -252,9 +252,9 @@ export default async function ProjectDetailsPage({ params, searchParams }) {
 
         {/* 5. PROJECT OVERVIEW */}
         {(project.towers || project.units || project.totalArea || project.launchedDate || project.possessionDate) && (
-          <div className="bg-brand-bgCard p-6 rounded-3xl border border-brand-border shadow-brand mb-6">
+          <div className="bg-brand-bg-card p-6 rounded-3xl border border-brand-border shadow-brand mb-6">
             <h3 className="text-xs font-extrabold text-brand-slate uppercase tracking-wider mb-4 border-b border-brand-border pb-2.5 flex items-center gap-2 m-0">
-              <Layers size={15} className="text-brand-teal" /> Project Overview
+              <Layers size={15} className="text-brand-slate" /> Project Overview
             </h3>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-5 gap-x-4">
               {project.towers && (
@@ -293,14 +293,14 @@ export default async function ProjectDetailsPage({ params, searchParams }) {
 
         {/* 6. PRICING & RENTAL INFORMATION */}
         {(project.perSqftRate || project.monthlyRentRange || project.perSqftRentalAvg) && (
-          <div className="bg-brand-bgCard p-6 rounded-3xl border border-brand-border shadow-brand mb-8">
+          <div className="bg-brand-bg-card p-6 rounded-3xl border border-brand-border shadow-brand mb-8">
             <h3 className="text-xs font-extrabold text-brand-slate uppercase tracking-wider mb-4 border-b border-brand-border pb-2.5 flex items-center gap-2 m-0">
-              <TrendingUp size={15} className="text-brand-teal" /> Pricing & Rental Information
+              <TrendingUp size={15} className="text-brand-slate" /> Pricing & Rental Information
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
               {/* Average rate */}
               {project.perSqftRate && (
-                <div className="p-4 bg-brand-bgAlt rounded-xl border border-brand-border">
+                <div className="p-4 bg-brand-bg-card rounded-xl border border-brand-border shadow-xs">
                   <span className="text-[10px] text-brand-slate uppercase font-bold tracking-wider mb-2 block">
                     Average Price Rate
                   </span>
@@ -312,7 +312,7 @@ export default async function ProjectDetailsPage({ params, searchParams }) {
 
               {/* Monthly rental estimate */}
               {project.monthlyRentRange && (
-                <div className="p-4 bg-brand-bgAlt rounded-xl border border-brand-border">
+                <div className="p-4 bg-brand-bg-card rounded-xl border border-brand-border shadow-xs">
                   <span className="text-[10px] text-brand-slate uppercase font-bold tracking-wider mb-2 block">
                     Monthly Rent Estimate
                   </span>
@@ -324,7 +324,7 @@ export default async function ProjectDetailsPage({ params, searchParams }) {
 
               {/* Average rental yield rate */}
               {project.perSqftRentalAvg && (
-                <div className="p-4 bg-brand-bgAlt rounded-xl border border-brand-border">
+                <div className="p-4 bg-brand-bg-card rounded-xl border border-brand-border shadow-xs">
                   <span className="text-[10px] text-brand-slate uppercase font-bold tracking-wider mb-2 block">
                     Rental Rate Avg
                   </span>
@@ -338,15 +338,23 @@ export default async function ProjectDetailsPage({ params, searchParams }) {
         )}
 
         {/* 7. BOTTOM CTA SECTION */}
-        <div className="bg-gradient-to-br from-brand-navy to-brand-navyMid p-6 sm:p-8 rounded-3xl border border-brand-border text-center shadow-brand text-white animate-in fade-in zoom-in-95 duration-200">
-          <h3 className="text-xl sm:text-2xl font-extrabold tracking-tight m-0 mb-2">
+        <div className="relative overflow-hidden bg-linear-to-br from-brand-navy-deep via-brand-navy to-brand-navy-mid p-6 sm:p-8 rounded-3xl border border-brand-border text-center shadow-brand-lg text-white animate-in fade-in zoom-in-95 duration-200">
+          <div className="absolute inset-0 opacity-10 pointer-events-none" 
+               style={{ 
+                 backgroundImage: "radial-gradient(var(--color-brand-border) 1.2px, transparent 1.2px)", 
+                 backgroundSize: "24px 24px" 
+               }} 
+          />
+          <h3 className="relative z-10 text-xl sm:text-2xl font-extrabold tracking-tight m-0 mb-2">
             Interested in this Project?
           </h3>
-          <p className="text-xs sm:text-sm text-brand-slateLight max-w-[480px] mx-auto m-0 mb-6 leading-relaxed">
+          <p className="relative z-10 text-xs sm:text-sm text-brand-slate-light max-w-[480px] mx-auto m-0 mb-6 leading-relaxed">
             Receive direct builder inventory pricing updates and schedule verified site visits with project managers. Skip external broker fees entirely.
           </p>
           
-          <LeadButton />
+          <div className="relative z-10">
+            <LeadButton />
+          </div>
         </div>
 
         {/* Floating Bottom Comparison Drawer */}

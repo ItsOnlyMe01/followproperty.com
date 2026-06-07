@@ -6,7 +6,7 @@ import { User, Shield, Link2, Calendar } from "lucide-react";
 export default function ProfileSection({ builder }) {
   if (!builder) {
     return (
-      <div className="bg-brand-bgCard p-6 rounded-3xl border border-brand-border shadow-brand text-center py-12">
+      <div className="bg-brand-bg-card p-6 rounded-3xl border border-brand-border shadow-brand text-center py-12">
         <h3 className="text-lg font-bold text-brand-navy mb-2">No Profile Found</h3>
         <p className="text-sm text-brand-slate max-w-md mx-auto">
           No developer profile is linked to this workspace. Please run database seed/migration files or set up a developer entry.
@@ -19,11 +19,11 @@ export default function ProfileSection({ builder }) {
   const getStatusBadgeClass = (status) => {
     switch (status?.toLowerCase()) {
       case "active":
-        return "bg-brand-emeraldBg text-brand-emerald border-brand-emerald/10";
+        return "bg-brand-emerald-bg text-brand-emerald border-brand-emerald/10";
       case "pending":
-        return "bg-brand-amberBg text-brand-amber border-brand-amberBorder";
+        return "bg-brand-amber-bg text-brand-amber border-brand-amber-border";
       default:
-        return "bg-brand-bgAlt text-brand-slate border-brand-borderMid";
+        return "bg-brand-bg-alt text-brand-slate border-brand-border-mid";
     }
   };
 
@@ -40,17 +40,17 @@ export default function ProfileSection({ builder }) {
       </div>
 
       {/* Main Info Card */}
-      <div className="bg-brand-bgCard rounded-3xl border border-brand-border shadow-brand p-6 md:p-8 space-y-6">
+      <div className="bg-brand-bg-card rounded-3xl border border-brand-border shadow-brand p-6 md:p-8 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-brand-border gap-4">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-brand-tealBg flex items-center justify-center text-brand-teal">
+            <div className="w-12 h-12 rounded-2xl bg-brand-blue-bg flex items-center justify-center text-brand-blue">
               <User size={24} />
             </div>
             <div>
               <h3 className="text-lg font-bold text-brand-navy m-0">
                 {builder.name}
               </h3>
-              <p className="text-xs text-brand-slateLight font-medium m-0">
+              <p className="text-xs text-brand-slate-light font-medium m-0">
                 Developer Identity ID: {builder.id}
               </p>
             </div>
@@ -69,9 +69,9 @@ export default function ProfileSection({ builder }) {
           {/* Builder Name Field */}
           <div className="space-y-1.5">
             <label className="text-xs font-bold text-brand-slate uppercase tracking-wider flex items-center gap-1.5">
-              <User size={13} className="text-brand-slateLight" /> Builder Name
+              <User size={13} className="text-brand-slate-light" /> Builder Name
             </label>
-            <div className="bg-brand-bgAlt border border-brand-borderMid rounded-xl px-4 py-3 text-sm text-brand-navy font-semibold select-all">
+            <div className="bg-brand-bg-alt border border-brand-border-mid rounded-xl px-4 py-3 text-sm text-brand-navy font-semibold select-all">
               {builder.name}
             </div>
           </div>
@@ -79,9 +79,9 @@ export default function ProfileSection({ builder }) {
           {/* Builder Slug Field */}
           <div className="space-y-1.5">
             <label className="text-xs font-bold text-brand-slate uppercase tracking-wider flex items-center gap-1.5">
-              <Link2 size={13} className="text-brand-slateLight" /> URL Slug
+              <Link2 size={13} className="text-brand-slate-light" /> URL Slug
             </label>
-            <div className="bg-brand-bgAlt border border-brand-borderMid rounded-xl px-4 py-3 text-sm text-brand-navy font-semibold select-all">
+            <div className="bg-brand-bg-alt border border-brand-border-mid rounded-xl px-4 py-3 text-sm text-brand-navy font-semibold select-all">
               {builder.slug}
             </div>
           </div>
@@ -89,9 +89,9 @@ export default function ProfileSection({ builder }) {
           {/* Verification Status Field */}
           <div className="space-y-1.5">
             <label className="text-xs font-bold text-brand-slate uppercase tracking-wider flex items-center gap-1.5">
-              <Shield size={13} className="text-brand-slateLight" /> Account Status
+              <Shield size={13} className="text-brand-slate-light" /> Account Status
             </label>
-            <div className="bg-brand-bgAlt border border-brand-borderMid rounded-xl px-4 py-3 text-sm text-brand-navy font-semibold capitalize">
+            <div className="bg-brand-bg-alt border border-brand-border-mid rounded-xl px-4 py-3 text-sm text-brand-navy font-semibold capitalize">
               {builder.status || "active"} Verified
             </div>
           </div>
@@ -99,16 +99,16 @@ export default function ProfileSection({ builder }) {
           {/* Catalog URL Field */}
           <div className="space-y-1.5">
             <label className="text-xs font-bold text-brand-slate uppercase tracking-wider flex items-center gap-1.5">
-              <Calendar size={13} className="text-brand-slateLight" /> Public URL
+              <Calendar size={13} className="text-brand-slate-light" /> Public URL
             </label>
-            <div className="bg-brand-bgAlt border border-brand-borderMid rounded-xl px-4 py-3 text-sm text-brand-navy font-semibold truncate select-all">
+            <div className="bg-brand-bg-alt border border-brand-border-mid rounded-xl px-4 py-3 text-sm text-brand-navy font-semibold truncate select-all">
               /builders/{builder.slug}
             </div>
           </div>
         </div>
 
         {/* Moderation Notice Alert */}
-        <div className="bg-brand-tealBg border border-brand-tealBorder rounded-2xl p-4.5 text-xs text-brand-tealDark font-medium leading-relaxed">
+        <div className="bg-brand-blue-bg border border-brand-blue-border rounded-2xl p-4.5 text-xs text-brand-blue-dark font-medium leading-relaxed">
           <strong>Need to update profile details?</strong> Standard editing forms are disabled to maintain catalog accuracy. To update your developer name or slug credentials, please submit an approval request through support channels.
         </div>
       </div>

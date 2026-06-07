@@ -21,7 +21,7 @@ export default function BuilderBottomNav({ activeTab, onTabChange }) {
   ];
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 h-[64px] bg-brand-bgCard border-t border-brand-border z-40 flex items-center justify-around md:hidden px-2 shadow-[0_-4px_16px_rgba(0,0,0,0.03)]">
+    <div className="fixed bottom-0 left-0 right-0 h-[64px] bg-brand-bg-card border-t border-brand-border z-40 flex items-center justify-around md:hidden px-2 shadow-[0_-4px_16px_rgba(0,0,0,0.03)]">
       {navItems.map((item) => {
         const Icon = item.icon;
         const isActive = activeTab === item.id;
@@ -30,10 +30,10 @@ export default function BuilderBottomNav({ activeTab, onTabChange }) {
             key={item.id}
             onClick={() => onTabChange(item.id)}
             className={`flex flex-col items-center justify-center flex-1 h-full bg-transparent border-none cursor-pointer outline-none transition-all ${
-              isActive ? "text-brand-teal" : "text-brand-slate"
+              isActive ? "text-brand-blue" : "text-brand-slate"
             }`}
           >
-            <div className={`p-1 rounded-lg transition-colors ${isActive ? "text-brand-teal" : "text-brand-slate"}`}>
+            <div className={`p-1 rounded-lg transition-colors ${isActive ? "text-brand-blue" : "text-brand-slate"}`}>
               <Icon size={19} strokeWidth={isActive ? 2.5 : 2} />
             </div>
             <span className="text-[10px] font-extrabold tracking-wide mt-0.5">{item.label}</span>

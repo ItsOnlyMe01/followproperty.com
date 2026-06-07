@@ -1,6 +1,5 @@
 import React from "react";
 import { 
-  Building2, 
   Mail, 
   Phone, 
   MapPin
@@ -89,7 +88,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-brand-bgAlt border-t border-brand-border py-12 md:py-16 w-full">
+    <footer className="bg-brand-bg-alt border-t border-brand-border py-12 md:py-16 w-full">
       <div className="max-w-[1200px] mx-auto px-6">
         {/* Top Section */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-12 pb-12 border-b border-brand-border">
@@ -97,14 +96,12 @@ export default function Footer() {
           {/* Logo & Company Info Column */}
           <div className="col-span-12 lg:col-span-5 flex flex-col items-start">
             {/* Brand Logo consistent with Site Nav */}
-            <div className="flex items-center gap-2.5 mb-5">
-              <div className="w-8 h-8 rounded-[9px] bg-gradient-to-br from-brand-amberLight to-[#EA580C] flex items-center justify-center shadow-[0_2px_10px_rgba(217,119,6,0.30)]">
-                <Building2 size={15} color="#fff" strokeWidth={2.5} />
-              </div>
+            <div className="flex items-center gap-2 mb-5">
+              <img src="/favicon.svg" alt="FollowProperty Logo" className="w-7 h-7 object-contain" />
               <span className="font-bold text-[17px] text-brand-navy tracking-[-0.025em]">
                 {logo}
               </span>
-              <span className="text-[10px] text-brand-slateLight tracking-[0.14em] uppercase ml-1">
+              <span className="text-[10px] text-brand-slate-light tracking-[0.14em] uppercase ml-1">
                 Real Assets
               </span>
             </div>
@@ -121,7 +118,7 @@ export default function Footer() {
                   href={`mailto:${contact.email}`} 
                   className="group flex items-center gap-3 text-[13px] text-brand-slate hover:text-brand-navy transition-colors duration-200"
                 >
-                  <Mail size={15} className="text-brand-slateLight group-hover:text-brand-amber transition-colors duration-200 flex-shrink-0" />
+                  <Mail size={15} className="text-brand-slate-light group-hover:text-brand-blue transition-colors duration-200 flex-shrink-0" />
                   <span className="truncate">{contact.email}</span>
                 </a>
               )}
@@ -130,13 +127,13 @@ export default function Footer() {
                   href={`tel:${contact.phone}`} 
                   className="group flex items-center gap-3 text-[13px] text-brand-slate hover:text-brand-navy transition-colors duration-200"
                 >
-                  <Phone size={15} className="text-brand-slateLight group-hover:text-brand-amber transition-colors duration-200 flex-shrink-0" />
+                  <Phone size={15} className="text-brand-slate-light group-hover:text-brand-blue transition-colors duration-200 flex-shrink-0" />
                   <span>{contact.phone}</span>
                 </a>
               )}
               {contact.address && (
                 <div className="group flex items-start gap-3 text-[13px] text-brand-slate leading-relaxed">
-                  <MapPin size={15} className="text-brand-slateLight mt-0.5 flex-shrink-0" />
+                  <MapPin size={15} className="text-brand-slate-light mt-0.5 flex-shrink-0" />
                   <span>{contact.address}</span>
                 </div>
               )}
@@ -185,7 +182,7 @@ export default function Footer() {
                   key={social.name}
                   href={social.href}
                   aria-label={`Follow us on ${social.name}`}
-                  className="w-9 h-9 rounded-full border border-brand-borderMid flex items-center justify-center bg-white text-brand-slate hover:text-[#EA580C] hover:border-[#EA580C] hover:-translate-y-0.5 hover:shadow-brand transition-all duration-[0.25s] cursor-pointer"
+                  className="w-9 h-9 rounded-full border border-brand-border-mid flex items-center justify-center bg-white text-brand-slate hover:text-brand-blue hover:border-brand-blue hover:-translate-y-0.5 hover:shadow-brand transition-all duration-[0.25s] cursor-pointer"
                 >
                   {getSocialIcon(social.platform)}
                 </a>
@@ -196,7 +193,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Section */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 text-[12.5px] text-brand-slateLight font-medium">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 text-[12.5px] text-brand-slate-light font-medium">
           {/* Copyright */}
           <p className="m-0 text-center sm:text-left">
             {bottom.copyright}

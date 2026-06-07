@@ -55,17 +55,23 @@ export default function BuilderProfileClient({
       </div>
 
       {/* 2. Hero Profile Header */}
-      <div className="bg-gradient-to-br from-brand-navy to-brand-navyMid p-6 sm:p-8 rounded-3xl border border-brand-border text-white shadow-brand mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 animate-in fade-in duration-200">
-        <div className="flex items-center gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 flex items-center justify-center text-brand-teal">
+      <div className="relative overflow-hidden bg-linear-to-br from-brand-navy-deep via-brand-navy to-brand-navy-mid p-6 sm:p-8 rounded-3xl border border-brand-border text-white shadow-brand-lg mb-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 animate-in fade-in duration-200">
+        <div className="absolute inset-0 opacity-10 pointer-events-none" 
+             style={{ 
+               backgroundImage: "radial-gradient(var(--color-brand-border) 1.2px, transparent 1.2px)", 
+               backgroundSize: "24px 24px" 
+             }} 
+        />
+        <div className="relative z-10 flex items-center gap-4">
+          <div className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 flex items-center justify-center">
             <Building2 size={32} className="text-white" />
           </div>
           <div>
             <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight m-0 leading-tight">
               {builderName}
             </h1>
-            <p className="text-xs text-brand-slateLight m-0 mt-1.5 flex items-center gap-1.5 font-semibold">
-              <MapPin size={14} className="text-brand-teal" />
+            <p className="text-xs text-brand-slate-light m-0 mt-1.5 flex items-center gap-1.5 font-semibold">
+              <MapPin size={14} className="text-brand-slate-light" />
               Active in: <span className="text-white font-extrabold">{cities.join(", ")}</span>
             </p>
           </div>
@@ -74,29 +80,29 @@ export default function BuilderProfileClient({
         {/* 3-Column Mobile KPI Strip */}
         <div className="w-full md:w-auto grid grid-cols-3 gap-3 md:flex md:items-center bg-black/20 p-2.5 rounded-2xl border border-white/5">
           <div className="flex flex-col items-center px-3 py-1.5 md:border-r border-white/10 text-center">
-            <span className="text-[9px] text-brand-slateLight uppercase font-bold tracking-wider mb-0.5">Projects</span>
+            <span className="text-[9px] text-brand-slate-light uppercase font-bold tracking-wider mb-0.5">Projects</span>
             <span className="text-base font-extrabold">{totalProjects}</span>
           </div>
           <div className="flex flex-col items-center px-3 py-1.5 md:border-r border-white/10 text-center">
-            <span className="text-[9px] text-brand-emeraldBg uppercase font-bold tracking-wider mb-0.5">Delivered</span>
+            <span className="text-[9px] text-brand-emerald-bg uppercase font-bold tracking-wider mb-0.5">Delivered</span>
             <span className="text-base font-extrabold text-brand-emerald">{deliveredProjects}</span>
           </div>
           <div className="flex flex-col items-center px-3 py-1.5 text-center">
-            <span className="text-[9px] text-brand-amberBg uppercase font-bold tracking-wider mb-0.5">Ongoing</span>
+            <span className="text-[9px] text-brand-amber-bg uppercase font-bold tracking-wider mb-0.5">Ongoing</span>
             <span className="text-base font-extrabold text-brand-amber-light">{ongoingProjects}</span>
           </div>
         </div>
       </div>
 
       {/* 3. Filter Controls Block */}
-      <div className="bg-brand-bgCard p-4 rounded-2xl border border-brand-border shadow-brand mb-8 flex flex-col gap-4">
+      <div className="bg-brand-bg-card p-4 rounded-2xl border border-brand-border shadow-brand mb-8 flex flex-col gap-4">
         {/* Segmented Status Tabs (Mobile Touch-Friendly) */}
-        <div className="grid grid-cols-3 bg-brand-bgAlt p-1 rounded-xl">
+        <div className="grid grid-cols-3 bg-brand-bg-alt p-1 rounded-xl">
           <button
             onClick={() => setActiveTab("all")}
             className={`py-2 text-center text-xs font-bold rounded-lg transition-all cursor-pointer ${
               activeTab === "all"
-                ? "bg-brand-bgCard text-brand-teal shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
+                ? "bg-brand-bg-card text-brand-blue shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
                 : "text-brand-slate hover:text-brand-navy"
             }`}
           >
@@ -106,7 +112,7 @@ export default function BuilderProfileClient({
             onClick={() => setActiveTab("delivered")}
             className={`py-2 text-center text-xs font-bold rounded-lg transition-all cursor-pointer ${
               activeTab === "delivered"
-                ? "bg-brand-bgCard text-brand-teal shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
+                ? "bg-brand-bg-card text-brand-blue shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
                 : "text-brand-slate hover:text-brand-navy"
             }`}
           >
@@ -116,7 +122,7 @@ export default function BuilderProfileClient({
             onClick={() => setActiveTab("ongoing")}
             className={`py-2 text-center text-xs font-bold rounded-lg transition-all cursor-pointer ${
               activeTab === "ongoing"
-                ? "bg-brand-bgCard text-brand-teal shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
+                ? "bg-brand-bg-card text-brand-blue shadow-[0_2px_8px_rgba(0,0,0,0.04)]"
                 : "text-brand-slate hover:text-brand-navy"
             }`}
           >
@@ -135,10 +141,10 @@ export default function BuilderProfileClient({
                 <button
                   key={type}
                   onClick={() => setSelectedType(type)}
-                  className={`px-3 py-1 rounded-lg text-xs font-bold border transition-all cursor-pointer ${
+                  className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                     selectedType === type
-                      ? "bg-brand-tealBg text-brand-tealDark border-brand-tealBorder"
-                      : "bg-brand-bgAlt text-brand-navyMid border-brand-border hover:bg-brand-borderMid"
+                      ? "badge-blue normal-case py-1.5"
+                      : "btn-secondary py-1.5"
                   }`}
                 >
                   {type}
@@ -156,7 +162,7 @@ export default function BuilderProfileClient({
           {selectedType !== "All" && (
             <button
               onClick={() => setSelectedType("All")}
-              className="text-brand-teal hover:underline bg-transparent border-none cursor-pointer p-0"
+              className="text-brand-blue hover:underline bg-transparent border-none cursor-pointer p-0"
             >
               Show all configurations
             </button>
@@ -166,8 +172,8 @@ export default function BuilderProfileClient({
         {filteredProjects.length > 0 ? (
           <PropertyGrid properties={filteredProjects} />
         ) : (
-          <div className="bg-brand-bgCard rounded-3xl border border-brand-border p-12 text-center shadow-brand">
-            <Building2 className="mx-auto text-brand-slateLight mb-4" size={40} />
+          <div className="bg-brand-bg-card rounded-3xl border border-brand-border p-12 text-center shadow-brand">
+            <Building2 className="mx-auto text-brand-slate-light mb-4" size={40} />
             <h3 className="text-base font-extrabold text-brand-navy mb-1">No Matching Projects</h3>
             <p className="text-xs text-brand-slate max-w-xs mx-auto mb-0">
               There are no projects matching these filters for {builderName} currently.

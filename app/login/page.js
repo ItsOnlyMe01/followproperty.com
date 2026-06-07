@@ -81,7 +81,7 @@ export default function Login() {
               placeholder="demo@email.com"
               disabled={loading}
               required
-              className="w-full bg-white border border-brand-borderMid rounded-[10px] px-4 py-3 text-[15px] text-brand-navy placeholder:text-brand-slateLight focus:outline-none focus:ring-2 focus:ring-brand-amber/20 focus:border-brand-amber transition-all shadow-sm disabled:opacity-50"
+              className="w-full bg-white border border-brand-border-mid rounded-[10px] px-4 py-3 text-[15px] text-brand-navy placeholder:text-brand-slate-light focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all shadow-sm disabled:opacity-50"
             />
           </div>
 
@@ -97,13 +97,13 @@ export default function Login() {
                 placeholder="••••••••"
                 disabled={loading}
                 required
-                className="w-full bg-white border border-brand-borderMid rounded-[10px] pl-4 pr-11 py-3 text-[15px] text-brand-navy placeholder:text-brand-slateLight focus:outline-none focus:ring-2 focus:ring-brand-amber/20 focus:border-brand-amber transition-all shadow-sm disabled:opacity-50"
+                className="w-full bg-white border border-brand-border-mid rounded-[10px] pl-4 pr-11 py-3 text-[15px] text-brand-navy placeholder:text-brand-slate-light focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all shadow-sm disabled:opacity-50"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
                 disabled={loading}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-slateLight hover:text-brand-navy transition-colors focus:outline-none p-1.5 rounded-md disabled:opacity-50 cursor-pointer"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-brand-slate-light hover:text-brand-navy transition-colors focus:outline-none p-1.5 rounded-md disabled:opacity-50 cursor-pointer"
                 aria-label={showPassword ? "Hide password" : "Show password"}
               >
                 {showPassword ? (
@@ -118,7 +118,7 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex items-center justify-center text-[15px] font-semibold text-white bg-gradient-to-br from-brand-amberLight to-[#EA580C] border-none py-3.5 rounded-[10px] shadow-[0_2px_12px_rgba(217,119,6,0.28)] transition-all duration-200 hover:-translate-y-[1px] hover:shadow-brand-amber mt-2 disabled:opacity-75 disabled:transform-none disabled:shadow-none cursor-pointer"
+            className="w-full flex items-center justify-center text-[15px] font-bold text-white bg-linear-to-r from-brand-navy-deep to-brand-navy-mid hover:from-[#121b2d] hover:to-brand-navy-deep border border-white/5 py-3.5 rounded-[10px] shadow-sm transition-all duration-200 hover:-translate-y-[1px] hover:shadow-[0_8px_30px_rgba(50,95,236,0.12)] hover:border-brand-blue-border mt-2 disabled:opacity-75 disabled:transform-none disabled:shadow-none cursor-pointer"
           >
             {loading ? (
               <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
@@ -133,7 +133,7 @@ export default function Login() {
 
         <p className="text-center mt-8 text-[14px] text-brand-slate">
           New here?{" "}
-          <Link href="/signup" className="font-semibold text-brand-navy hover:text-brand-amber transition-colors">
+          <Link href="/signup" className="font-semibold text-brand-navy hover:text-brand-blue transition-colors">
             Create Account
           </Link>
         </p>

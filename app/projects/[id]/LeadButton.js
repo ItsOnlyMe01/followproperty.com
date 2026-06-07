@@ -18,7 +18,7 @@ export default function LeadButton() {
         className={`px-8 py-3.5 rounded-xl border-none font-bold text-sm cursor-pointer transition-all duration-200 hover:-translate-y-0.5 shadow-lg ${
           success 
             ? "bg-brand-emerald text-white cursor-not-allowed shadow-[0_4px_20px_rgba(16,185,129,0.3)]" 
-            : "bg-brand-teal text-white hover:bg-brand-teal/95 shadow-[0_4px_20px_rgba(13,148,136,0.3)]"
+            : "bg-brand-blue text-white hover:bg-brand-blue/95 shadow-[0_4px_20px_rgba(50,95,236,0.3)]"
         }`}
       >
         {success ? "Assistance Requested!" : "Get Project Assistance"}

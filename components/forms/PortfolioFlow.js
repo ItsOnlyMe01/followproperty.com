@@ -248,11 +248,11 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
 
   return (
     <FlowContext.Provider value={{ accent: 'amber' }}>
-      <div className="min-h-screen flex flex-col bg-brand-bgCard font-sans antialiased">
+      <div className="min-h-screen flex flex-col bg-brand-bg-card font-sans antialiased">
         {/* Header */}
         <div className="pt-6 px-7 pb-5 border-b border-brand-border flex items-start justify-between">
           <Link href="/" className="flex items-center gap-2.5 no-underline">
-            <div className="w-8 h-8 rounded-[9px] bg-gradient-to-br from-brand-amberLight to-[#EA580C] flex items-center justify-center shadow-[0_2px_10px_rgba(217,119,6,0.30)]">
+            <div className="w-8 h-8 rounded-[9px] bg-linear-to-br from-brand-amber-light to-[#EA580C] flex items-center justify-center shadow-[0_2px_10px_rgba(217,119,6,0.30)]">
               <Building2 size={15} color="#fff" strokeWidth={2.5} />
             </div>
             <span className="font-bold text-[17px] text-brand-navy tracking-[-0.025em]">
@@ -263,7 +263,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
             <button
               onClick={onClose}
               type="button"
-              className="bg-transparent border-none cursor-pointer text-brand-slateLight p-1"
+              className="bg-transparent border-none cursor-pointer text-brand-slate-light p-1"
             >
               <X size={18} />
             </button>
@@ -271,7 +271,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
         </div>
 
         {/* Progress + Step tabs */}
-        <div className="py-3 px-7 bg-brand-bgAlt border-b border-brand-border">
+        <div className="py-3 px-7 bg-brand-bg-alt border-b border-brand-border">
           <div className="flex gap-1.5 mb-2.5">
             {[
               { n: 1, label: "Property Details (1–12)" },
@@ -286,8 +286,8 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                 }}
                 className={`flex-1 py-1.5 px-2.5 rounded-lg border-[1.5px] font-semibold text-xs cursor-pointer transition-all duration-180 ${
                   section === tab.n 
-                    ? "border-brand-amber bg-brand-amberBg text-brand-amber" 
-                    : "border-brand-borderMid bg-brand-bgCard text-brand-slateLight hover:bg-brand-bgAlt"
+                    ? "border-brand-amber bg-brand-amber-bg text-brand-amber" 
+                    : "border-brand-border-mid bg-brand-bg-card text-brand-slate-light hover:bg-brand-bg-alt"
                 }`}
               >
                 {tab.n === section && "→ "}
@@ -297,7 +297,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
           </div>
           <div className="h-1 rounded-full bg-brand-border overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-brand-amberLight to-[#EA580C] rounded-full transition-[width] duration-400 ease-out"
+              className="h-full bg-linear-to-r from-brand-amber-light to-[#EA580C] rounded-full transition-[width] duration-400 ease-out"
               style={{
                 width: section === 1 ? "50%" : "100%",
               }}
@@ -306,12 +306,12 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
         </div>
 
         {/* Form Body */}
-        <div className="w-full max-w-4xl mx-auto pt-6 px-7 pb-[60px] flex-1 bg-brand-bgCard">
+        <div className="w-full max-w-4xl mx-auto pt-6 px-7 pb-[60px] flex-1 bg-brand-bg-card">
           {!onClose && (
             <div className="mb-6 flex justify-start">
               <Link
                 href="/dashboard"
-                className="no-underline text-xs font-bold text-brand-slate hover:text-brand-navy transition-colors px-3.5 py-2 rounded-xl border border-brand-borderMid bg-brand-bgCard shadow-brand flex items-center gap-1.5"
+                className="no-underline text-xs font-bold text-brand-slate hover:text-brand-navy transition-colors px-3.5 py-2 rounded-xl border border-brand-border-mid bg-brand-bg-card shadow-brand flex items-center gap-1.5"
               >
                 ← Back to Dashboard
               </Link>
@@ -336,7 +336,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                   <div>
                     <div className="flex gap-3 mb-1.5">
                       <FieldBadge n={1} active={!!form.state} />
-                      <span className="text-xs font-semibold text-brand-navyMid pt-1.5">
+                      <span className="text-xs font-semibold text-brand-navy-mid pt-1.5">
                         State <span className="text-brand-amber">*</span>
                       </span>
                     </div>
@@ -352,7 +352,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                   <div>
                     <div className="flex gap-3 mb-1.5">
                       <FieldBadge n={2} active={!!form.city} />
-                      <span className="text-xs font-semibold text-brand-navyMid pt-1.5">
+                      <span className="text-xs font-semibold text-brand-navy-mid pt-1.5">
                         City <span className="text-brand-amber">*</span>
                       </span>
                     </div>
@@ -370,7 +370,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                 {/* Property Type Selector */}
                 <div className="flex gap-3 mb-1.5">
                   <FieldBadge n={3} active={!!form.projectType} />
-                  <span className="text-xs font-semibold text-brand-navyMid pt-1.5">
+                  <span className="text-xs font-semibold text-brand-navy-mid pt-1.5">
                     Property Type <span className="text-brand-amber">*</span>
                   </span>
                 </div>
@@ -388,14 +388,14 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                   <div className="mb-4 relative" ref={dropdownRef}>
                     <div className="flex gap-3 mb-1.5">
                       <FieldBadge n={4} active={!!form.projectName} />
-                      <span className="text-xs font-semibold text-brand-navyMid pt-1.5">
+                      <span className="text-xs font-semibold text-brand-navy-mid pt-1.5">
                         Project / Builder Search <span className="text-brand-amber">*</span>
                       </span>
                     </div>
 
                     {form.projectName && !form.isManualProject ? (
                       /* Read-Only Locked Card for Selected Project */
-                      <div className="bg-brand-amberBg/30 border border-brand-amberBorder/60 rounded-xl p-4 flex items-center justify-between shadow-brand-sm transition-all duration-200">
+                      <div className="bg-brand-amber-bg/30 border border-brand-amber-border/60 rounded-xl p-4 flex items-center justify-between shadow-brand-sm transition-all duration-200">
                         <div>
                           <div className="text-[10px] text-brand-amber font-bold uppercase tracking-wider flex items-center gap-1.5">
                             <Check size={11} strokeWidth={3} /> In Database
@@ -413,14 +413,14 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                             setForm((f) => ({ ...f, projectName: "", builderName: "" }));
                             setSearchQuery("");
                           }}
-                          className="px-3 py-1.5 rounded-lg border border-brand-amberBorder text-brand-amber bg-brand-bgCard text-xs font-bold cursor-pointer transition-colors duration-200 hover:bg-brand-amberBg/45"
+                          className="px-3 py-1.5 rounded-lg border border-brand-amber-border text-brand-amber bg-brand-bg-card text-xs font-bold cursor-pointer transition-colors duration-200 hover:bg-brand-amber-bg/45"
                         >
                           Change Project
                         </button>
                       </div>
                     ) : form.isManualProject ? (
                       /* Manual Entry Input Fields */
-                      <div className="bg-brand-bgAlt border border-brand-border rounded-xl p-4.5 mb-2 shadow-brand-sm">
+                      <div className="bg-brand-bg-alt border border-brand-border rounded-xl p-4.5 mb-2 shadow-brand-sm">
                         <div className="flex justify-between items-center mb-3">
                           <span className="text-[10px] text-brand-slate font-bold uppercase tracking-wider flex items-center gap-1.5">
                             <PlusCircle size={12} className="text-brand-slate" /> Manual Project Entry
@@ -438,7 +438,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                         </div>
                         <div className="grid grid-cols-2 gap-3">
                           <div>
-                            <span className="text-[11px] font-semibold text-brand-navyMid mb-1 block">
+                            <span className="text-[11px] font-semibold text-brand-navy-mid mb-1 block">
                               Builder Name <span className="text-brand-amber">*</span>
                             </span>
                             <Input
@@ -450,7 +450,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                             />
                           </div>
                           <div>
-                            <span className="text-[11px] font-semibold text-brand-navyMid mb-1 block">
+                            <span className="text-[11px] font-semibold text-brand-navy-mid mb-1 block">
                               Project Name <span className="text-brand-amber">*</span>
                             </span>
                             <Input
@@ -466,7 +466,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                     ) : (
                       /* Autocomplete Search input */
                       <div className="relative">
-                        <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-brand-slateLight pointer-events-none">
+                        <div className="absolute left-3.5 top-1/2 -translate-y-1/2 text-brand-slate-light pointer-events-none">
                           <Search size={16} />
                         </div>
                         <input
@@ -479,13 +479,13 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                           onFocus={() => setShowDropdown(true)}
                           onKeyDown={handleKeyDown}
                           placeholder="Type at least 2 characters to search project..."
-                          className="w-full pl-10 pr-3.5 py-2.5 text-sm text-brand-navy bg-brand-bgCard border border-brand-borderMid rounded-[10px] outline-none transition-all duration-200 focus:border-brand-amber focus:ring-2 focus:ring-brand-amber/20"
+                          className="w-full pl-10 pr-3.5 py-2.5 text-sm text-brand-navy bg-brand-bg-card border border-brand-border-mid rounded-[10px] outline-none transition-all duration-200 focus:border-brand-amber focus:ring-2 focus:ring-brand-amber/20"
                         />
 
                         {showDropdown && (searchQuery.trim().length >= 2 || searching) && (
-                          <div className="absolute z-50 left-0 right-0 mt-1 bg-brand-bgCard border border-brand-borderMid rounded-xl shadow-[0_12px_32px_rgba(0,0,0,0.1)] max-h-[280px] overflow-y-auto divide-y divide-brand-border overflow-hidden">
+                          <div className="absolute z-50 left-0 right-0 mt-1 bg-brand-bg-card border border-brand-border-mid rounded-xl shadow-[0_12px_32px_rgba(0,0,0,0.1)] max-h-[280px] overflow-y-auto divide-y divide-brand-border overflow-hidden">
                             {searching ? (
-                              <div className="p-4 text-center text-xs text-brand-slateLight flex items-center justify-center gap-2">
+                              <div className="p-4 text-center text-xs text-brand-slate-light flex items-center justify-center gap-2">
                                 <div className="w-4 h-4 border-2 border-brand-amber/40 border-t-brand-amber rounded-full animate-spin" />
                                 Searching database...
                               </div>
@@ -497,11 +497,11 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                                     onClick={() => handleSelectProject(project)}
                                     className={`p-3.5 cursor-pointer text-left transition-colors duration-150 flex items-start gap-2.5 ${
                                       idx === activeSuggestionIndex 
-                                        ? "bg-brand-amberBg/40 text-brand-amber" 
-                                        : "hover:bg-brand-bgAlt"
+                                        ? "bg-brand-amber-bg/40 text-brand-amber" 
+                                        : "hover:bg-brand-bg-alt"
                                     }`}
                                   >
-                                    <div className="w-6 h-6 rounded-md bg-brand-amberBg flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <div className="w-6 h-6 rounded-md bg-brand-amber-bg flex items-center justify-center flex-shrink-0 mt-0.5">
                                       <Building2 size={13} className="text-brand-amber" />
                                     </div>
                                     <div className="flex-1 min-w-0">
@@ -516,7 +516,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                                 ))}
                                 <div 
                                   onClick={() => setForm((f) => ({ ...f, isManualProject: true }))}
-                                  className="p-3.5 bg-brand-bgAlt hover:bg-brand-amberBg/20 cursor-pointer text-left text-xs font-bold text-brand-amber flex items-center gap-2 border-t border-brand-border"
+                                  className="p-3.5 bg-brand-bg-alt hover:bg-brand-amber-bg/20 cursor-pointer text-left text-xs font-bold text-brand-amber flex items-center gap-2 border-t border-brand-border"
                                 >
                                   <PlusCircle size={14} />
                                   <span>Project not listed? Enter manually</span>
@@ -528,7 +528,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                                 <button
                                   type="button"
                                   onClick={() => setForm((f) => ({ ...f, isManualProject: true }))}
-                                  className="mt-2 text-xs font-bold text-brand-amber bg-brand-amberBg hover:bg-brand-amberBg/80 border border-brand-amberBorder px-3 py-1.5 rounded-lg cursor-pointer transition-colors"
+                                  className="mt-2 text-xs font-bold text-brand-amber bg-brand-amber-bg hover:bg-brand-amber-bg/80 border border-brand-amber-border px-3 py-1.5 rounded-lg cursor-pointer transition-colors"
                                 >
                                   Project not listed? Enter manually
                                 </button>
@@ -546,7 +546,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                   <div>
                     <div className="flex gap-3 mb-1.5">
                       <FieldBadge n={5} active={!!form.locality} />
-                      <span className="text-xs font-semibold text-brand-navyMid pt-1.5">
+                      <span className="text-xs font-semibold text-brand-navy-mid pt-1.5">
                         Locality / Sector <span className="text-brand-amber">*</span>
                       </span>
                     </div>
@@ -561,7 +561,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                   <div>
                     <div className="flex gap-3 mb-1.5">
                       <FieldBadge n={6} active={!!form.unitName} />
-                      <span className="text-xs font-semibold text-brand-navyMid pt-1.5">
+                      <span className="text-xs font-semibold text-brand-navy-mid pt-1.5">
                         Unit / Apartment Name
                       </span>
                     </div>
@@ -583,7 +583,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                   <div>
                     <div className="flex gap-3 mb-1.5">
                       <FieldBadge n={7} active={!!form.superArea} />
-                      <span className="text-xs font-semibold text-brand-navyMid pt-1.5">
+                      <span className="text-xs font-semibold text-brand-navy-mid pt-1.5">
                         Super Area (sqft){" "}
                         <span className="text-brand-amber">*</span>
                       </span>
@@ -601,7 +601,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                   <div>
                     <div className="flex gap-3 mb-1.5">
                       <FieldBadge n={8} active={!!form.carpetArea} />
-                      <span className="text-xs font-semibold text-brand-navyMid pt-1.5">
+                      <span className="text-xs font-semibold text-brand-navy-mid pt-1.5">
                         Carpet Area (sqft){" "}
                         <span className="text-brand-amber">*</span>
                       </span>
@@ -620,14 +620,14 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
 
                 <div className="flex gap-3 mb-1.5">
                   <FieldBadge n={9} active={!!totalPricePaidInput} />
-                  <span className="text-xs font-semibold text-brand-navyMid pt-1.5">
+                  <span className="text-xs font-semibold text-brand-navy-mid pt-1.5">
                     Total Price Paid (₹){" "}
                     <span className="text-brand-amber">*</span>
                   </span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div className="col-span-2 relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-brand-slateLight text-sm font-semibold pointer-events-none">₹</span>
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-brand-slate-light text-sm font-semibold pointer-events-none">₹</span>
                     <input
                       type="number"
                       min="0.01"
@@ -639,14 +639,14 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                         setTotalPricePaidInput(val);
                       }}
                       placeholder={totalPricePaidUnit === "Cr" ? "e.g. 3" : totalPricePaidUnit === "Lakh" ? "e.g. 75" : "e.g. 7500000"}
-                      className="w-full pl-7 pr-3.5 py-2.5 text-sm text-brand-navy bg-brand-bgCard border border-brand-borderMid rounded-[10px] outline-none transition-all duration-200 focus:border-brand-amber focus:ring-2 focus:ring-brand-amber/20"
+                      className="w-full pl-7 pr-3.5 py-2.5 text-sm text-brand-navy bg-brand-bg-card border border-brand-border-mid rounded-[10px] outline-none transition-all duration-200 focus:border-brand-amber focus:ring-2 focus:ring-brand-amber/20"
                     />
                   </div>
                   <div>
                     <select
                       value={totalPricePaidUnit}
                       onChange={(e) => setTotalPricePaidUnit(e.target.value)}
-                      className="w-full px-3.5 py-2.5 text-sm text-brand-navy bg-brand-bgCard border border-brand-borderMid rounded-[10px] outline-none transition-all duration-200 focus:border-brand-amber focus:ring-2 focus:ring-brand-amber/20 appearance-none bg-no-repeat bg-[right_14px_center] cursor-pointer"
+                      className="w-full px-3.5 py-2.5 text-sm text-brand-navy bg-brand-bg-card border border-brand-border-mid rounded-[10px] outline-none transition-all duration-200 focus:border-brand-amber focus:ring-2 focus:ring-brand-amber/20 appearance-none bg-no-repeat bg-[right_14px_center] cursor-pointer"
                       style={{
                         backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238C97A8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E")`,
                       }}
@@ -667,7 +667,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                   <div>
                     <div className="flex gap-3 mb-1.5">
                       <FieldBadge n={10} active={!!form.floorNumber} />
-                      <span className="text-xs font-semibold text-brand-navyMid pt-1.5">
+                      <span className="text-xs font-semibold text-brand-navy-mid pt-1.5">
                         Floor Number
                       </span>
                     </div>
@@ -682,7 +682,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                   <div>
                     <div className="flex gap-3 mb-1.5">
                       <FieldBadge n={11} active={!!form.parkingSpots} />
-                      <span className="text-xs font-semibold text-brand-navyMid pt-1.5">
+                      <span className="text-xs font-semibold text-brand-navy-mid pt-1.5">
                         Parking Spots
                       </span>
                     </div>
@@ -698,7 +698,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
 
                 <div className="flex gap-3 mb-1.5">
                   <FieldBadge n={12} active={!!form.possessionStatus} />
-                  <span className="text-xs font-semibold text-brand-navyMid pt-1.5">
+                  <span className="text-xs font-semibold text-brand-navy-mid pt-1.5">
                     Possession Status <span className="text-brand-amber">*</span>
                   </span>
                 </div>
@@ -710,8 +710,8 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                       onClick={() => set("possessionStatus")(opt)}
                       className={`flex-1 py-2.5 px-3 rounded-lg border-[1.5px] font-semibold text-xs cursor-pointer transition-all duration-180 ${
                         form.possessionStatus === opt 
-                          ? "border-brand-amber bg-brand-amberBg text-brand-amber" 
-                          : "border-brand-borderMid bg-brand-bgCard text-brand-slate hover:bg-brand-bgAlt"
+                          ? "border-brand-amber bg-brand-amber-bg text-brand-amber" 
+                          : "border-brand-border-mid bg-brand-bg-card text-brand-slate hover:bg-brand-bg-alt"
                       }`}
                     >
                       {opt}
@@ -733,8 +733,8 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                   }}
                   className={`w-full py-3.5 rounded-xl border-none font-bold text-[15px] text-white transition-all duration-220 flex items-center justify-center gap-3 ${
                     required1 
-                      ? "bg-gradient-to-r from-brand-amberLight to-[#EA580C] shadow-brand-amber cursor-pointer hover:-translate-y-[1px]" 
-                      : "bg-brand-slateLight cursor-not-allowed"
+                      ? "bg-linear-to-r from-brand-amber-light to-[#EA580C] shadow-brand-amber cursor-pointer hover:-translate-y-[1px]" 
+                      : "bg-brand-slate-light cursor-not-allowed"
                   }`}
                 >
                   Continue to Loan & Alerts <ArrowRight size={16} />
@@ -764,7 +764,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                   <>
                     <div className="flex gap-3 mb-1.5">
                       <FieldBadge n={13} active={!!form.possessionDateMonth} />
-                      <span className="text-xs font-semibold text-brand-navyMid pt-1.5">
+                      <span className="text-xs font-semibold text-brand-navy-mid pt-1.5">
                         Possession Date (Taken)
                       </span>
                     </div>
@@ -794,7 +794,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                         n={14}
                         active={!!form.expectedPossessionMonth}
                       />
-                      <span className="text-xs font-semibold text-brand-navyMid pt-1.5">
+                      <span className="text-xs font-semibold text-brand-navy-mid pt-1.5">
                         Expected Possession Date
                       </span>
                     </div>
@@ -824,7 +824,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
 
                 <div className="flex gap-3 mb-1.5">
                   <FieldBadge n={15} active={!!form.currentUse} />
-                  <span className="text-xs font-semibold text-brand-navyMid pt-1.5">
+                  <span className="text-xs font-semibold text-brand-navy-mid pt-1.5">
                     Current Use <span className="text-brand-amber">*</span>
                   </span>
                 </div>
@@ -836,8 +836,8 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                       onClick={() => set("currentUse")(opt)}
                       className={`py-2.5 px-3 rounded-lg border-[1.5px] font-semibold text-xs cursor-pointer transition-all duration-180 ${
                         form.currentUse === opt 
-                          ? "border-brand-amber bg-brand-amberBg text-brand-amber" 
-                          : "border-brand-borderMid bg-brand-bgCard text-brand-slate hover:bg-brand-bgAlt"
+                          ? "border-brand-amber bg-brand-amber-bg text-brand-amber" 
+                          : "border-brand-border-mid bg-brand-bg-card text-brand-slate hover:bg-brand-bg-alt"
                       }`}
                     >
                       {opt}
@@ -847,7 +847,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
 
                 <div className="flex gap-3 mb-2">
                   <FieldBadge n={16} active={!!form.ongoingLoan} />
-                  <span className="text-xs font-semibold text-brand-navyMid pt-1.5">
+                  <span className="text-xs font-semibold text-brand-navy-mid pt-1.5">
                     Ongoing Loan? <span className="text-brand-amber">*</span>
                   </span>
                 </div>
@@ -863,7 +863,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                     <div>
                       <div className="flex gap-3 mb-1.5">
                         <FieldBadge n={17} active={!!form.bankName} />
-                        <span className="text-xs font-semibold text-brand-navyMid pt-1.5">
+                        <span className="text-xs font-semibold text-brand-navy-mid pt-1.5">
                           Bank Name
                         </span>
                       </div>
@@ -878,7 +878,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                     <div>
                       <div className="flex gap-3 mb-1.5">
                         <FieldBadge n={18} active={!!form.monthlyEMI} />
-                        <span className="text-xs font-semibold text-brand-navyMid pt-1.5">
+                        <span className="text-xs font-semibold text-brand-navy-mid pt-1.5">
                           Monthly EMI (₹)
                         </span>
                       </div>
@@ -901,7 +901,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
 
                 <div className="flex gap-3 mb-2">
                   <FieldBadge n={19} active={!!form.rentalIncome} />
-                  <span className="text-xs font-semibold text-brand-navyMid pt-1.5">
+                  <span className="text-xs font-semibold text-brand-navy-mid pt-1.5">
                     Rental Income? <span className="text-brand-amber">*</span>
                   </span>
                 </div>
@@ -916,7 +916,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                   <>
                     <div className="flex gap-3 mb-1.5">
                       <FieldBadge n={20} active={!!form.monthlyRent} />
-                      <span className="text-xs font-semibold text-brand-navyMid pt-1.5">
+                      <span className="text-xs font-semibold text-brand-navy-mid pt-1.5">
                         Monthly Rent (₹)
                       </span>
                     </div>
@@ -966,7 +966,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                 />
 
                 {error && (
-                  <div className="p-3.5 rounded-lg bg-brand-redBg border border-brand-redBorder mb-3.5">
+                  <div className="p-3.5 rounded-lg bg-brand-red-bg border border-brand-red-border mb-3.5">
                     <p className="text-xs text-brand-red font-medium">
                       {error}
                     </p>
@@ -977,7 +977,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                   <button
                     type="button"
                     onClick={() => setSection(1)}
-                    className="flex-[0_0_44px] h-12 rounded-xl border-[1.5px] border-brand-borderMid bg-brand-bgCard text-brand-slate cursor-pointer flex items-center justify-center hover:bg-brand-bgAlt transition-colors duration-200"
+                    className="flex-[0_0_44px] h-12 rounded-xl border-[1.5px] border-brand-border-mid bg-brand-bg-card text-brand-slate cursor-pointer flex items-center justify-center hover:bg-brand-bg-alt transition-colors duration-200"
                   >
                     ←
                   </button>
@@ -989,8 +989,8 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                       submitting ? "cursor-not-allowed" : "cursor-pointer"
                     } ${
                       required2 
-                        ? "bg-gradient-to-r from-brand-amberLight to-[#EA580C] shadow-brand-amber hover:-translate-y-[1px]" 
-                        : "bg-brand-slateLight cursor-not-allowed"
+                        ? "bg-linear-to-r from-brand-amber-light to-[#EA580C] shadow-brand-amber hover:-translate-y-[1px]" 
+                        : "bg-brand-slate-light cursor-not-allowed"
                     }`}
                   >
                     {submitting ? (
@@ -1002,7 +1002,7 @@ const [section, setSection] = useState(1); // 1 = form part A, 2 = form part B
                     )}
                   </button>
                 </div>
-                <p className="text-[10px] text-brand-slateLight text-center mt-2.5">
+                <p className="text-[10px] text-brand-slate-light text-center mt-2.5">
                   Submitting will open your live DRAF Dashboard
                 </p>
               </motion.div>

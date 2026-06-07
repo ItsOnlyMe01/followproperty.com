@@ -25,18 +25,25 @@ export default function PropertyCard({ property, watchlistId }) {
   const isReady = property.status === "Ready to Move";
 
   return (
-    <div className="bg-brand-bgCard rounded-2xl border border-brand-border overflow-hidden shadow-brand flex flex-col transition-all duration-200 hover:-translate-y-1 hover:shadow-brand-md cursor-pointer">
-      {/* Property Name Header (Replaces raw Image) */}
-      <div className="relative h-[130px] w-full bg-gradient-to-br from-brand-navy to-brand-navyMid flex items-center justify-center p-5 text-center">
-        <span className="text-[17px] font-bold text-white tracking-tight leading-snug max-w-[200px]">
+    <div className="card-frame flex flex-col cursor-pointer group">
+      {/* Property Name Header (Premium dark background) */}
+      <div className="card-header-gradient">
+        {/* Subtle decorative radial light highlight */}
+        <div className="card-header-glow" />
+
+        <span className="text-[16px] sm:text-[17px] font-extrabold text-white tracking-tight leading-snug max-w-[210px] relative z-10 transition-colors group-hover:text-brand-blue-light">
           {property.title}
         </span>
-        <div className={`absolute top-3 left-3 text-white px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider shadow-[0_2px_8px_rgba(0,0,0,0.15)] ${
-          isReady ? "bg-brand-emerald" : "bg-brand-amber"
+        
+        <div className={`absolute top-3 left-3 z-10 ${
+          isReady 
+            ? "badge-emerald" 
+            : "badge-amber"
         }`}>
           {property.status}
         </div>
-        <div className="absolute top-3 right-3 bg-black/60 backdrop-blur-[4px] text-white px-2.5 py-1 rounded-lg text-xs font-semibold">
+        
+        <div className="badge-translucent absolute top-3 right-3 z-10">
           {property.specificType}
         </div>
       </div>
@@ -44,21 +51,21 @@ export default function PropertyCard({ property, watchlistId }) {
       {/* Content */}
       <div className="p-5 flex flex-col flex-1">
         <div className="mb-3">
-          <p className="text-xs text-brand-navy font-extrabold flex items-center gap-1 mb-0">
-            <MapPin size={14} className="text-brand-teal" />
-            {property.locality}, {property.city}
+          <p className="text-xs text-brand-navy font-bold flex items-center gap-1.5 mb-0">
+            <MapPin size={13} className="text-brand-slate" />
+            <span className="truncate">{property.locality}, {property.city}</span>
           </p>
         </div>
 
         <div className="grid grid-cols-2 gap-3 mb-5 py-3 border-y border-brand-border">
-          <div className="flex items-center gap-1.5 text-xs text-brand-navyMid">
-            <Building size={14} className="text-brand-slate" />
-            <span>
+          <div className="flex items-center gap-1.5 text-xs text-brand-slate">
+            <Building size={13} className="text-brand-slate-light" />
+            <span className="truncate">
               By{" "}
               {property.builder ? (
                 <Link
                   href={`/builders/${property.builder.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
-                  className="font-bold text-brand-teal hover:underline no-underline"
+                  className="font-bold text-brand-navy-mid hover:text-brand-blue hover:underline no-underline"
                 >
                   {property.builder}
                 </Link>
@@ -67,28 +74,28 @@ export default function PropertyCard({ property, watchlistId }) {
               )}
             </span>
           </div>
-          <div className="flex items-center gap-1.5 text-xs text-brand-navyMid">
-            <Calendar size={14} className="text-brand-slate" />
-            <span>Possession: {property.possessionYear}</span>
+          <div className="flex items-center gap-1.5 text-xs text-brand-slate">
+            <Calendar size={13} className="text-brand-slate-light" />
+            <span className="truncate">Possession: {property.possessionYear}</span>
           </div>
           {property.superArea > 0 && (
-            <div className="col-span-2 flex items-center gap-1.5 text-xs text-brand-navyMid">
-              <Maximize2 size={14} className="text-brand-slate" />
-              <span>{property.superArea} sq.ft</span>
+            <div className="col-span-2 flex items-center gap-1.5 text-xs text-brand-slate">
+              <Maximize2 size={13} className="text-brand-slate-light" />
+              <span>{property.superArea.toLocaleString()} sq.ft</span>
             </div>
           )}
         </div>
 
-        <div className="mt-auto flex items-center justify-between">
+        <div className="mt-auto flex items-center justify-between gap-2">
           <div>
-            <p className="text-[11px] text-brand-slate font-semibold uppercase mb-0.5">Price Range</p>
-            <p className="text-[15px] sm:text-[16px] font-extrabold text-brand-tealDark tracking-tight mb-0">
+            <p className="text-[10px] text-brand-slate-light font-bold uppercase tracking-wider mb-0.5">Price Range</p>
+            <p className="text-[15px] sm:text-[16px] font-black text-brand-navy-deep tracking-tight mb-0">
               {property.marketPrice || formatPriceRange(property.minPrice, property.maxPrice)}
             </p>
           </div>
           <Link
             href={`/projects/${property.id}${watchlistId ? `?watchlistId=${watchlistId}` : ""}`}
-            className="px-4 py-2.5 rounded-lg bg-brand-tealBg text-brand-tealDark border border-brand-tealBorder text-xs font-semibold cursor-pointer transition-all duration-200 hover:bg-brand-teal hover:text-white text-center no-underline"
+            className="btn-secondary px-4 py-2 text-[11px] whitespace-nowrap"
           >
             View Details
           </Link>

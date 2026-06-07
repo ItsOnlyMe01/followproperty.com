@@ -10,7 +10,7 @@ import { PDFBuilder } from "../pdfBuilder";
  */
 export function generateInvestmentReportPDF(project, projections) {
   const builder = new PDFBuilder();
-  builder.drawHeader();
+  builder.drawHeader("INVESTMENT ANALYSIS REPORT");
 
   builder.addSectionHeading("Property Investment Analysis");
   

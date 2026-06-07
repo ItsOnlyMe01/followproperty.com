@@ -127,7 +127,7 @@ export default async function ProjectsPage({ searchParams }) {
         {/* Header Section */}
         <div className="mb-6">
           <h1 className="text-3xl font-extrabold text-brand-navy mb-1.5 tracking-tight flex items-center gap-2.5">
-            <ListFilter className="text-brand-teal" size={28} /> Projects Directory
+            <ListFilter className="text-brand-blue" size={28} /> Projects Directory
           </h1>
           <p className="text-xs sm:text-sm text-brand-slate m-0">
             Explore verified market properties, compare layouts, check construction milestones, and navigate developer profiles.
@@ -169,18 +169,18 @@ export default async function ProjectsPage({ searchParams }) {
                   <Link
                     id="prev-page-link"
                     href={buildPageLink(pageParam - 1)}
-                    className="inline-flex items-center gap-1 px-4 py-2.5 bg-brand-bgCard text-brand-tealDark border border-brand-tealBorder rounded-xl text-xs font-bold transition-all hover:bg-brand-teal hover:text-white no-underline shadow-brand"
+                    className="inline-flex items-center gap-1 px-4 py-2.5 bg-brand-bg-card text-brand-blue-dark border border-brand-blue-border rounded-xl text-xs font-bold transition-all hover:bg-brand-blue hover:text-white no-underline shadow-brand"
                   >
                     <ChevronLeft size={14} /> Previous
                   </Link>
                 ) : (
-                  <span className="inline-flex items-center gap-1 px-4 py-2.5 bg-brand-bgAlt text-brand-slateLight border border-brand-border rounded-xl text-xs font-bold cursor-not-allowed opacity-60">
+                  <span className="inline-flex items-center gap-1 px-4 py-2.5 bg-brand-bg-alt text-brand-slate-light border border-brand-border rounded-xl text-xs font-bold cursor-not-allowed opacity-60">
                     <ChevronLeft size={14} /> Previous
                   </span>
                 )}
 
                 {/* Page Indicator */}
-                <span className="text-xs text-brand-navy font-extrabold px-3 py-1 bg-brand-bgAlt rounded-lg">
+                <span className="text-xs text-brand-navy font-extrabold px-3 py-1 bg-brand-bg-alt rounded-lg">
                   Page {pageParam} of {totalPages}
                 </span>
 
@@ -189,12 +189,12 @@ export default async function ProjectsPage({ searchParams }) {
                   <Link
                     id="next-page-link"
                     href={buildPageLink(pageParam + 1)}
-                    className="inline-flex items-center gap-1 px-4 py-2.5 bg-brand-bgCard text-brand-tealDark border border-brand-tealBorder rounded-xl text-xs font-bold transition-all hover:bg-brand-teal hover:text-white no-underline shadow-brand"
+                    className="inline-flex items-center gap-1 px-4 py-2.5 bg-brand-bg-card text-brand-blue-dark border border-brand-blue-border rounded-xl text-xs font-bold transition-all hover:bg-brand-blue hover:text-white no-underline shadow-brand"
                   >
                     Next <ChevronRight size={14} />
                   </Link>
                 ) : (
-                  <span className="inline-flex items-center gap-1 px-4 py-2.5 bg-brand-bgAlt text-brand-slateLight border border-brand-border rounded-xl text-xs font-bold cursor-not-allowed opacity-60">
+                  <span className="inline-flex items-center gap-1 px-4 py-2.5 bg-brand-bg-alt text-brand-slate-light border border-brand-border rounded-xl text-xs font-bold cursor-not-allowed opacity-60">
                     Next <ChevronRight size={14} />
                   </span>
                 )}
@@ -202,8 +202,8 @@ export default async function ProjectsPage({ searchParams }) {
             )}
           </div>
         ) : (
-          <div className="bg-brand-bgCard rounded-3xl border border-brand-border p-12 text-center shadow-brand">
-            <Building className="mx-auto text-brand-slateLight mb-4" size={48} />
+          <div className="bg-brand-bg-card rounded-3xl border border-brand-border p-12 text-center shadow-brand">
+            <Building className="mx-auto text-brand-slate-light mb-4" size={48} />
             <h3 className="text-base font-extrabold text-brand-navy mb-1">No Properties Found</h3>
             <p className="text-xs text-brand-slate max-w-sm mx-auto mb-0">
               There are no matching properties listed under these filter conditions. Try resetting your search parameters.

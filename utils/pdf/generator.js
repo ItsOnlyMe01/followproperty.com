@@ -1,5 +1,76 @@
 import { jsPDF } from "jspdf";
 
+function drawLogoSVG(doc, x, y, w, isWatermark = false) {
+  const originalW = 119.3321;
+  const originalH = 75.2825;
+  const h = w * (originalH / originalW);
+  const scaleX = w / originalW;
+  const scaleY = h / originalH;
+
+  const polyLeft = [
+    [49.0587, 27.034],
+    [6.6296, 37.6412],
+    [49.0587, 48.2485],
+    [55.8136, 75.2825],
+    [0, 44.2708],
+    [0, 31.0117],
+    [55.8136, 0]
+  ];
+
+  const polyRight = [
+    [119.3321, 31.0117],
+    [119.3321, 44.2708],
+    [63.5186, 75.2825],
+    [70.2734, 48.2485],
+    [112.7025, 37.6412],
+    [70.2734, 27.034],
+    [63.5186, 0]
+  ];
+
+  const mappedLeft = polyLeft.map(p => [x + p[0] * scaleX, y + p[1] * scaleY]);
+  const mappedRight = polyRight.map(p => [x + p[0] * scaleX, y + p[1] * scaleY]);
+
+  const drawPolygon = (points) => {
+    const startX = points[0][0];
+    const startY = points[0][1];
+    const relative = [];
+    let prevX = startX;
+    let prevY = startY;
+    for (let i = 1; i < points.length; i++) {
+      relative.push([points[i][0] - prevX, points[i][1] - prevY]);
+      prevX = points[i][0];
+      prevY = points[i][1];
+    }
+    doc.lines(relative, startX, startY, [1, 1], "F", true);
+  };
+
+  const hasGState = typeof doc.GState === "function";
+
+  if (isWatermark) {
+    if (hasGState) {
+      const gState = new doc.GState({ opacity: 0.035 });
+      doc.saveGraphicsState();
+      doc.setGState(gState);
+      
+      doc.setFillColor(50, 95, 236);
+      drawPolygon(mappedLeft);
+      doc.setFillColor(81, 143, 255);
+      drawPolygon(mappedRight);
+      
+      doc.restoreGraphicsState();
+    } else {
+      doc.setFillColor(242, 245, 253);
+      drawPolygon(mappedLeft);
+      drawPolygon(mappedRight);
+    }
+  } else {
+    doc.setFillColor(50, 95, 236);
+    drawPolygon(mappedLeft);
+    doc.setFillColor(81, 143, 255);
+    drawPolygon(mappedRight);
+  }
+}
+
 /**
  * Generates and downloads a branded investor valuation report PDF.
  * This function runs entirely client-side.
@@ -17,7 +88,7 @@ export function generateValuationPDF(property, valuation) {
 
   const primaryColor = [15, 22, 41];    // Deep Navy (#0F1629)
   const secondaryColor = [92, 104, 128]; // Slate (#5C6880)
-  const accentColor = [13, 148, 136];    // Teal (#0D9488)
+  const accentColor = [50, 95, 236];    // Brand Blue (#325fec)
   const warningColor = [217, 119, 6];    // Amber (#D97706)
   const successColor = [5, 150, 105];    // Emerald (#059669)
   const errorColor = [220, 38, 38];      // Red (#DC2626)
@@ -45,18 +116,17 @@ export function generateValuationPDF(property, valuation) {
   doc.setFillColor(accentColor[0], accentColor[1], accentColor[2]);
   doc.rect(0, 0, 210, 4, "F");
 
+  // --- WATERMARK BACKGROUND LOGO ---
+  drawLogoSVG(doc, 45, 110.65, 120, true);
+
   // --- BRAND HEADER ---
   doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(22);
-  doc.text("FollowProperty", 20, 20);
+  doc.text("FollowProperty", 23, 20);
 
-  // Logo Square Icon
-  doc.setFillColor(warningColor[0], warningColor[1], warningColor[2]);
-  doc.roundedRect(12, 13, 6, 6, 1.5, 1.5, "F");
-  doc.setTextColor(255, 255, 255);
-  doc.setFontSize(10);
-  doc.text("P", 14, 17.5);
+  // Logo Icon
+  drawLogoSVG(doc, 12, 13.5, 9);
 
   doc.setTextColor(secondaryColor[0], secondaryColor[1], secondaryColor[2]);
   doc.setFont("helvetica", "normal");
@@ -75,14 +145,14 @@ export function generateValuationPDF(property, valuation) {
   doc.text(`Generated: ${reportDate}`, 190, 20, { align: "right" });
 
   // Divider Line
-  doc.setDrawColor(230, 230, 230);
+  doc.setDrawColor(235, 237, 240);
   doc.setLineWidth(0.5);
   doc.line(12, 28, 198, 28);
 
   // --- SECTION 1: DYNAMIC PROPERTY HERO SUMMARY ---
   doc.setFillColor(250, 250, 248); // Brand BG light (#FAFAF8)
   doc.roundedRect(12, 34, 186, 28, 3, 3, "F");
-  doc.setDrawColor(220, 220, 220);
+  doc.setDrawColor(230, 232, 235);
   doc.roundedRect(12, 34, 186, 28, 3, 3, "S");
 
   doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
@@ -106,16 +176,16 @@ export function generateValuationPDF(property, valuation) {
 
   // Current use badge
   const useText = (property.currentUse || "Portfolio Asset").toUpperCase();
-  doc.setFillColor(20, 184, 166, 0.08); // Teal custom transparent
+  doc.setFillColor(50, 95, 236, 0.08); // Brand Blue transparent
   doc.roundedRect(48, 51, 30, 5, 1, 1, "F");
   doc.setTextColor(accentColor[0], accentColor[1], accentColor[2]);
   doc.setFontSize(7.5);
   doc.text(useText, 63, 54.5, { align: "center" });
 
   // --- SECTION 2: ESTIMATED MARKET VALUE WIDGET (PROMINENT) ---
-  doc.setFillColor(244, 243, 239); // Slate Background
+  doc.setFillColor(250, 250, 248); // Brand BG light
   doc.roundedRect(12, 68, 186, 32, 4, 4, "F");
-  doc.setDrawColor(220, 220, 220);
+  doc.setDrawColor(230, 232, 235);
   doc.roundedRect(12, 68, 186, 32, 4, 4, "S");
 
   doc.setTextColor(secondaryColor[0], secondaryColor[1], secondaryColor[2]);
@@ -160,7 +230,7 @@ export function generateValuationPDF(property, valuation) {
   doc.setFont("helvetica", "bold");
   doc.setFontSize(11);
   doc.text("Property Summary & Overview", 12, 110);
-  doc.setDrawColor(240, 240, 240);
+  doc.setDrawColor(238, 239, 242);
   doc.line(12, 112, 198, 112);
 
   // Overview Table
@@ -180,11 +250,10 @@ export function generateValuationPDF(property, valuation) {
   doc.setFontSize(9);
   
   specs.forEach((item, index) => {
-    // Alternating background color for specs list
-    if (index % 2 === 0) {
-      doc.setFillColor(252, 252, 250);
-      doc.rect(12, y - 5, 186, 8, "F");
-    }
+    // Clean, thin-line bordered white layout rows
+    doc.setDrawColor(238, 239, 242);
+    doc.setLineWidth(0.2);
+    doc.line(12, y + 2, 198, y + 2);
     
     doc.setTextColor(secondaryColor[0], secondaryColor[1], secondaryColor[2]);
     doc.text(item.label, 16, y);
@@ -207,9 +276,9 @@ export function generateValuationPDF(property, valuation) {
   y += 8;
   
   // Left: Rent status
-  doc.setFillColor(250, 250, 248);
+  doc.setFillColor(244, 246, 254); // Light blue background
   doc.roundedRect(12, y, 90, 28, 2, 2, "F");
-  doc.setDrawColor(240, 240, 240);
+  doc.setDrawColor(220, 227, 251); // Light blue border
   doc.roundedRect(12, y, 90, 28, 2, 2, "S");
 
   doc.setTextColor(secondaryColor[0], secondaryColor[1], secondaryColor[2]);
@@ -228,8 +297,9 @@ export function generateValuationPDF(property, valuation) {
   }
 
   // Right: Loan status
-  doc.setFillColor(250, 250, 248);
+  doc.setFillColor(244, 246, 254);
   doc.roundedRect(108, y, 90, 28, 2, 2, "F");
+  doc.setDrawColor(220, 227, 251);
   doc.roundedRect(108, y, 90, 28, 2, 2, "S");
 
   doc.setTextColor(secondaryColor[0], secondaryColor[1], secondaryColor[2]);
@@ -257,12 +327,13 @@ export function generateValuationPDF(property, valuation) {
   doc.line(12, y + 2, 198, y + 2);
 
   y += 8;
-  doc.setFillColor(255, 251, 235); // Amber Bg Light
+  doc.setFillColor(244, 246, 254); // Light blue background
   doc.roundedRect(12, y, 186, 26, 3, 3, "F");
-  doc.setDrawColor(warningColor[0], warningColor[1], warningColor[2], 0.18);
+  doc.setDrawColor(accentColor[0], accentColor[1], accentColor[2]);
+  doc.setLineWidth(0.4);
   doc.roundedRect(12, y, 186, 26, 3, 3, "S");
 
-  doc.setTextColor(warningColor[0], warningColor[1], warningColor[2]);
+  doc.setTextColor(accentColor[0], accentColor[1], accentColor[2]);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(8.5);
   doc.text("FUTURE REGIONAL MARKET FORECAST", 18, y + 6);
@@ -280,11 +351,19 @@ export function generateValuationPDF(property, valuation) {
   const disclaimerText = "Disclaimer: Prototype valuation based on user-provided purchase data. Real market intelligence integration coming soon. This valuation report is dynamically compiled for informational tracking purposes and does not constitute a formal financial appraisal. Generated on FollowProperty platform.";
   doc.text(doc.splitTextToSize(disclaimerText, 180), 15, 280);
 
-  // Branded Signature
+  // Branded Signature with Logo
+  const textWidth = doc.getTextWidth("followproperty.com");
+  const logoWidth = 6;
+  const logoSpacing = 1.5;
+  const totalFooterWidth = logoWidth + logoSpacing + textWidth;
+  const footerStartX = (210 - totalFooterWidth) / 2;
+
+  drawLogoSVG(doc, footerStartX, 286.5, logoWidth);
+
   doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2]);
   doc.setFont("helvetica", "bold");
-  doc.setFontSize(8);
-  doc.text("FOLLOWPROPERTY REAL ASSETS PLATFORM", 105, 290, { align: "center" });
+  doc.setFontSize(8.5);
+  doc.text("followproperty.com", footerStartX + logoWidth + logoSpacing, 290);
 
   // Save the PDF
   const filename = `${(property.projectName || "property").toLowerCase().replace(/\s+/g, "_")}_valuation_report.pdf`;

@@ -9,7 +9,7 @@ import { PDFBuilder } from "../pdfBuilder";
  */
 export function generatePortfolioReportPDF(properties) {
   const builder = new PDFBuilder();
-  builder.drawHeader();
+  builder.drawHeader("PORTFOLIO SUMMARY REPORT");
 
   builder.addSectionHeading("Portfolio Valuation Report");
   

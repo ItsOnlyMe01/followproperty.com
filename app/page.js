@@ -6,6 +6,7 @@ import { auth } from "@/lib/firebase";
 import Nav from "@/components/landing/CTASection";
 import Hero from "@/components/landing/HeroSection";
 import CoreFlows from "@/components/landing/FeaturesSection";
+import FeaturedProjects from "@/components/landing/FeaturedProjects";
 import Footer from "@/components/landing/Footer";
 
 export default function Home() {
@@ -75,8 +76,10 @@ export default function Home() {
     <div className="bg-brand-bg min-h-screen font-sans antialiased overflow-x-hidden max-w-full">
       <Nav authState={authState} />
       <Hero authState={authState} />
-      <CoreFlows authState={authState} />
+      {/* <CoreFlows authState={authState} /> */}
+      <FeaturedProjects />
       <Footer />
     </div>
   );
 }
+

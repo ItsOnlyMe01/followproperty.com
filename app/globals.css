@@ -5,35 +5,44 @@
   --font-sans: 'Instrument Sans', 'DM Sans', system-ui, sans-serif;
 
   --color-brand-bg: #FAFAF8;
-  --color-brand-bgAlt: #F4F3EF;
-  --color-brand-bgCard: #FFFFFF;
+  --color-brand-bg-alt: #F4F3EF;
+  --color-brand-bg-card: #FFFFFF;
   --color-brand-navy: #0F1629;
-  --color-brand-navyMid: #2D3A52;
+  --color-brand-navy-deep: #070b14;
+  --color-brand-navy-mid: #25334d;
   --color-brand-slate: #5C6880;
-  --color-brand-slateLight: #8C97A8;
+  --color-brand-slate-light: #8C97A8;
   --color-brand-border: rgba(15,22,41,0.07);
-  --color-brand-borderMid: rgba(15,22,41,0.12);
+  --color-brand-border-mid: rgba(15,22,41,0.12);
   --color-brand-amber: #D97706;
-  --color-brand-amberLight: #F59E0B;
-  --color-brand-amberBg: #FFFBEB;
-  --color-brand-amberBorder: rgba(217,119,6,0.18);
+  --color-brand-amber-light: #F59E0B;
+  --color-brand-amber-bg: #FFFBEB;
+  --color-brand-amber-border: rgba(217,119,6,0.18);
+  --color-brand-blue: #325fec;
+  --color-brand-blue-light: #518fff;
+  --color-brand-blue-bg: rgba(50, 95, 236, 0.06);
+  --color-brand-blue-border: rgba(50, 95, 236, 0.16);
+  --color-brand-blue-dark: #1a44c2;
+  --color-brand-blue-deep: #1e3bb3;
+  --color-brand-blue-glow: rgba(50, 95, 236, 0.08);
   --color-brand-teal: #0D9488;
-  --color-brand-tealBg: rgba(13,148,136,0.06);
-  --color-brand-tealBorder: rgba(13,148,136,0.16);
-  --color-brand-tealDark: #0F766E;
+  --color-brand-teal-bg: rgba(13,148,136,0.06);
+  --color-brand-teal-border: rgba(13,148,136,0.16);
+  --color-brand-teal-dark: #0F766E;
   --color-brand-emerald: #059669;
-  --color-brand-emeraldBg: rgba(5,150,105,0.06);
+  --color-brand-emerald-bg: rgba(5,150,105,0.06);
   --color-brand-red: #DC2626;
-  --color-brand-redBg: rgba(220,38,38,0.06);
-  --color-brand-redBorder: rgba(220,38,38,0.18);
+  --color-brand-red-bg: rgba(220,38,38,0.06);
+  --color-brand-red-border: rgba(220,38,38,0.18);
   --color-brand-purple: #7C3AED;
-  --color-brand-purpleBg: rgba(124,58,237,0.06);
-  --color-brand-purpleBorder: rgba(124,58,237,0.16);
+  --color-brand-purple-bg: rgba(124,58,237,0.06);
+  --color-brand-purple-border: rgba(124,58,237,0.16);
 
   --shadow-brand: 0 1px 3px rgba(15,22,41,0.05), 0 4px 16px rgba(15,22,41,0.05);
   --shadow-brand-md: 0 2px 8px rgba(15,22,41,0.06), 0 8px 32px rgba(15,22,41,0.08);
   --shadow-brand-lg: 0 4px 16px rgba(15,22,41,0.07), 0 16px 48px rgba(15,22,41,0.09);
   --shadow-brand-amber: 0 8px 32px rgba(217,119,6,0.20);
+  --shadow-brand-blue: 0 4px 12px rgba(50, 95, 236, 0.25);
 
   --animate-pulse-custom: pulse-custom 2s infinite;
 
@@ -51,4 +60,215 @@ body {
   font-family: var(--font-sans), Inter, sans-serif;
   background: #ffffff;
   color: #0f172a;
+}
+
+/* Component Tokens */
+
+@utility btn-primary {
+  background: linear-gradient(135deg, var(--color-brand-navy-deep), var(--color-brand-navy-mid));
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
+  padding: 0.625rem 1.125rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-brand-md);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+
+  &:hover {
+    transform: translateY(-0.5px);
+    border-color: var(--color-brand-blue-border);
+    box-shadow: 0 12px 36px rgba(50, 95, 236, 0.14);
+  }
+}
+
+@utility btn-secondary {
+  background-color: var(--color-brand-bg-card);
+  color: var(--color-brand-navy-mid);
+  border: 1px solid rgba(15, 22, 41, 0.15);
+  border-radius: 0.75rem;
+  padding: 0.625rem 1.125rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  text-decoration: none;
+
+  &:hover {
+    background-color: var(--color-brand-navy-mid);
+    color: #FFFFFF;
+    border-color: var(--color-brand-navy-mid);
+    box-shadow: var(--shadow-brand);
+  }
+}
+
+@utility card-frame {
+  background-color: var(--color-brand-bg-card);
+  border-radius: 1rem;
+  border: 1px solid var(--color-brand-border);
+  box-shadow: var(--shadow-brand);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-brand-lg);
+    border-color: var(--color-brand-border-mid);
+  }
+}
+
+@utility card-header-gradient {
+  position: relative;
+  height: 130px;
+  width: 100%;
+  background: linear-gradient(135deg, var(--color-brand-navy-deep) 0%, var(--color-brand-navy) 50%, var(--color-brand-navy-mid) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  text-align: center;
+  border-bottom: 1px solid var(--color-brand-border);
+  overflow: hidden;
+}
+@utility card-header-glow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 11rem;
+  height: 11rem;
+  background: radial-gradient(circle at top right, rgba(50, 95, 236, 0.15), transparent 70%);
+  pointer-events: none;
+}
+
+@utility badge-blue {
+  background-color: var(--color-brand-blue-bg);
+  color: var(--color-brand-blue-dark);
+  border: 1px solid var(--color-brand-blue-border);
+  font-weight: 700;
+  border-radius: 9999px;
+  padding: 0.125rem 0.625rem;
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+}
+
+@utility badge-amber {
+  background-color: var(--color-brand-amber-bg);
+  color: var(--color-brand-amber);
+  border: 1px solid var(--color-brand-amber-border);
+  font-weight: 700;
+  border-radius: 9999px;
+  padding: 0.125rem 0.625rem;
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+}
+
+@utility badge-emerald {
+  background-color: var(--color-brand-emerald-bg);
+  color: var(--color-brand-emerald);
+  border: 1px solid rgba(5, 150, 105, 0.16);
+  font-weight: 700;
+  border-radius: 9999px;
+  padding: 0.125rem 0.625rem;
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+}
+
+@utility badge-red {
+  background-color: var(--color-brand-red-bg);
+  color: var(--color-brand-red);
+  border: 1px solid var(--color-brand-red-border);
+  font-weight: 700;
+  border-radius: 9999px;
+  padding: 0.125rem 0.625rem;
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+}
+
+@utility badge-translucent {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  padding: 0.125rem 0.625rem;
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+}
+
+@utility alert-blue {
+  background-color: var(--color-brand-blue-bg);
+  border: 1px solid var(--color-brand-blue-border);
+  color: var(--color-brand-blue-dark);
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  gap: 0.75rem;
+}
+
+@utility alert-amber {
+  background-color: var(--color-brand-amber-bg);
+  border: 1px solid var(--color-brand-amber-border);
+  color: var(--color-brand-amber);
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  gap: 0.75rem;
+}
+
+@utility form-input {
+  width: 100%;
+  background-color: #FFFFFF;
+  border: 1px solid var(--color-brand-border-mid);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: var(--color-brand-navy-deep);
+  transition: all 0.2s ease-in-out;
+  box-shadow: var(--shadow-brand);
+
+  &::placeholder {
+    color: var(--color-brand-slate-light);
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--color-brand-blue-glow);
+    border-color: var(--color-brand-blue);
+  }
+}
+
+@utility table-premium {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--color-brand-border);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background-color: #FFFFFF;
 }

@@ -9,7 +9,7 @@ import { PDFBuilder } from "../pdfBuilder";
  */
 export function generateCompareReportPDF(projects) {
   const builder = new PDFBuilder();
-  builder.drawHeader();
+  builder.drawHeader("PROJECT COMPARISON REPORT");
 
   builder.addSectionHeading("Project Comparison Report");
   

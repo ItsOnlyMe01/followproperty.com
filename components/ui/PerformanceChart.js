@@ -18,6 +18,9 @@ export default function PerformanceChart({ data = [] }) {
     setMounted(true);
   }, []);
 
+  const isPositive = data.length > 1 ? data[data.length - 1].value >= data[0].value : true;
+  const chartColor = isPositive ? "#059669" : "#DC2626"; // Emerald for positive performance, Red for negative
+
   const formatCurrency = (num) => {
     if (!num) return "₹0";
     const parsedNum = Number(num);
@@ -32,10 +35,10 @@ export default function PerformanceChart({ data = [] }) {
       return (
         <div className="bg-brand-navy p-3 rounded-xl border border-brand-border shadow-brand text-xs text-white">
           <p className="font-bold mb-1 m-0">{payload[0].payload.year}</p>
-          <p className="font-extrabold text-brand-tealLight m-0">
+          <p className={`font-extrabold m-0 ${isPositive ? "text-[#34d399]" : "text-[#f87171]"}`}>
             {formatCurrency(payload[0].value)}
           </p>
-          <p className="text-[10px] text-brand-slateLight mt-0.5 m-0">
+          <p className="text-[10px] text-brand-slate-light mt-0.5 m-0">
             {payload[0].payload.label || "Estimated Value"}
           </p>
         </div>
@@ -46,7 +49,7 @@ export default function PerformanceChart({ data = [] }) {
 
   if (!mounted) {
     return (
-      <div className="w-full h-[220px] sm:h-[260px] bg-brand-bgCard rounded-xl border border-brand-border flex items-center justify-center text-xs text-brand-slate">
+      <div className="w-full h-[220px] sm:h-[260px] bg-brand-bg-card rounded-xl border border-brand-border flex items-center justify-center text-xs text-brand-slate">
         Loading performance chart...
       </div>
     );
@@ -66,8 +69,8 @@ export default function PerformanceChart({ data = [] }) {
         >
           <defs>
             <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#0D9488" stopOpacity={0.2} />
-              <stop offset="95%" stopColor="#0D9488" stopOpacity={0.0} />
+              <stop offset="5%" stopColor={chartColor} stopOpacity={0.2} />
+              <stop offset="95%" stopColor={chartColor} stopOpacity={0.0} />
             </linearGradient>
           </defs>
           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" opacity={0.5} />
@@ -104,12 +107,12 @@ export default function PerformanceChart({ data = [] }) {
           <Area
             type="monotone"
             dataKey="value"
-            stroke="#0D9488"
+            stroke={chartColor}
             strokeWidth={3}
             fillOpacity={1}
             fill="url(#colorValue)"
-            dot={{ r: 4, stroke: "#0D9488", strokeWidth: 2, fill: "#FFFFFF" }}
-            activeDot={{ r: 6, stroke: "#0D9488", strokeWidth: 2, fill: "#0D9488" }}
+            dot={{ r: 4, stroke: chartColor, strokeWidth: 2, fill: "#FFFFFF" }}
+            activeDot={{ r: 6, stroke: chartColor, strokeWidth: 2, fill: chartColor }}
           />
         </AreaChart>
       </ResponsiveContainer>

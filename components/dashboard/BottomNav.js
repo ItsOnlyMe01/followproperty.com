@@ -60,12 +60,12 @@ export default function BottomNav() {
 
       {/* More Items Popup Sheet */}
       {showMore && (
-        <div className="fixed bottom-[74px] left-4 right-4 bg-brand-bgCard border border-brand-border rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.15)] p-4.5 z-50 flex flex-col gap-1.5 md:hidden animate-in slide-in-from-bottom-4 duration-200">
+        <div className="fixed bottom-[74px] left-4 right-4 bg-brand-bg-card border border-brand-border rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.15)] p-4.5 z-50 flex flex-col gap-1.5 md:hidden animate-in slide-in-from-bottom-4 duration-200">
           <div className="flex items-center justify-between border-b border-brand-border/60 pb-2.5 mb-1.5">
-            <span className="text-[11px] font-bold text-brand-slateLight uppercase tracking-wider">More Sections</span>
+            <span className="text-[11px] font-bold text-brand-slate-light uppercase tracking-wider">More Sections</span>
             <button 
               onClick={() => setShowMore(false)} 
-              className="p-1 bg-transparent border-none cursor-pointer text-brand-slateLight hover:text-brand-navy flex items-center justify-center"
+              className="p-1 bg-transparent border-none cursor-pointer text-brand-slate-light hover:text-brand-navy flex items-center justify-center"
             >
               <X size={16} />
             </button>
@@ -80,11 +80,11 @@ export default function BottomNav() {
                 onClick={() => setShowMore(false)}
                 className={`flex items-center gap-3.5 px-3.5 py-3 rounded-xl no-underline transition-all ${
                   isItemActive 
-                    ? "bg-brand-tealBg text-brand-tealDark font-semibold" 
-                    : "text-brand-navyMid font-medium hover:bg-brand-bgAlt"
+                    ? "bg-brand-blue text-white font-semibold shadow-brand-blue" 
+                    : "text-brand-navy-mid font-medium hover:bg-brand-bg-alt"
                 }`}
               >
-                <Icon size={18} className={isItemActive ? "text-brand-teal" : "text-brand-slate"} />
+                <Icon size={18} className={isItemActive ? "text-white" : "text-brand-slate"} />
                 <span className="text-[13px]">{item.label}</span>
               </Link>
             );
@@ -93,7 +93,7 @@ export default function BottomNav() {
       )}
 
       {/* Bottom Nav Bar */}
-      <div className="fixed bottom-0 left-0 right-0 h-[64px] bg-brand-bgCard border-t border-brand-border z-40 flex items-center justify-around md:hidden px-2 shadow-[0_-4px_16px_rgba(0,0,0,0.03)]">
+      <div className="fixed bottom-0 left-0 right-0 h-[64px] bg-brand-bg-card border-t border-brand-border z-40 flex items-center justify-around md:hidden px-2 shadow-[0_-4px_16px_rgba(0,0,0,0.03)]">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = activeTab === item.id;
@@ -102,10 +102,10 @@ export default function BottomNav() {
               key={item.id}
               href={item.path}
               className={`flex flex-col items-center justify-center flex-1 h-full no-underline transition-all ${
-                isActive ? "text-brand-teal" : "text-brand-slate"
+                isActive ? "text-brand-blue" : "text-brand-slate"
               }`}
             >
-              <div className={`p-1 rounded-lg transition-colors ${isActive ? "text-brand-teal" : "text-brand-slate"}`}>
+              <div className={`p-1 rounded-lg transition-colors ${isActive ? "text-brand-blue" : "text-brand-slate"}`}>
                 <Icon size={19} strokeWidth={isActive ? 2.5 : 2} />
               </div>
               <span className="text-[10px] font-extrabold tracking-wide mt-0.5">{item.label}</span>
@@ -117,7 +117,7 @@ export default function BottomNav() {
         <button
           onClick={handleMoreClick}
           className={`flex flex-col items-center justify-center flex-1 h-full bg-transparent border-none cursor-pointer outline-none transition-all ${
-            showMore ? "text-brand-teal" : "text-brand-slate"
+            showMore ? "text-brand-blue" : "text-brand-slate"
           }`}
         >
           <div className="p-1 rounded-lg">

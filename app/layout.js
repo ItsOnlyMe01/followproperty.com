@@ -14,6 +14,9 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "FollowProperty - India's Property Intelligence Platform",
   description: "Monitor value, builder risks, legal alerts, and appreciation in one place. Built for serious property investors.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({ children }) {

@@ -90,8 +90,8 @@ export default function CompareView({ initialProjects }) {
   // If projects are removed below the minimum threshold (2)
   if (projects.length < 2) {
     return (
-      <div className="bg-brand-bgCard p-8 sm:p-12 rounded-3xl border border-brand-border shadow-brand text-center max-w-md mx-auto my-12 animate-in fade-in zoom-in-95 duration-200">
-        <div className="w-16 h-16 bg-brand-amberBg text-brand-amber rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
+      <div className="bg-brand-bg-card p-8 sm:p-12 rounded-3xl border border-brand-border shadow-brand text-center max-w-md mx-auto my-12 animate-in fade-in zoom-in-95 duration-200">
+        <div className="w-16 h-16 bg-brand-amber-bg text-brand-amber rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
           <ShieldAlert size={32} />
         </div>
         <h3 className="text-xl sm:text-2xl font-extrabold text-brand-navy m-0 mb-3 tracking-tight">
@@ -128,7 +128,7 @@ export default function CompareView({ initialProjects }) {
         {projects.map((p) => (
           <div
             key={p._id}
-            className="bg-brand-bgCard p-4 rounded-2xl border border-brand-border shadow-brand flex items-center justify-between gap-3 relative"
+            className="bg-brand-bg-card p-4 rounded-2xl border border-brand-border shadow-brand flex items-center justify-between gap-3 relative"
           >
             <div className="min-w-0">
               <h3 className="text-sm font-extrabold text-brand-navy truncate m-0">
@@ -150,11 +150,11 @@ export default function CompareView({ initialProjects }) {
       </div>
 
       {/* DESKTOP TABLE LAYOUT (hidden on sm devices) */}
-      <div className="hidden md:block overflow-x-auto rounded-3xl border border-brand-border bg-brand-bgCard shadow-brand mb-6">
+      <div className="hidden md:block overflow-x-auto rounded-3xl border border-brand-border bg-brand-bg-card shadow-brand mb-6">
         <table className="w-full border-collapse text-left">
           <thead>
-            <tr className="bg-brand-bgAlt/50">
-              <th className="px-6 py-5 text-xs font-extrabold uppercase tracking-wider text-brand-slateLight border-b border-brand-border min-w-[200px]">
+            <tr className="bg-brand-bg-alt/50">
+              <th className="px-6 py-5 text-xs font-extrabold uppercase tracking-wider text-brand-slate-light border-b border-brand-border min-w-[200px]">
                 Specifications
               </th>
               {projects.map((p) => (
@@ -180,13 +180,13 @@ export default function CompareView({ initialProjects }) {
               return (
                 <tr
                   key={f.key}
-                  className={`hover:bg-brand-bgAlt/40 transition-colors border-l-2 ${
+                  className={`hover:bg-brand-bg-alt/40 transition-colors border-l-2 ${
                     differs
                       ? "bg-brand-amber/5 border-l-brand-amber"
                       : "border-l-transparent"
                   }`}
                 >
-                  <td className="px-6 py-4 font-bold text-xs uppercase tracking-wider text-brand-slateLight border-b border-brand-border bg-brand-bgAlt/30 flex items-center gap-1.5 select-none">
+                  <td className="px-6 py-4 font-bold text-xs uppercase tracking-wider text-brand-slate-light border-b border-brand-border bg-brand-bg-alt/30 flex items-center gap-1.5 select-none">
                     {differs && (
                       <span
                         className="w-1.5 h-1.5 rounded-full bg-brand-amber"
@@ -200,7 +200,7 @@ export default function CompareView({ initialProjects }) {
                       key={p._id}
                       className="px-6 py-4 text-sm font-extrabold text-brand-navy border-b border-brand-border"
                     >
-                      {f.value(p) || <span className="text-brand-slateLight font-medium">—</span>}
+                      {f.value(p) || <span className="text-brand-slate-light font-medium">—</span>}
                     </td>
                   ))}
                 </tr>
@@ -220,17 +220,17 @@ export default function CompareView({ initialProjects }) {
               className={`p-4 rounded-2xl border transition-all shadow-sm ${
                 differs
                   ? "bg-brand-amber/5 border-brand-amber/30"
-                  : "bg-brand-bgCard border-brand-border"
+                  : "bg-brand-bg-card border-brand-border"
               }`}
             >
               {/* Field Label Header */}
               <div className="flex items-center justify-between gap-2 pb-2 border-b border-brand-border/60">
-                <span className="text-[10px] font-extrabold uppercase tracking-wider text-brand-slateLight flex items-center gap-1.5">
+                <span className="text-[10px] font-extrabold uppercase tracking-wider text-brand-slate-light flex items-center gap-1.5">
                   {differs && <span className="w-1.5 h-1.5 rounded-full bg-brand-amber" />}
                   {f.label}
                 </span>
                 {differs && (
-                  <span className="px-1.5 py-0.5 rounded text-[8px] font-extrabold uppercase tracking-wider bg-brand-amberBg text-brand-amber border border-brand-amber/20 select-none">
+                  <span className="px-1.5 py-0.5 rounded text-[8px] font-extrabold uppercase tracking-wider bg-brand-amber-bg text-brand-amber border border-brand-amber/20 select-none">
                     Differs
                   </span>
                 )}
@@ -244,7 +244,7 @@ export default function CompareView({ initialProjects }) {
                       {p.projectName}
                     </span>
                     <span className="text-sm font-extrabold text-brand-navy leading-normal">
-                      {f.value(p) || <span className="text-brand-slateLight font-medium">—</span>}
+                      {f.value(p) || <span className="text-brand-slate-light font-medium">—</span>}
                     </span>
                   </div>
                 ))}

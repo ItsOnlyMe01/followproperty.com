@@ -63,8 +63,8 @@ export default async function ComparePage({ searchParams }) {
 
         {/* Validation Failure / Empty state */}
         {!hasMinProjects ? (
-          <div className="bg-brand-bgCard p-8 sm:p-12 rounded-3xl border border-brand-border shadow-brand text-center max-w-md mx-auto my-12 animate-in fade-in zoom-in-95 duration-200">
-            <div className="w-16 h-16 bg-brand-tealBg text-brand-teal rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
+          <div className="bg-brand-bg-card p-8 sm:p-12 rounded-3xl border border-brand-border shadow-brand text-center max-w-md mx-auto my-12 animate-in fade-in zoom-in-95 duration-200">
+            <div className="w-16 h-16 bg-brand-teal-bg text-brand-teal rounded-full flex items-center justify-center mx-auto mb-6 shadow-sm">
               <GitCompare size={32} strokeWidth={2} />
             </div>
             

@@ -51,7 +51,7 @@ export default function DownloadReportButton({ projectId }) {
     return (
       <button
         disabled
-        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-bold bg-brand-emerald text-white border-none shadow-[0_2px_8px_rgba(16,185,129,0.15)] cursor-not-allowed select-none"
+        className="badge-emerald px-3 py-1.5 text-[11px] normal-case cursor-not-allowed select-none"
       >
         <Check size={13} strokeWidth={3} />
         Report Downloaded!
@@ -63,10 +63,10 @@ export default function DownloadReportButton({ projectId }) {
     <button
       onClick={handleDownload}
       disabled={downloading}
-      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[11px] font-bold transition-all border-none select-none active:scale-[0.97] cursor-pointer ${
+      className={`btn-primary px-3 py-1.5 text-[11px] transition-all border-none select-none active:scale-[0.97] ${
         downloading
-          ? "bg-brand-bgAlt text-brand-slate cursor-wait"
-          : "bg-brand-navy text-white hover:bg-brand-navy/90 hover:-translate-y-[0.5px] shadow-[0_2px_8px_rgba(15,22,41,0.12)]"
+          ? "bg-brand-bg-alt text-brand-slate cursor-wait"
+          : ""
       }`}
     >
       {downloading ? (

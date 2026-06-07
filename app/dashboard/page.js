@@ -99,17 +99,17 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {/* Card 1: Total Portfolio Properties */}
           <Link href="/portfolio" className="no-underline text-inherit flex w-full">
-            <div className="w-full bg-brand-bgCard p-5 rounded-2xl border border-brand-border shadow-brand hover:-translate-y-1 hover:shadow-brand-md transition-all duration-200 cursor-pointer flex flex-col justify-between min-h-[130px]">
+            <div className="w-full bg-brand-bg-card p-5 rounded-2xl border border-brand-border shadow-brand hover:-translate-y-0.5 hover:border-brand-amber-border hover:shadow-[0_8px_30px_rgba(217,119,6,0.08)] transition-all duration-200 cursor-pointer flex flex-col justify-between min-h-[130px]">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-[11px] font-bold text-brand-slate uppercase tracking-wider">Tracked Portfolio</span>
-                <div className="w-8 h-8 rounded-lg bg-brand-amberBg flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-brand-amber-bg flex items-center justify-center">
                   <Building2 size={16} className="text-brand-amber" />
                 </div>
               </div>
               <div>
                 <h3 className="text-2xl font-black text-brand-navy m-0">
                   {isLoading ? (
-                    <div className="h-7 w-12 bg-brand-bgAlt rounded animate-pulse" />
+                    <div className="h-7 w-12 bg-brand-bg-alt rounded animate-pulse" />
                   ) : (
                     portfolios.length
                   )}
@@ -123,22 +123,22 @@ export default function Dashboard() {
 
           {/* Card 2: Active Watchlists */}
           <Link href="/watchlist" className="no-underline text-inherit flex w-full">
-            <div className="w-full bg-brand-bgCard p-5 rounded-2xl border border-brand-border shadow-brand hover:-translate-y-1 hover:shadow-brand-md transition-all duration-200 cursor-pointer flex flex-col justify-between min-h-[130px]">
+            <div className="w-full bg-brand-bg-card p-5 rounded-2xl border border-brand-border shadow-brand hover:-translate-y-0.5 hover:border-brand-blue-border hover:shadow-[0_8px_30px_rgba(50,95,236,0.08)] transition-all duration-200 cursor-pointer flex flex-col justify-between min-h-[130px]">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-[11px] font-bold text-brand-slate uppercase tracking-wider">Active Watchlists</span>
-                <div className="w-8 h-8 rounded-lg bg-brand-tealBg flex items-center justify-center">
-                  <ListPlus size={16} className="text-brand-teal" />
+                <div className="w-8 h-8 rounded-lg bg-brand-blue-bg flex items-center justify-center">
+                  <ListPlus size={16} className="text-brand-blue" />
                 </div>
               </div>
               <div>
                 <h3 className="text-2xl font-black text-brand-navy m-0">
                   {isLoading ? (
-                    <div className="h-7 w-12 bg-brand-bgAlt rounded animate-pulse" />
+                    <div className="h-7 w-12 bg-brand-bg-alt rounded animate-pulse" />
                   ) : (
                     watchlists.length
                   )}
                 </h3>
-                <div className="mt-2 text-[11px] font-semibold text-brand-teal flex items-center gap-1">
+                <div className="mt-2 text-[11px] font-semibold text-brand-blue flex items-center gap-1">
                   <span>Manage Watchlists</span> <ArrowRight size={12} />
                 </div>
               </div>
@@ -147,22 +147,22 @@ export default function Dashboard() {
 
           {/* Card 3: Matching Projects */}
           <Link href="/watchlist" className="no-underline text-inherit flex w-full">
-            <div className="w-full bg-brand-bgCard p-5 rounded-2xl border border-brand-border shadow-brand hover:-translate-y-1 hover:shadow-brand-md transition-all duration-200 cursor-pointer flex flex-col justify-between min-h-[130px]">
+            <div className="w-full bg-brand-bg-card p-5 rounded-2xl border border-brand-border shadow-brand hover:-translate-y-0.5 hover:border-brand-blue-border hover:shadow-[0_8px_30px_rgba(50,95,236,0.08)] transition-all duration-200 cursor-pointer flex flex-col justify-between min-h-[130px]">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-[11px] font-bold text-brand-slate uppercase tracking-wider">Recommended Matches</span>
-                <div className="w-8 h-8 rounded-lg bg-brand-tealBg flex items-center justify-center">
-                  <Search size={16} className="text-brand-teal" />
+                <div className="w-8 h-8 rounded-lg bg-brand-blue-bg flex items-center justify-center">
+                  <Search size={16} className="text-brand-blue" />
                 </div>
               </div>
               <div>
                 <h3 className="text-2xl font-black text-brand-navy m-0">
                   {isLoading ? (
-                    <div className="h-7 w-12 bg-brand-bgAlt rounded animate-pulse" />
+                    <div className="h-7 w-12 bg-brand-bg-alt rounded animate-pulse" />
                   ) : (
                     matchingCount
                   )}
                 </h3>
-                <div className="mt-2 text-[11px] font-semibold text-brand-teal flex items-center gap-1">
+                <div className="mt-2 text-[11px] font-semibold text-brand-blue flex items-center gap-1">
                   <span>Explore Matches</span> <ArrowRight size={12} />
                 </div>
               </div>
@@ -170,32 +170,34 @@ export default function Dashboard() {
           </Link>
 
           {/* Card 4: Recent Alerts */}
-          <div className="w-full bg-brand-bgCard p-5 rounded-2xl border border-brand-border shadow-brand flex flex-col justify-between min-h-[130px]">
+          <div className="w-full bg-brand-bg-card p-5 rounded-2xl border border-brand-border shadow-brand hover:-translate-y-0.5 hover:border-brand-red-border hover:shadow-[0_8px_30px_rgba(220,38,38,0.08)] transition-all duration-200 cursor-pointer flex flex-col justify-between min-h-[130px]">
             <div className="flex items-center justify-between mb-3">
               <span className="text-[11px] font-bold text-brand-slate uppercase tracking-wider">Security Alerts</span>
-              <div className="w-8 h-8 rounded-lg bg-brand-redBg flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-brand-red-bg flex items-center justify-center">
                 <BellRing size={16} className="text-brand-red" />
               </div>
             </div>
             <div>
               <h3 className="text-2xl font-black text-brand-navy m-0">1</h3>
-              <p className="mt-2 text-[11px] font-bold text-brand-red m-0">Action Required</p>
+              <div className="mt-2 text-[11px] font-semibold text-brand-red flex items-center gap-1">
+                <span>View Platform Alerts</span> <ArrowRight size={12} />
+              </div>
             </div>
           </div>
         </div>
 
         {/* Recent Alerts Section (Uncluttered layout) */}
-        <div className="bg-brand-bgCard p-6 rounded-3xl border border-brand-border shadow-brand animate-in slide-in-from-bottom-3 duration-300">
+        <div className="bg-brand-bg-card p-6 rounded-3xl border border-brand-border shadow-brand animate-in slide-in-from-bottom-3 duration-300">
           <div className="flex items-center justify-between mb-5 pb-3 border-b border-brand-border">
             <h2 className="text-lg font-bold text-brand-navy m-0 flex items-center gap-2">
               <ShieldAlert className="text-brand-red" size={20} /> Critical Platform Alerts
             </h2>
-            <span className="text-xs font-semibold text-brand-red bg-brand-redBg px-2.5 py-1 rounded-full border border-brand-redBorder">
+            <span className="text-xs font-semibold text-brand-red bg-brand-red-bg px-2.5 py-1 rounded-full border border-brand-red-border">
               1 Unresolved
             </span>
           </div>
 
-          <div className="bg-brand-redBg border border-brand-redBorder rounded-xl p-4 flex items-start gap-4">
+          <div className="bg-brand-red-bg border border-brand-red-border rounded-xl p-4 flex items-start gap-4">
             <div className="w-8 h-8 rounded-lg bg-brand-red text-white flex items-center justify-center font-bold flex-shrink-0">
               !
             </div>
@@ -211,7 +213,7 @@ export default function Dashboard() {
               <p className="text-[11px] text-brand-slate m-0 mb-2 font-medium">
                 Skyline Residency · 2 days ago
               </p>
-              <p className="text-xs text-brand-navyMid leading-relaxed m-0">
+              <p className="text-xs text-brand-navy-mid leading-relaxed m-0">
                 Prestige Lakeside Habitat shows 6-month possession delay; may impact resale sentiment in Whitefield.
               </p>
             </div>

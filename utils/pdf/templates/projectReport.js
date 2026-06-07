@@ -9,7 +9,7 @@ import { formatCurrency, formatPriceRange, formatAreaRange, isEmpty } from "../f
  */
 export function generateProjectReportPDF(project) {
   const builder = new PDFBuilder();
-  builder.drawHeader();
+  builder.drawHeader("OFFICIAL PROJECT REPORT");
 
   // --- 1. HERO SECTION: IDENTITY & LOCATION ---
   builder.doc.setTextColor(builder.primaryColor[0], builder.primaryColor[1], builder.primaryColor[2]);

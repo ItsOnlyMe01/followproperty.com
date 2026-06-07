@@ -40,17 +40,17 @@ export default function ProjectsFilterClient({
   };
 
   return (
-    <div className="bg-brand-bgCard p-5 rounded-3xl border border-brand-border shadow-brand mb-6">
+    <div className="bg-brand-bg-card p-5 rounded-3xl border border-brand-border shadow-brand mb-6">
       {/* Title */}
       <div className="flex items-center justify-between mb-4 pb-2 border-b border-brand-border">
         <h2 className="text-sm font-extrabold text-brand-navy m-0 flex items-center gap-2">
-          <SlidersHorizontal size={16} className="text-brand-teal" /> Filter Properties
+          <SlidersHorizontal size={16} className="text-brand-blue" /> Filter Properties
         </h2>
         
         {hasActiveFilters && (
           <button
             onClick={handleReset}
-            className="inline-flex items-center gap-1 text-[11px] font-bold text-brand-red bg-brand-redBg border border-brand-redBorder hover:opacity-85 px-2.5 py-1 rounded-lg cursor-pointer transition-opacity"
+            className="inline-flex items-center gap-1 text-[11px] font-bold text-brand-red bg-brand-red-bg border border-brand-red-border hover:opacity-85 px-2.5 py-1 rounded-lg cursor-pointer transition-opacity"
           >
             <RotateCcw size={10} /> Reset Filters
           </button>
@@ -68,7 +68,7 @@ export default function ProjectsFilterClient({
             id="city-select"
             value={currentFilters.city || "All"}
             onChange={(e) => handleFilterChange("city", e.target.value)}
-            className="bg-brand-bgAlt border border-brand-border rounded-xl px-3 py-2.5 text-xs text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-teal/20 focus:border-brand-teal transition-all"
+            className="bg-brand-bg-alt border border-brand-border rounded-xl px-3 py-2.5 text-xs text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all"
           >
             <option value="All">All Cities</option>
             {cities.map((city) => (
@@ -88,7 +88,7 @@ export default function ProjectsFilterClient({
             id="builder-select"
             value={currentFilters.builder || "All"}
             onChange={(e) => handleFilterChange("builder", e.target.value)}
-            className="bg-brand-bgAlt border border-brand-border rounded-xl px-3 py-2.5 text-xs text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-teal/20 focus:border-brand-teal transition-all max-w-full"
+            className="bg-brand-bg-alt border border-brand-border rounded-xl px-3 py-2.5 text-xs text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all max-w-full"
           >
             <option value="All">All Developers</option>
             {builders.map((builder) => (
@@ -108,7 +108,7 @@ export default function ProjectsFilterClient({
             id="propertyType-select"
             value={currentFilters.propertyType || "All"}
             onChange={(e) => handleFilterChange("propertyType", e.target.value)}
-            className="bg-brand-bgAlt border border-brand-border rounded-xl px-3 py-2.5 text-xs text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-teal/20 focus:border-brand-teal transition-all"
+            className="bg-brand-bg-alt border border-brand-border rounded-xl px-3 py-2.5 text-xs text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all"
           >
             <option value="All">All Types</option>
             {propertyTypes.map((type) => (
@@ -128,7 +128,7 @@ export default function ProjectsFilterClient({
             id="status-select"
             value={currentFilters.status || "All"}
             onChange={(e) => handleFilterChange("status", e.target.value)}
-            className="bg-brand-bgAlt border border-brand-border rounded-xl px-3 py-2.5 text-xs text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-teal/20 focus:border-brand-teal transition-all"
+            className="bg-brand-bg-alt border border-brand-border rounded-xl px-3 py-2.5 text-xs text-brand-navy focus:outline-none focus:ring-2 focus:ring-brand-blue/20 focus:border-brand-blue transition-all"
           >
             <option value="All">All Statuses</option>
             {statuses.map((status) => (

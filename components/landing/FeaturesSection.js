@@ -48,9 +48,9 @@ export default function CoreFlows({ authState }) {
       id: "buy",
       label: "Looking to Buy",
       badge: "Watchlist",
-      accentStr: "text-brand-teal border-brand-tealBorder",
-      accentBgStr: "bg-brand-tealBg",
-      iconColor: "#0D9488",
+      accentStr: "text-brand-blue border-brand-blue-border",
+      accentBgStr: "bg-brand-blue-bg",
+      iconColor: "#325fec",
       icon: Search,
       tagline: "Discover. Compare. Decide.",
       desc: "Set your intent. We'll track the market and alert you when it's the right moment to act.",
@@ -63,15 +63,15 @@ export default function CoreFlows({ authState }) {
         { icon: BellRing, label: "Watchlist Alerts", sub: "Price moves, builder news, RERA flags" },
       ],
       cta: "Create My Watchlist",
-      ctaGrad: "bg-brand-teal",
-      ctaShadow: "shadow-[0_4px_16px_rgba(13,148,136,0.24)]",
+      ctaGrad: "bg-brand-navy hover:bg-brand-navy-mid text-white border border-brand-blue-border/30",
+      ctaShadow: "shadow-brand-blue/20",
     },
     {
       id: "bought",
       label: "Already Bought",
       badge: "Portfolio",
-      accentStr: "text-brand-amber border-brand-amberBorder",
-      accentBgStr: "bg-brand-amberBg",
+      accentStr: "text-brand-amber border-brand-amber-border",
+      accentBgStr: "bg-brand-amber-bg",
       iconColor: "#D97706",
       icon: BarChart3,
       tagline: "Track. Analyse. Grow.",
@@ -85,19 +85,19 @@ export default function CoreFlows({ authState }) {
         { icon: Shield, label: "FollowProperty Dashboard", sub: "Stock-market UI across all properties" },
       ],
       cta: "Track My Portfolio",
-      ctaGrad: "bg-gradient-to-br from-brand-amberLight to-[#EA580C]",
-      ctaShadow: "shadow-brand-amber",
+      ctaGrad: "bg-linear-to-br from-brand-amber to-[#B45309] text-white border border-brand-amber-border/30",
+      ctaShadow: "shadow-brand-amber/20",
     },
   ];
 
   return (
-    <Section className="py-[88px] bg-brand-bgAlt relative overflow-hidden">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] bg-[radial-gradient(ellipse,rgba(245,158,11,0.04)_0%,transparent_60%)] pointer-events-none" />
+    <Section className="py-[88px] bg-brand-bg-alt relative overflow-hidden">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] bg-[radial-gradient(ellipse,rgba(50,95,236,0.06)_0%,transparent_60%)] pointer-events-none" />
 
       <div className="max-w-[1200px] mx-auto px-6 relative z-10">
         <motion.div variants={fadeUp} custom={0} className="text-center mb-[52px]">
-          <div className="inline-flex items-center gap-1.5 py-1.5 px-3.5 rounded-full border border-brand-border bg-brand-bgCard mb-3.5 shadow-brand">
-            <span className="text-[10px] text-brand-slateLight tracking-[0.1em] uppercase">
+          <div className="inline-flex items-center gap-1.5 py-1.5 px-3.5 rounded-full border border-brand-border bg-brand-bg-card mb-3.5 shadow-brand">
+            <span className="text-[10px] text-brand-slate-light tracking-[0.10em] uppercase">
               Two Paths. One Platform.
             </span>
           </div>
@@ -118,8 +118,8 @@ export default function CoreFlows({ authState }) {
                 key={flow.id}
                 variants={fadeUp}
                 custom={idx + 1}
-                className={`bg-brand-bgCard rounded-[20px] overflow-hidden relative cursor-pointer transition-all duration-[0.35s] ${
-                  flow.highlighted ? "border-[1.5px] border-brand-amberBorder shadow-brand-lg" : "border border-brand-border shadow-brand-md"
+                className={`bg-brand-bg-card rounded-[20px] overflow-hidden relative cursor-pointer transition-all duration-[0.35s] ${
+                  flow.highlighted ? "border-[1.5px] border-brand-amber-border shadow-brand-lg" : "border border-brand-border shadow-brand-md"
                 }`}
                 whileHover={{
                   y: -5,
@@ -129,11 +129,11 @@ export default function CoreFlows({ authState }) {
                 }}
               >
                 <div
-                  className={`h-[3px] ${flow.highlighted ? "bg-gradient-to-r from-brand-amber to-[#EA580C]" : "bg-brand-teal"}`}
+                  className={`h-[3px] ${flow.highlighted ? "bg-linear-to-r from-brand-amber to-[#EA580C]" : "bg-brand-blue"}`}
                 />
 
                 {flow.highlighted && (
-                  <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-brand-amberBg border border-brand-amberBorder rounded-full py-1 px-2.5">
+                  <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-brand-amber-bg border border-brand-amber-border rounded-full py-1 px-2.5">
                     <Star size={10} fill="#D97706" color="#D97706" />
                     <span className="text-[10px] text-brand-amber font-semibold tracking-[0.04em]">
                       Core Feature
@@ -153,7 +153,7 @@ export default function CoreFlows({ authState }) {
                       <h3 className="text-[20px] font-bold text-brand-navy tracking-tight mb-0.5">
                         {flow.label}
                       </h3>
-                      <p className={`text-[12px] font-medium ${flow.id === "buy" ? "text-brand-teal" : "text-brand-amber"}`}>
+                      <p className={`text-[12px] font-medium ${flow.id === "buy" ? "text-brand-blue" : "text-brand-amber"}`}>
                         {flow.tagline}
                       </p>
                     </div>
@@ -172,7 +172,7 @@ export default function CoreFlows({ authState }) {
                             <FIcon size={12} color={flow.iconColor} />
                           </div>
                           <div>
-                            <div className="text-[14px] text-brand-navyMid font-semibold">
+                            <div className="text-[14px] text-brand-navy-mid font-semibold">
                               {f.label}
                             </div>
                             <div className="text-[12px] text-brand-slate mt-[2px]">
