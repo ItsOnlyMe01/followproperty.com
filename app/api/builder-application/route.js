@@ -1,35 +1,24 @@
-import { cookies } from "next/headers";
-import { adminAuth } from "@/lib/firebase-admin";
+import { verifyAuthRequest } from "@/lib/auth-guards";
 import connectToDatabase from "@/lib/db";
-import User from "@/models/User";
 import BuilderApplication from "@/models/BuilderApplication";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
+    const authResult = await verifyAuthRequest({ checkRevoked: true });
+    if (!authResult.authenticated) {
+      const response = NextResponse.json(
+        { success: false, error: authResult.error },
+        { status: authResult.status }
+      );
+      response.cookies.set("token", "", { expires: new Date(0), path: "/" });
+      response.cookies.set("user_role", "", { expires: new Date(0), path: "/" });
+      response.cookies.set("builder_status", "", { expires: new Date(0), path: "/" });
+      return response;
+    }
+
+    const { user } = authResult;
     await connectToDatabase();
-
-    // Get authenticated user from session cookie
-    const cookieStore = await cookies();
-    const token = cookieStore.get("token")?.value;
-
-    if (!token) {
-      return NextResponse.json(
-        { success: false, error: "Unauthorized" },
-        { status: 401 }
-      );
-    }
-
-    const decodedToken = await adminAuth.verifyIdToken(token);
-    const firebaseUid = decodedToken.uid;
-
-    const user = await User.findOne({ firebaseUid });
-    if (!user) {
-      return NextResponse.json(
-        { success: false, error: "User not found in database" },
-        { status: 404 }
-      );
-    }
 
     const body = await req.json();
     const {
@@ -83,29 +72,20 @@ export async function POST(req) {
 
 export async function GET() {
   try {
+    const authResult = await verifyAuthRequest({ checkRevoked: true });
+    if (!authResult.authenticated) {
+      const response = NextResponse.json(
+        { success: false, error: authResult.error },
+        { status: authResult.status }
+      );
+      response.cookies.set("token", "", { expires: new Date(0), path: "/" });
+      response.cookies.set("user_role", "", { expires: new Date(0), path: "/" });
+      response.cookies.set("builder_status", "", { expires: new Date(0), path: "/" });
+      return response;
+    }
+
+    const { user } = authResult;
     await connectToDatabase();
-
-    // Get authenticated user from session cookie
-    const cookieStore = await cookies();
-    const token = cookieStore.get("token")?.value;
-
-    if (!token) {
-      return NextResponse.json(
-        { success: false, error: "Unauthorized" },
-        { status: 401 }
-      );
-    }
-
-    const decodedToken = await adminAuth.verifyIdToken(token);
-    const firebaseUid = decodedToken.uid;
-
-    const user = await User.findOne({ firebaseUid });
-    if (!user) {
-      return NextResponse.json(
-        { success: false, error: "User not found in database" },
-        { status: 404 }
-      );
-    }
 
     const application = await BuilderApplication.findOne({ userId: user._id }).lean();
 

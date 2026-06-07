@@ -1,25 +1,23 @@
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
-import { adminAuth } from '@/lib/firebase-admin';
+import { verifyAuthRequest } from '@/lib/auth-guards';
 import connectToDatabase from '@/lib/db';
 import Portfolio from '@/models/Portfolio';
 
 export async function DELETE(request, { params }) {
   try {
-    await connectToDatabase();
-
-    // Get authenticated user from session cookie
-    const cookieStore = await cookies();
-    const token = cookieStore.get("token")?.value;
-
-    if (!token) {
-      return NextResponse.json(
-        { success: false, error: "Unauthorized access: Please log in." },
-        { status: 401 }
+    const authResult = await verifyAuthRequest({ checkRevoked: true });
+    if (!authResult.authenticated) {
+      const response = NextResponse.json(
+        { success: false, error: authResult.error },
+        { status: authResult.status }
       );
+      response.cookies.set("token", "", { expires: new Date(0), path: "/" });
+      response.cookies.set("user_role", "", { expires: new Date(0), path: "/" });
+      response.cookies.set("builder_status", "", { expires: new Date(0), path: "/" });
+      return response;
     }
 
-    const decodedToken = await adminAuth.verifyIdToken(token);
+    const { decodedToken } = authResult;
     const firebaseUid = decodedToken.uid;
 
     const unwrappedParams = await params;

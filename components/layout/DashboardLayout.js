@@ -11,12 +11,13 @@ import Footer from "../landing/Footer";
 
 export default function DashboardLayout({ children }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (currentUser) {
-        try {
+      try {
+        if (currentUser) {
           const token = await currentUser.getIdToken();
           const res = await fetch("/api/auth/verify", {
             method: "POST",
@@ -30,19 +31,35 @@ export default function DashboardLayout({ children }) {
             const status = data.user.builderApplicationStatus;
             if (status === "draft" || status === "rejected") {
               router.push("/builder-register");
+              return; // Keep loading true during redirection
             } else if (status === "pending") {
               router.push("/builder-application-status");
+              return; // Keep loading true during redirection
             } else if (status === "approved") {
               router.push("/builder-dashboard");
+              return; // Keep loading true during redirection
             }
           }
-        } catch (e) {
-          console.error("Error verifying in DashboardLayout:", e);
         }
+      } catch (e) {
+        console.error("Error verifying in DashboardLayout:", e);
+      } finally {
+        setLoading(false);
       }
     });
     return () => unsubscribe();
   }, [router]);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-brand-bg">
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 rounded-full border-4 border-brand-amber/20 border-t-brand-amber animate-spin" />
+          <p className="text-sm font-semibold text-brand-navy/60 animate-pulse">Securing session...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen bg-brand-bg">

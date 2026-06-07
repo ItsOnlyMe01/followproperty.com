@@ -79,6 +79,22 @@ export async function POST(req) {
       path: "/",
     });
 
+    response.cookies.set("user_role", user.role, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 60 * 60 * 24 * 7, // 1 week
+      path: "/",
+    });
+
+    response.cookies.set("builder_status", builderApplicationStatus || "", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 60 * 60 * 24 * 7, // 1 week
+      path: "/",
+    });
+
     return response;
   } catch (error) {
     console.error("Error in POST /api/auth/verify:", error);

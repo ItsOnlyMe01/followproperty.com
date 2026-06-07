@@ -1,37 +1,26 @@
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
-import { adminAuth } from '@/lib/firebase-admin';
+import { verifyAuthRequest } from '@/lib/auth-guards';
 import connectToDatabase from '@/lib/db';
 import Portfolio from '@/models/Portfolio';
-import User from '@/models/User';
 
 export async function POST(request) {
   try {
-    await connectToDatabase();
-    
-    // Get authenticated user from session cookie
-    const cookieStore = await cookies();
-    const token = cookieStore.get("token")?.value;
-
-    if (!token) {
-      return NextResponse.json(
-        { success: false, error: "Unauthorized access: Please log in." },
-        { status: 401 }
+    const authResult = await verifyAuthRequest({ checkRevoked: true });
+    if (!authResult.authenticated) {
+      const response = NextResponse.json(
+        { success: false, error: authResult.error },
+        { status: authResult.status }
       );
+      response.cookies.set("token", "", { expires: new Date(0), path: "/" });
+      response.cookies.set("user_role", "", { expires: new Date(0), path: "/" });
+      response.cookies.set("builder_status", "", { expires: new Date(0), path: "/" });
+      return response;
     }
 
-    const decodedToken = await adminAuth.verifyIdToken(token);
+    const { user, decodedToken } = authResult;
     const firebaseUid = decodedToken.uid;
 
-    // Find MongoDB User
-    const user = await User.findOne({ firebaseUid });
-    if (!user) {
-      return NextResponse.json(
-        { success: false, error: "User profile not found in database." },
-        { status: 404 }
-      );
-    }
-
+    await connectToDatabase();
     const body = await request.json();
     
     // Automatically inject user ownership mapping parameters
@@ -56,21 +45,22 @@ export async function POST(request) {
 
 export async function GET() {
   try {
-    await connectToDatabase();
-
-    // Get authenticated user from session cookie
-    const cookieStore = await cookies();
-    const token = cookieStore.get("token")?.value;
-
-    if (!token) {
-      return NextResponse.json(
-        { success: false, error: "Unauthorized access: Please log in." },
-        { status: 401 }
+    const authResult = await verifyAuthRequest({ checkRevoked: true });
+    if (!authResult.authenticated) {
+      const response = NextResponse.json(
+        { success: false, error: authResult.error },
+        { status: authResult.status }
       );
+      response.cookies.set("token", "", { expires: new Date(0), path: "/" });
+      response.cookies.set("user_role", "", { expires: new Date(0), path: "/" });
+      response.cookies.set("builder_status", "", { expires: new Date(0), path: "/" });
+      return response;
     }
 
-    const decodedToken = await adminAuth.verifyIdToken(token);
+    const { decodedToken } = authResult;
     const firebaseUid = decodedToken.uid;
+
+    await connectToDatabase();
 
     // Retrieve only portfolio properties belonging to this user
     const portfolios = await Portfolio.find({ firebaseUid }).sort({ createdAt: -1 });

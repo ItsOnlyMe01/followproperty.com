@@ -14,5 +14,17 @@ export async function POST() {
     path: "/",
   });
 
+  response.cookies.set("user_role", "", {
+    httpOnly: true,
+    expires: new Date(0),
+    path: "/",
+  });
+
+  response.cookies.set("builder_status", "", {
+    httpOnly: true,
+    expires: new Date(0),
+    path: "/",
+  });
+
   return response;
 }
