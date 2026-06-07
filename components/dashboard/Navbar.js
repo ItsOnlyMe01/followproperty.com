@@ -105,7 +105,7 @@ export default function Navbar({ onMenuClick }) {
           className="flex items-center gap-2 no-underline"
         >
           <img src="/favicon.svg" alt="FollowProperty Logo" className="w-7 h-7 object-contain" />
-          <span className="font-bold text-[17px] text-brand-navy tracking-[-0.025em] hidden sm:block">
+          <span className="font-bold text-[17px] text-brand-navy tracking-[-0.025em] block">
             FollowProperty
           </span>
           <span className="hidden sm:inline-block text-[10px] text-brand-slate-light tracking-[0.14em] uppercase ml-1">

@@ -50,7 +50,16 @@ export default function AuthLayout({ children }) {
       </div>
 
       {/* Right side - dynamic content */}
-      <div className="w-full lg:w-[55%] xl:w-[50%] flex items-center justify-center p-6 sm:p-12">
+      <div className="w-full lg:w-[55%] xl:w-[50%] flex flex-col items-center justify-center p-6 sm:p-12">
+        {/* Mobile Logo & Brand Header */}
+        <div className="lg:hidden w-full max-w-[400px] mb-8">
+          <Link href="/" className="inline-flex items-center gap-2 no-underline">
+            <img src="/favicon.svg" alt="FollowProperty Logo" className="w-7 h-7 object-contain" />
+            <span className="font-bold text-[17px] text-brand-navy tracking-[-0.025em]">
+              FollowProperty
+            </span>
+          </Link>
+        </div>
         {children}
       </div>
     </div>
